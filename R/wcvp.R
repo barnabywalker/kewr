@@ -56,7 +56,7 @@ search_wcvp <- function(query, filters=NULL) {
 }
 
 #' @import glue
-#' @importFrom utils str
+#' @importFrom utils str head
 #' @export
 print.wcvp_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
@@ -89,4 +89,37 @@ format_filters <- function(filters) {
   }
 
   paste(filters, collapse=",")
+}
+
+#' @importFrom purrr map_dfr
+#' @importFrom dplyr bind_cols
+#' @importFrom tibble as_tibble
+#' @export
+format.wcvp_search <- function(x, synonyms=c("ignore", "simplify", "expand"), ...) {
+  synonyms <- match.arg(synonyms)
+
+  if (synonyms == "ignore") {
+    fcn <- as_tibble
+  } else if (synonyms == "simplify") {
+    fcn <- function(r) {
+      synonym_id <- r$synonymOf$id
+      r$synonymOf <- NULL
+      formatted <- as_tibble(r)
+      formatted$synonymOf <- synonym_id
+
+      formatted
+    }
+  } else if (synonyms == "expand") {
+    fcn <- function(r) {
+      synonym_col <- as_tibble(
+        r$synonymOf,
+        .name_repair=~paste0("synonymOf_", .x)
+      )
+      r$synonymOf <- NULL
+      formatted <- as_tibble(r)
+      bind_cols(r, synonym_col)
+    }
+  }
+
+  map_dfr(x$results, fcn)
 }

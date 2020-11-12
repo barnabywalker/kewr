@@ -17,3 +17,6 @@ Suggests:
     testthat
 URL: https://github.com/barnabywalker/kewr
 BugReports: https://github.com/barnabywalker/kewr/issues
+Imports: 
+    httr,
+    jsonlite

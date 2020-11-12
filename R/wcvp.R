@@ -11,14 +11,17 @@ WCVP_FILTERS <- c("accepted", "generic", "specific", "infraspecific")
 #' @param filters Filter to apply to search results. Can be one
 #' or more of `accepted`, `generic`, `specific`, `intraspecific`.
 #' Multiple filters must be supplied as a character vector.
+#' @param page An integer specifying the page of results to return.
+#' @param limit An integer specifying the maximum number of results
+#'  to return.
 #'
 #' @import httr
 #' @importFrom jsonlite fromJSON
 #' @export
-search_wcvp <- function(query, filters=NULL) {
+search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
   url <- WCVP_SEARCH_URL
 
-  query <- list(q=query)
+  query <- list(q=query, page=page, limit=limit)
   query$f <- format_filters(filters)
 
   response <- GET(url, USER_AGENT, query=query)

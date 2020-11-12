@@ -4,7 +4,7 @@
 \alias{search_wcvp}
 \title{Search WCVP for a taxon.}
 \usage{
-search_wcvp(query, filters = NULL)
+search_wcvp(query, filters = NULL, page = 0, limit = 50)
 }
 \arguments{
 \item{query}{The taxon string to search WCVP for.}
@@ -12,6 +12,11 @@ search_wcvp(query, filters = NULL)
 \item{filters}{Filter to apply to search results. Can be one
 or more of \code{accepted}, \code{generic}, \code{specific}, \code{intraspecific}.
 Multiple filters must be supplied as a character vector.}
+
+\item{page}{An integer specifying the page of results to return.}
+
+\item{limit}{An integer specifying the maximum number of results
+to return.}
 }
 \description{
 Query the World Checklist of Vascular Plants search API

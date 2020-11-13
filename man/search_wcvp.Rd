@@ -18,7 +18,67 @@ Multiple filters must be supplied as a character vector.}
 \item{limit}{An integer specifying the maximum number of results
 to return.}
 }
+\value{
+Returns an object of class \code{wcvp_search} that is a simple
+stucture with slots for:
+\itemize{
+\item \code{total}: the total number of results held in WCVP for the query
+\item \code{page}: the page number requested from the API.
+\item \code{limit}: the maximum number of results requested from the API.
+\item \code{results}: the query results parsed into a list.
+\item \code{query}: the query string submitted to the API.
+\item \code{filter}: the filter strings submitted to the API.
+\item \code{response}: the \link[httr:response]{httr response object}.
+}
+}
 \description{
 Query the World Checklist of Vascular Plants search API
 for a taxon string.
+}
+\details{
+The \href{https://wcvp.science.kew.org/}{World Checklist of Vascular Plants (WCVP)}
+is a global consensus view of all known vascular plant species.
+It has been compiled by staff at RBG Kew in consultation with plant
+group experts.
+
+The search API allows users to query the checklist for plant names.
+Currently, it does not support partial or fuzzy matching.
+In order to get a result, the user must supply a valid name string.
+For example, 'Myrcia' and 'Myrcia guianensis' will return results,
+but 'M' or 'Myr' will not.
+
+The API will return taxonomic information (the family, authority, status, and rank)
+of all names matching the query. These results can be limited, for example to accepted species,
+using filters.
+}
+\examples{
+# search for all entries containing a genus name
+search_wcvp("Myrcia")
+
+# search for all accepted species within a genus
+search_wcvp("Myrcia", filters=c("specific", "accepted"))
+
+# search for up to 10,000 species in a genus
+search_wcvp("Poa", filters=c("specific"), limit=10000)
+
+# search for a species name and print the results
+r <- search_wcvp("Myrcia guianensis", filters=c("specific"))
+print(r)
+
+# simplify search results to a `tibble`
+r <- search_wcvp("Poa", filters=c("specific"))
+format(r)
+
+# accepted name info is nested inside the records for synonyms
+# simplify accepted name info to the name ID
+r <- search_wcvp("Poa", filters=c("specific"))
+format(r, synonyms="simplify")
+
+# expand accepted name info
+r <- search_wcvp("Poa", filters=c("specific"))
+format(r, synonyms="expand")
+
+}
+\references{
+WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
 }

@@ -1,7 +1,3 @@
-WCVP_SEARCH_URL <- "https://wcvp.science.kew.org/api/v1/search"
-USER_AGENT <- httr::user_agent("https://github.com/barnabywalker/kewr")
-WCVP_FILTERS <- c("accepted", "generic", "specific", "infraspecific")
-
 #' Search WCVP for a taxon.
 #'
 #' Query the World Checklist of Vascular Plants search API
@@ -39,6 +35,7 @@ WCVP_FILTERS <- c("accepted", "generic", "specific", "infraspecific")
 #'  * `query`: the query string submitted to the API.
 #'  * `filter`: the filter strings submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
+#'
 #' @examples
 #' # search for all entries containing a genus name
 #' search_wcvp("Myrcia")
@@ -69,50 +66,123 @@ WCVP_FILTERS <- c("accepted", "generic", "specific", "infraspecific")
 #' @references
 #' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
 #'
-#' @import httr
-#' @importFrom jsonlite fromJSON
+#' @seealso [lookup_wcvp()] to lookup information about a taxon name
+#'   using a valid IPNI ID.
+#'
 #' @export
 search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
-  url <- WCVP_SEARCH_URL
+  url <- wcvp_search_url()
 
   query <- list(q=query, page=page, limit=limit)
   query$f <- format_filters(filters)
 
-  response <- GET(url, USER_AGENT, query=query)
-
-  if (http_type(response) != "application/json") {
-    stop("API did not return json", call.=FALSE)
-  }
-
-  parsed <- fromJSON(content(response, "text"), simplifyVector=FALSE)
-
-  if (http_error(response)) {
-    stop(
-      sprintf(
-        "WCVP search query failed with code [%s]\n<%s: %s>",
-        status_code(response),
-        parsed$error,
-        parsed$message
-      ),
-      call.=FALSE
-    )
-  }
+  results <- make_request_(url, query)
 
   structure(
     list(
-      total=parsed$total,
-      page=parsed$page,
-      limit=parsed$limit,
-      results=parsed$results,
+      total=results$content$total,
+      page=results$content$page,
+      limit=results$content$limit,
+      results=results$content$results,
       query=query$q,
       filters=query$f,
-      response=response
+      response=results$response
     ),
     class="wcvp_search"
   )
 }
 
-#' @import glue
+#' Look up a taxon in WCVP.
+#'
+#' Request the record for a taxon in the World Checklist of
+#' Vascular Plants (WCVP) using the IPNI ID.
+#'
+#' The [World Checklist of Vascular Plants (WCVP)](https://wcvp.science.kew.org/)
+#' is a global consensus view of all known vascular plant species.
+#' It has been compiled by staff at RBG Kew in consultation with plant
+#' group experts.
+#'
+#' The taxon lookup API allows users to retrieve taxonomic information for
+#' a specific taxon name using the unique IPNI ID. If this is not known,
+#' it can be found out using the [WCVP search API](kewr::search_wcvp).
+#'
+#' @param taxonid A string containing a valid IPNI ID.
+#'
+#' @return A `wcvp_taxon` object, which is a simple structure with fields
+#'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].
+#'
+#' @examples
+#'
+#' # retrieve taxonomic information for a taxon name
+#' lookup_wcvp("271445-2")
+#'
+#' # print a summary of the returned information
+#' r <- lookup_wcvp("271445-2")
+#' print(r)
+#'
+#' # format the top-level information into a tibble
+#' r <- lookup_wcvp("271445-2")
+#' format(r)
+#'
+#' # format the returned list of synonyms into a tibble
+#' r <- lookup_wcvp("60447743-2")
+#' format(r, field="synonyms")
+#'
+#' # format the returned list of children into a tibble
+#' r <- lookup_wcvp("30000055-2")
+#' format(r, field="children")
+#'
+#' @seealso [search_wcvp()] to search WCVP using a taxon name.
+#'
+#' @references
+#' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
+#'
+#' @export
+lookup_wcvp <- function(taxonid) {
+  url <- wcvp_taxon_url(taxonid)
+
+  result <- make_request_(url, query=NULL)
+
+  # this might be better if things were explicitly listed
+  record <- result$content
+  record$response <- result$response
+  record$queryId <- taxonid
+
+  structure(
+    record,
+    class="wcvp_taxon"
+  )
+}
+
+#' Format filters for WCVP search API.
+#'
+#' Checks the filters are valid before joining them
+#' together with as a comma-separated string.
+#'
+#' @param filters A character vector of filter names.
+#'
+#' @noRd
+format_filters <- function(filters) {
+  if (is.null(filters)) {
+    return(NULL)
+  }
+
+  valid_filters <- get_filters_("wcvp")
+  bad_filters <- setdiff(filters, valid_filters)
+  if (length(bad_filters) > 0) {
+    stop(
+      sprintf(
+        "Filters must be one of [%s]\n[%s] are not recognised.",
+        paste(valid_filters, collapse=","),
+        paste(bad_filters, collapse=",")
+      )
+    )
+  }
+
+  paste(filters, collapse=",")
+}
+
+#' @importFrom glue glue
 #' @importFrom utils str head
 #' @export
 print.wcvp_search <- function(x, ...) {
@@ -128,29 +198,29 @@ print.wcvp_search <- function(x, ...) {
   invisible()
 }
 
-format_filters <- function(filters) {
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.wcvp_taxon <- function(x, ...) {
+  accepted_id <- ifelse(is.null(x$accepted), x$id, x$accepted$id)
 
-  if (is.null(filters)) {
-    return(NULL)
-  }
+  message <- glue("<WCVP taxon id: {x$queryId}>",
+                  "Name: {x$name}",
+                  "Authors: {x$authors}",
+                  "Status: {x$status}",
+                  "Rank: {x$rank}",
+                  "Accepted taxon ID: {accepted_id}",
+                  "Synonyms: {length(x$synonyms)}",
+                  "",
+                  .sep="\n", .trim=FALSE)
 
-  bad_filters <- setdiff(filters, WCVP_FILTERS)
-  if (length(bad_filters) > 0) {
-    stop(
-      sprintf(
-        "Filters must be one of [%s]\n[%s] are not recognised.",
-        paste(WCVP_FILTERS, collapse=","),
-        paste(bad_filters, collapse=",")
-      )
-    )
-  }
-
-  paste(filters, collapse=",")
+  cat(message)
+  invisible()
 }
 
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr bind_cols
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble tibble
 #' @export
 format.wcvp_search <- function(x, synonyms=c("ignore", "simplify", "expand"), ...) {
   synonyms <- match.arg(synonyms)
@@ -179,4 +249,128 @@ format.wcvp_search <- function(x, synonyms=c("ignore", "simplify", "expand"), ..
   }
 
   map_dfr(x$results, fcn)
+}
+
+#' @importFrom purrr map_lgl map_dfr pluck
+#' @importFrom tibble as_tibble tibble
+#' @export
+format.wcvp_taxon <- function(x, field=c("none", "accepted", "synonyms", "parent", "children", "hierarchy"), ...) {
+  field <- match.arg(field)
+  if (field == "none") {
+    x$response <- NULL
+    x$queryId <- NULL
+
+    list_field <- map_lgl(x, is.list)
+    x <- x[! list_field]
+
+    null_field <- map_lgl(x, is.null)
+    x[null_field] <- NA_character_
+
+    as_tibble(x)
+  } else if (field %in% c("parent", "accepted")) {
+    x <- pluck(x, field)
+
+    as_tibble(x)
+  } else {
+    x <- pluck(x, field)
+
+    map_dfr(x, as_tibble)
+  }
+}
+
+#' Make the WCVP taxon lookup URL.
+#'
+#' @param taxonid A valid IPNI ID.
+#'
+#' @noRd
+#'
+#' @importFrom glue glue
+wcvp_taxon_url <- function(taxonid) {
+  base <- get_url_("wcvp")
+
+  glue("{WCVP_URL}/taxon/{taxonid}")
+}
+
+#' Make the WCVP search URL.
+#'
+#' @noRd
+wcvp_search_url <- function() {
+  base <- get_url_("wcvp")
+
+  paste0(base, "/search")
+}
+
+#' Get the names of valid filters for a resource.
+#'
+#' @param resource The resource being queried.
+#'
+#' @return A character vector of filter names.
+#'
+#' @noRd
+get_filters_ <- function(resource=c("wcvp")) {
+  resource <- match.arg(resource)
+
+  switch(
+    resource,
+    wcvp=c("accepted", "generic", "specific", "infraspecific")
+  )
+}
+
+#' Get the base URL for a particular resource.
+#'
+#' @param resource Name of a Kew resource.
+#' @return The base URL for the requested resource.
+#'
+#' @noRd
+get_url_ <- function(resource=c("wcvp")) {
+  resource <- match.arg(resource)
+
+  switch(resource,
+         wcvp="https://wcvp.science.kew.org/api/v1")
+}
+
+#' Get the package user agent.
+#'
+#' @noRd
+#'
+#' @importFrom httr user_agent
+get_user_agent_ <- function() {
+  user_agent("https://github.com/barnabywalker/kewr")
+}
+
+#' Make a request to a Kew resource.
+#'
+#' @param url The URL for the resource API.
+#' @param query A list specifying an optional query.
+#'
+#' @return A list containing the returned response object and
+#'   the response content parsed into a list.
+#'
+#' @noRd
+#'
+#' @import httr
+#' @importFrom jsonlite fromJSON
+make_request_ <- function(url, query) {
+  user_agent <- get_user_agent_()
+  response <- GET(url, user_agent, query=query)
+
+  if (http_type(response) != "application/json") {
+    stop("API did not return json", call.=FALSE)
+  }
+
+  parsed <- fromJSON(content(response, "text"), simplifyVector=FALSE)
+
+  if (http_error(response)) {
+    stop(
+      sprintf(
+        "WCVP search query failed with code [%s]\n<%s: %s>",
+        status_code(response),
+        parsed$error,
+        parsed$message
+      ),
+      call.=FALSE
+    )
+  }
+
+  list(response=response, content=parsed)
 }

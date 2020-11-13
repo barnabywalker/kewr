@@ -82,3 +82,7 @@ format(r, synonyms="expand")
 \references{
 WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
 }
+\seealso{
+\code{\link[=lookup_wcvp]{lookup_wcvp()}} to lookup information about a taxon name
+using a valid IPNI ID.
+}

@@ -12,6 +12,13 @@ test_that("search URL response is json", {
   expect_equal(httr::http_type(response), "application/json")
 })
 
+test_that("taxon URL response is json", {
+  url <- wcvp_taxon_url("30001404-2")
+  response <- httr::GET(url)
+
+  expect_equal(httr::http_type(response), "application/json")
+})
+
 test_that("raises error for unimplemented filter", {
   filters <- c("monkey")
   query <- "Myrcia guianensis"

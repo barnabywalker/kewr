@@ -19,6 +19,12 @@ test_that("taxon URL response is json", {
   expect_equal(httr::http_type(response), "application/json")
 })
 
+test_that("taxon URL returns 404 for bad ID", {
+  url <- wcvp_taxon_url("bad id")
+  response <- httr::GET(url)
+  expect_equal(status_code(response), 404)
+})
+
 test_that("raises error for unimplemented filter", {
   filters <- c("monkey")
   query <- "Myrcia guianensis"
@@ -72,4 +78,18 @@ test_that("infraspecific filter only returns infraspecifics", {
                              ~.x$rank %in% infra_ranks)
 
   expect_true(all_infra)
+})
+
+test_that("format search results returns tibble", {
+  results <- search_wcvp("Poa annua", filters=c("specific"))
+  formatted <- format(results)
+
+  expect_s3_class(formatted, "tbl_df")
+})
+
+test_that("format lookup results returns tibble", {
+  results <- lookup_wcvp("30001404-2")
+  formatted <- format(results)
+
+  expect_s3_class(formatted, "tbl_df")
 })

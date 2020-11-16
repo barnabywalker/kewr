@@ -25,7 +25,7 @@ group experts.
 
 The taxon lookup API allows users to retrieve taxonomic information for
 a specific taxon name using the unique IPNI ID. If this is not known,
-it can be found out using the \href{kewr::search_wcvp}{WCVP search API}.
+it can be found out using the \link[=search_wcvp]{WCVP search API}.
 }
 \examples{
 

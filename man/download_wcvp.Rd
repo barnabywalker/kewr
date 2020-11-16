@@ -8,7 +8,7 @@ download_wcvp(save_dir = NULL, version = NULL)
 }
 \arguments{
 \item{save_dir}{A string specifying the folder to save the download in. If
-no value is provided, \href{here::here}{here} will be used.}
+no value is provided, \link[here]{here} will be used.}
 
 \item{version}{An integer version number to download. The latest
 version will be downloaded by default.}

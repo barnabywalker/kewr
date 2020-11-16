@@ -127,7 +127,7 @@ search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
 #'
 #' The taxon lookup API allows users to retrieve taxonomic information for
 #' a specific taxon name using the unique IPNI ID. If this is not known,
-#' it can be found out using the [WCVP search API](kewr::search_wcvp).
+#' it can be found out using the [WCVP search API][kewr::search_wcvp].
 #'
 #' @param taxonid A string containing a valid IPNI ID.
 #'
@@ -195,7 +195,7 @@ lookup_wcvp <- function(taxonid) {
 #' version of the WCVP.
 #'
 #' @param save_dir A string specifying the folder to save the download in. If
-#'   no value is provided, [here](here::here) will be used.
+#'   no value is provided, \link[here]{here} will be used.
 #' @param version An integer version number to download. The latest
 #'   version will be downloaded by default.
 #'

@@ -15,6 +15,7 @@
 #' using filters. See arguments for all implemented filters.
 #'
 #' @param query The string to query POWO with.
+#' @param limit The maximum number of records to return.
 #'
 #' @return
 #' Returns an object of class `powo_search` that is a simple
@@ -29,10 +30,10 @@
 #'  * `response`: the [httr response object][httr::response].
 #'
 #' @export
-search_powo <- function(query) {
+search_powo <- function(query, limit=24) {
   url <- powo_search_url_()
 
-  query <- list(q=query)
+  query <- list(q=query, perPage=limit)
 
   results <- make_request_(url, query)
 

@@ -4,10 +4,12 @@
 \alias{search_powo}
 \title{Search POWO.}
 \usage{
-search_powo(query)
+search_powo(query, limit = 24)
 }
 \arguments{
 \item{query}{The string to query POWO with.}
+
+\item{limit}{The maximum number of records to return.}
 }
 \value{
 Returns an object of class \code{powo_search} that is a simple

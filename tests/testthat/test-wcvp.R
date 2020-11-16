@@ -1,26 +1,26 @@
 test_that("search URL returns status 200", {
-  url <- wcvp_search_url()
+  url <- wcvp_search_url_()
   response <- httr::GET(url)
 
   expect_equal(httr::status_code(response), 200)
 })
 
 test_that("search URL response is json", {
-  url <- wcvp_search_url()
+  url <- wcvp_search_url_()
   response <- httr::GET(url)
 
   expect_equal(httr::http_type(response), "application/json")
 })
 
 test_that("taxon URL response is json", {
-  url <- wcvp_taxon_url("30001404-2")
+  url <- wcvp_taxon_url_("30001404-2")
   response <- httr::GET(url)
 
   expect_equal(httr::http_type(response), "application/json")
 })
 
 test_that("taxon URL returns 404 for bad ID", {
-  url <- wcvp_taxon_url("bad id")
+  url <- wcvp_taxon_url_("bad id")
   response <- httr::GET(url)
   expect_equal(status_code(response), 404)
 })
@@ -92,4 +92,21 @@ test_that("format lookup results returns tibble", {
   formatted <- format(results)
 
   expect_s3_class(formatted, "tbl_df")
+})
+
+test_that("wcvp download linkis a zip file", {
+  download_link <- wcvp_download_url_()
+
+  expect_true(endsWith(download_link, "zip"))
+})
+
+test_that("wcvp download link returns right version", {
+  download_link <- wcvp_download_url_(2)
+
+  expect_true(stringr::str_detect(download_link, "2"))
+})
+
+test_that("wcvp download link errors for unimplemented version", {
+  expect_error(wcvp_download_url_(3000),
+               "Not a recognised version")
 })

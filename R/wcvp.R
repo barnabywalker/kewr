@@ -66,12 +66,15 @@
 #' @references
 #' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
 #'
-#' @seealso [lookup_wcvp()] to lookup information about a taxon name
+#' @family WCVP functions
+#' @seealso
+#'  * [lookup_wcvp()] to lookup information about a taxon name
 #'   using a valid IPNI ID.
+#'  * [download_wcvp()] to download the entire WCVP.
 #'
 #' @export
 search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
-  url <- wcvp_search_url()
+  url <- wcvp_search_url_()
 
   query <- list(q=query, page=page, limit=limit)
   query$f <- format_filters(filters)
@@ -132,14 +135,17 @@ search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
 #' r <- lookup_wcvp("30000055-2")
 #' format(r, field="children")
 #'
-#' @seealso [search_wcvp()] to search WCVP using a taxon name.
+#' @family WCVP functions
+#' @seealso
+#'  * [search_wcvp()] to search WCVP using a taxon name.
+#'  * [download_wcvp()] to download the entire WCVP.
 #'
 #' @references
 #' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
 #'
 #' @export
 lookup_wcvp <- function(taxonid) {
-  url <- wcvp_taxon_url(taxonid)
+  url <- wcvp_taxon_url_(taxonid)
 
   result <- make_request_(url, query=NULL)
 
@@ -152,6 +158,73 @@ lookup_wcvp <- function(taxonid) {
     record,
     class="wcvp_taxon"
   )
+}
+
+#' Download the whole of the WCVP.
+#'
+#' Download the latest or a specific version of the World
+#' Checklist of Vascular Plants (WCVP).
+#'
+#' The [World Checklist of Vascular Plants (WCVP)](https://wcvp.science.kew.org/)
+#' is a global consensus view of all known vascular plant species.
+#' It has been compiled by staff at RBG Kew in consultation with plant
+#' group experts.
+#'
+#' Versioned downloads of the whole WCVP are provided on the website.
+#' This function allows the user to download the latest or a specific
+#' version of the WCVP.
+#'
+#' @param save_dir A string specifying the folder to save the download in. If
+#'   no value is provided, [here](here::here) will be used.
+#' @param version An integer version number to download. The latest
+#'   version will be downloaded by default.
+#'
+#' @examples
+#' \dontrun{
+#'  # download the latest version
+#'  download_wcvp()
+#'
+#'  # download version 1
+#'  download_wcvp(version=1)
+#' }
+#'
+#' @family WCVP functions
+#' @seealso
+#'  * [lookup_wcvp()] to lookup information about a taxon name
+#'   using a valid IPNI ID.
+#'  * [search_wcvp()] to search WCVP using a taxon name.
+#'
+#' @references
+#' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
+#'
+#' @importFrom here here
+#' @importFrom glue glue
+#' @importFrom stringr str_extract
+#' @importFrom utils download.file
+#'
+#' @export
+download_wcvp <- function(save_dir=NULL, version=NULL) {
+  if (is.null(save_dir)) {
+    save_dir <- here()
+  }
+
+  download_link <- wcvp_download_url_(version)
+  filename <- str_extract(download_link, "(?<=/)wcvp.+\\.zip$")
+  save_path <- file.path(save_dir, filename)
+
+  if (is.null(version)) {
+    version <- "latest"
+  }
+
+  message <- glue("Downloading WCVP version {version}",
+                  "to: {save_path}\n",
+                  .sep=" ", .trim=FALSE)
+
+  cat(message)
+
+  download.file(download_link, save_path)
+
+  invisible()
 }
 
 #' Format filters for WCVP search API.
@@ -285,7 +358,7 @@ format.wcvp_taxon <- function(x, field=c("none", "accepted", "synonyms", "parent
 #' @noRd
 #'
 #' @importFrom glue glue
-wcvp_taxon_url <- function(taxonid) {
+wcvp_taxon_url_ <- function(taxonid) {
   base <- get_url_("wcvp")
 
   glue("{base}/taxon/{taxonid}")
@@ -294,8 +367,46 @@ wcvp_taxon_url <- function(taxonid) {
 #' Make the WCVP search URL.
 #'
 #' @noRd
-wcvp_search_url <- function() {
+wcvp_search_url_ <- function() {
   base <- get_url_("wcvp")
 
   paste0(base, "/search")
 }
+
+#' Get a WCVP download URL.
+#'
+#' @importFrom httr GET
+#' @importFrom rvest html_nodes html_attr
+#' @importFrom stringr str_detect str_extract
+#' @importFrom glue glue
+#'
+#' @noRd
+wcvp_download_url_ <- function(version=NULL) {
+  base <- "http://sftp.kew.org/pub/data-repositories/WCVP/"
+  response <- GET(base)
+
+  page <- content(response)
+  link_nodes <- html_nodes(page, "a")
+  links <- html_attr(link_nodes, "href")
+
+  download_links <- links[str_detect(links, "\\.zip$")]
+  versions <- str_extract(download_links, "(?<=_v)\\d+")
+
+  if (is.null(version)) {
+    version <- max(versions)
+  }
+
+  if (! version %in% versions) {
+    message <- glue("Not a recognised version of WCVP: {version}",
+                    "Available versions: {paste0(versions, collapse=',')}",
+                    "",
+                    .sep="\n", .trim=FALSE)
+
+    stop(message, call.=FALSE)
+  }
+
+  download_link <- download_links[str_detect(download_links, paste0("_v", version))]
+  paste0(base, download_link)
+}
+
+

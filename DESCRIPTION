@@ -23,4 +23,7 @@ Imports:
     glue,
     tibble,
     purrr,
-    dplyr
+    dplyr,
+    stringr,
+    rvest,
+    here

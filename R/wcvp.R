@@ -26,13 +26,13 @@
 #'  the query must be formatted as a list and keywords must be one or more
 #'  of `family`, `genus`, `species`.
 #' @param filters Filter to apply to search results. Can be one
-#' or more of `accepted`, `generic`, `specific`, `intraspecific`.
+#' or more of `accepted`, `families`, `genera`, `species`, `infraspecies`.
 #' Multiple filters must be supplied as a character vector.
 #' @param page An integer specifying the page of results to return.
 #' @param limit An integer specifying the maximum number of results
 #'  to return.
 #' @return Returns an object of class `wcvp_search` that is a simple
-#' stucture with slots for:
+#' structure with slots for:
 #'
 #'  * `total`: the total number of results held in WCVP for the query
 #'  * `page`: the page number requested from the API.
@@ -47,35 +47,35 @@
 #' search_wcvp("Myrcia")
 #'
 #' # search for all accepted species within a genus
-#' search_wcvp("Myrcia", filters=c("specific", "accepted"))
+#' search_wcvp("Myrcia", filters=c("species", "accepted"))
 #'
 #' # search for up to 10,000 species in a genus
-#' search_wcvp("Poa", filters=c("specific"), limit=10000)
+#' search_wcvp("Poa", filters=c("species"), limit=10000)
 #'
 #' # search for all names in a family
 #' search_wcvp(list(family="Myrtaceae"))
 #'
 #' # search for genera within a family
-#' search_wcvp(list(family="Myrtaceae"), filters=c("generic"))
+#' search_wcvp(list(family="Myrtaceae"), filters=c("genera"))
 #'
 #' # search for all names with a specific epithet
 #' search_wcvp(list(species="guianensis"))
 #'
 #' # search for a species name and print the results
-#' r <- search_wcvp("Myrcia guianensis", filters=c("specific"))
+#' r <- search_wcvp("Myrcia guianensis", filters=c("species"))
 #' print(r)
 #'
 #' # simplify search results to a `tibble`
-#' r <- search_wcvp("Poa", filters=c("specific"))
+#' r <- search_wcvp("Poa", filters=c("species"))
 #' format(r)
 #'
 #' # accepted name info is nested inside the records for synonyms
 #' # simplify accepted name info to the name ID
-#' r <- search_wcvp("Poa", filters=c("specific"))
+#' r <- search_wcvp("Poa", filters=c("species"))
 #' format(r, synonyms="simplify")
 #'
 #' # expand accepted name info
-#' r <- search_wcvp("Poa", filters=c("specific"))
+#' r <- search_wcvp("Poa", filters=c("species"))
 #' format(r, synonyms="expand")
 #'
 #' @references
@@ -97,7 +97,7 @@ search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
 
   query$page <- page
   query$limit <- limit
-  query$f <- format_filters_(filters)
+  query$f <- format_filters_(filters, "wcvp")
 
   results <- make_request_(url, query)
 
@@ -291,34 +291,6 @@ format_query_ <- function(query) {
   } else {
     list(q=query)
   }
-}
-
-#' Format filters for WCVP search API.
-#'
-#' Checks the filters are valid before joining them
-#' together with as a comma-separated string.
-#'
-#' @param filters A character vector of filter names.
-#'
-#' @noRd
-format_filters_ <- function(filters) {
-  if (is.null(filters)) {
-    return(NULL)
-  }
-
-  valid_filters <- get_filters_("wcvp")
-  bad_filters <- setdiff(filters, valid_filters)
-  if (length(bad_filters) > 0) {
-    stop(
-      sprintf(
-        "Filters must be one of [%s]\n[%s] are not recognised.",
-        paste(valid_filters, collapse=","),
-        paste(bad_filters, collapse=",")
-      )
-    )
-  }
-
-  paste(filters, collapse=",")
 }
 
 # object print methods ----

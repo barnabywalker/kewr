@@ -4,16 +4,21 @@
 \alias{search_powo}
 \title{Search POWO.}
 \usage{
-search_powo(query, limit = 24)
+search_powo(query, filters = NULL, limit = 24)
 }
 \arguments{
 \item{query}{The string to query POWO with.}
+
+\item{filters}{Filter to apply to search results. Can be one
+or more of \code{accepted}, \code{families}, \code{genera}, \code{species},
+\code{infraspecies}, \code{has_images}.
+Multiple filters must be supplied as a character vector.}
 
 \item{limit}{The maximum number of records to return.}
 }
 \value{
 Returns an object of class \code{powo_search} that is a simple
-stucture with slots for:
+structure with slots for:
 \itemize{
 \item \code{total}: the total number of results held in POWO for the query
 \item \code{pages}: the total number of results pages for the query.

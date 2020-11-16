@@ -21,12 +21,22 @@ get_keywords_ <- function(resource=c("wcvp")) {
 #' @return A character vector of filter names.
 #'
 #' @noRd
-get_filters_ <- function(resource=c("wcvp")) {
+get_filters_ <- function(resource=c("wcvp", "powo")) {
   resource <- match.arg(resource)
 
   switch(
     resource,
-    wcvp=c("accepted", "generic", "specific", "infraspecific")
+    wcvp=c("accepted"="accepted",
+           "families"="family",
+           "genera"="generic",
+           "species"="specific",
+           "infraspecies"="infraspecific"),
+    powo=c("accepted"="accepted_names",
+           "has_images"="has_images",
+           "families"="family_f",
+           "genera"="genus_f",
+           "species"="species_f",
+           "infraspecies"="infraspecific_f")
   )
 }
 

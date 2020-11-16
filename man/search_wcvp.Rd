@@ -12,7 +12,7 @@ the query must be formatted as a list and keywords must be one or more
 of \code{family}, \code{genus}, \code{species}.}
 
 \item{filters}{Filter to apply to search results. Can be one
-or more of \code{accepted}, \code{generic}, \code{specific}, \code{intraspecific}.
+or more of \code{accepted}, \code{families}, \code{genera}, \code{species}, \code{infraspecies}.
 Multiple filters must be supplied as a character vector.}
 
 \item{page}{An integer specifying the page of results to return.}
@@ -22,7 +22,7 @@ to return.}
 }
 \value{
 Returns an object of class \code{wcvp_search} that is a simple
-stucture with slots for:
+structure with slots for:
 \itemize{
 \item \code{total}: the total number of results held in WCVP for the query
 \item \code{page}: the page number requested from the API.
@@ -62,35 +62,35 @@ using filters. See arguments for all implemented filters.
 search_wcvp("Myrcia")
 
 # search for all accepted species within a genus
-search_wcvp("Myrcia", filters=c("specific", "accepted"))
+search_wcvp("Myrcia", filters=c("species", "accepted"))
 
 # search for up to 10,000 species in a genus
-search_wcvp("Poa", filters=c("specific"), limit=10000)
+search_wcvp("Poa", filters=c("species"), limit=10000)
 
 # search for all names in a family
 search_wcvp(list(family="Myrtaceae"))
 
 # search for genera within a family
-search_wcvp(list(family="Myrtaceae"), filters=c("generic"))
+search_wcvp(list(family="Myrtaceae"), filters=c("genera"))
 
 # search for all names with a specific epithet
 search_wcvp(list(species="guianensis"))
 
 # search for a species name and print the results
-r <- search_wcvp("Myrcia guianensis", filters=c("specific"))
+r <- search_wcvp("Myrcia guianensis", filters=c("species"))
 print(r)
 
 # simplify search results to a `tibble`
-r <- search_wcvp("Poa", filters=c("specific"))
+r <- search_wcvp("Poa", filters=c("species"))
 format(r)
 
 # accepted name info is nested inside the records for synonyms
 # simplify accepted name info to the name ID
-r <- search_wcvp("Poa", filters=c("specific"))
+r <- search_wcvp("Poa", filters=c("species"))
 format(r, synonyms="simplify")
 
 # expand accepted name info
-r <- search_wcvp("Poa", filters=c("specific"))
+r <- search_wcvp("Poa", filters=c("species"))
 format(r, synonyms="expand")
 
 }

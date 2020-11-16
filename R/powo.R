@@ -15,11 +15,15 @@
 #' using filters. See arguments for all implemented filters.
 #'
 #' @param query The string to query POWO with.
+#' @param filters Filter to apply to search results. Can be one
+#' or more of `accepted`, `families`, `genera`, `species`,
+#' `infraspecies`, `has_images`.
+#' Multiple filters must be supplied as a character vector.
 #' @param limit The maximum number of records to return.
 #'
 #' @return
 #' Returns an object of class `powo_search` that is a simple
-#' stucture with slots for:
+#' structure with slots for:
 #'
 #'  * `total`: the total number of results held in POWO for the query
 #'  * `pages`: the total number of results pages for the query.
@@ -30,10 +34,11 @@
 #'  * `response`: the [httr response object][httr::response].
 #'
 #' @export
-search_powo <- function(query, limit=24) {
+search_powo <- function(query, filters=NULL, limit=24) {
   url <- powo_search_url_()
 
   query <- list(q=query, perPage=limit)
+  query$f <- format_filters_(filters, "powo")
 
   results <- make_request_(url, query)
 
@@ -44,7 +49,8 @@ search_powo <- function(query, limit=24) {
       limit=results$content$perPage,
       cursor=results$content$cursor,
       results=results$content$results,
-      query=query,
+      query=query$q,
+      filters=query$f,
       response=results$response
     ),
     class="powo_search"
@@ -54,7 +60,7 @@ search_powo <- function(query, limit=24) {
 # object print methods ----
 #' @export
 print.powo_search <- function(x, ...) {
-  message <- glue("<POWO search: '{x$query}'>",
+  message <- glue("<POWO search: '{x$query}' filters: '{x$filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
                   "",

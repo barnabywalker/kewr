@@ -14,11 +14,17 @@
 #' For example, 'Myrcia' and 'Myrcia guianensis' will return results,
 #' but 'M' or 'Myr' will not.
 #'
+#' There is some support for querying using keyword arguments. The API is
+#' not currently documented, so only keywords that are definitely there have
+#' been implemented. See arguments for all implemented keywords.
+#'
 #' The API will return taxonomic information (the family, authority, status, and rank)
 #' of all names matching the query. These results can be limited, for example to accepted species,
-#' using filters.
+#' using filters. See arguments for all implemented filters.
 #'
-#' @param query The taxon string to search WCVP for.
+#' @param query The taxon string to search WCVP for. If using keywords,
+#'  the query must be formatted as a list and keywords must be one or more
+#'  of `family`, `genus`, `species`.
 #' @param filters Filter to apply to search results. Can be one
 #' or more of `accepted`, `generic`, `specific`, `intraspecific`.
 #' Multiple filters must be supplied as a character vector.
@@ -45,6 +51,15 @@
 #'
 #' # search for up to 10,000 species in a genus
 #' search_wcvp("Poa", filters=c("specific"), limit=10000)
+#'
+#' # search for all names in a family
+#' search_wcvp(list(family="Myrtaceae"))
+#'
+#' # search for genera within a family
+#' search_wcvp(list(family="Myrtaceae"), filters=c("generic"))
+#'
+#' # search for all names with a specific epithet
+#' search_wcvp(list(species="guianensis"))
 #'
 #' # search for a species name and print the results
 #' r <- search_wcvp("Myrcia guianensis", filters=c("specific"))
@@ -76,8 +91,13 @@
 search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
   url <- wcvp_search_url_()
 
-  query <- list(q=query, page=page, limit=limit)
-  query$f <- format_filters(filters)
+  query <- format_query_(query)
+  # keeping a copy of this to return in the result object
+  original_query <- query
+
+  query$page <- page
+  query$limit <- limit
+  query$f <- format_filters_(filters)
 
   results <- make_request_(url, query)
 
@@ -87,7 +107,7 @@ search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
       page=results$content$page,
       limit=results$content$limit,
       results=results$content$results,
-      query=query$q,
+      query=original_query,
       filters=query$f,
       response=results$response
     ),
@@ -227,6 +247,52 @@ download_wcvp <- function(save_dir=NULL, version=NULL) {
   invisible()
 }
 
+# query format functions ----
+
+#' Format query for WCVP search API.
+#'
+#' Checks if query is a keyword or string query,
+#' and makes sure any keywords a valid.
+#'
+#' @param query A string or list specifying the query.
+#'
+#' @importFrom glue glue
+#'
+#' @noRd
+format_query_ <- function(query) {
+
+  if (! is.list(query) & length(query) > 1) {
+    message <- glue("WCVP search query must be a named list or a string.",
+                    "Provided query type: {typeof(query)}",
+                    "Provided query length: {query_length}",
+                    "",
+                    .sep="\n", .trim=FALSE)
+
+    stop(message, call.=FALSE)
+  }
+
+  if (is.list(query)) {
+    valid_keywords <- get_keywords_("wcvp")
+    bad_keywords <- setdiff(names(query), valid_keywords)
+
+    if (length(bad_keywords) > 0) {
+      stop(
+        sprintf(
+          "Query keywords must be one of [%s]\n[%s] are not recognised.",
+          paste(valid_keywords, collapse=","),
+          paste(bad_keywords, collapse=",")
+        )
+      )
+    }
+  }
+
+  if(is.list(query)) {
+    query
+  } else {
+    list(q=query)
+  }
+}
+
 #' Format filters for WCVP search API.
 #'
 #' Checks the filters are valid before joining them
@@ -235,7 +301,7 @@ download_wcvp <- function(save_dir=NULL, version=NULL) {
 #' @param filters A character vector of filter names.
 #'
 #' @noRd
-format_filters <- function(filters) {
+format_filters_ <- function(filters) {
   if (is.null(filters)) {
     return(NULL)
   }
@@ -254,6 +320,8 @@ format_filters <- function(filters) {
 
   paste(filters, collapse=",")
 }
+
+# object print methods ----
 
 #' @importFrom glue glue
 #' @importFrom utils str head
@@ -290,6 +358,8 @@ print.wcvp_taxon <- function(x, ...) {
   cat(message)
   invisible()
 }
+
+# object format methods ----
 
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr bind_cols
@@ -350,6 +420,8 @@ format.wcvp_taxon <- function(x, field=c("none", "accepted", "synonyms", "parent
     map_dfr(x, as_tibble)
   }
 }
+
+# URL utility functions ----
 
 #' Make the WCVP taxon lookup URL.
 #'

@@ -7,7 +7,9 @@
 search_wcvp(query, filters = NULL, page = 0, limit = 50)
 }
 \arguments{
-\item{query}{The taxon string to search WCVP for.}
+\item{query}{The taxon string to search WCVP for. If using keywords,
+the query must be formatted as a list and keywords must be one or more
+of \code{family}, \code{genus}, \code{species}.}
 
 \item{filters}{Filter to apply to search results. Can be one
 or more of \code{accepted}, \code{generic}, \code{specific}, \code{intraspecific}.
@@ -47,9 +49,13 @@ In order to get a result, the user must supply a valid name string.
 For example, 'Myrcia' and 'Myrcia guianensis' will return results,
 but 'M' or 'Myr' will not.
 
+There is some support for querying using keyword arguments. The API is
+not currently documented, so only keywords that are definitely there have
+been implemented. See arguments for all implemented keywords.
+
 The API will return taxonomic information (the family, authority, status, and rank)
 of all names matching the query. These results can be limited, for example to accepted species,
-using filters.
+using filters. See arguments for all implemented filters.
 }
 \examples{
 # search for all entries containing a genus name
@@ -60,6 +66,15 @@ search_wcvp("Myrcia", filters=c("specific", "accepted"))
 
 # search for up to 10,000 species in a genus
 search_wcvp("Poa", filters=c("specific"), limit=10000)
+
+# search for all names in a family
+search_wcvp(list(family="Myrtaceae"))
+
+# search for genera within a family
+search_wcvp(list(family="Myrtaceae"), filters=c("generic"))
+
+# search for all names with a specific epithet
+search_wcvp(list(species="guianensis"))
 
 # search for a species name and print the results
 r <- search_wcvp("Myrcia guianensis", filters=c("specific"))

@@ -1,3 +1,19 @@
+#' Get the names of valid keywords for querying a resource.
+#'
+#' @param resource The resource being queried.
+#'
+#' @return A character vector of filter names.
+#'
+#' @noRd
+get_keywords_ <- function(resource=c("wcvp")) {
+  resource <- match.arg(resource)
+
+  switch(
+    resource,
+    wcvp=c("family", "genus", "species")
+  )
+}
+
 #' Get the names of valid filters for a resource.
 #'
 #' @param resource The resource being queried.

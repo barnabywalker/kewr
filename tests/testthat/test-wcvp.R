@@ -33,7 +33,19 @@ test_that("raises error for unimplemented filter", {
                "Filter.+ not recognised")
 })
 
-#' @import purrr
+test_that("raises error for unimplemented keyword", {
+  query <- list(name="Myrcia guianensis")
+
+  expect_error(search_wcvp(query),
+               "Query keyword.+ not recognised")
+})
+
+test_that("raises error for bad query input type", {
+  query <- c("this", "is", "a", "bad", "query")
+
+  expect_error(search_wcvp(query))
+})
+
 test_that("accepted filter only returns accepted names", {
   query <- "Myrcia"
   filters <- c("accepted")
@@ -94,7 +106,7 @@ test_that("format lookup results returns tibble", {
   expect_s3_class(formatted, "tbl_df")
 })
 
-test_that("wcvp download linkis a zip file", {
+test_that("wcvp download link is a zip file", {
   download_link <- wcvp_download_url_()
 
   expect_true(endsWith(download_link, "zip"))

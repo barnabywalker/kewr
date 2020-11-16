@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/barnabywalker/kewr/workflows/R-CMD-check/badge.svg)](https://github.com/barnabywalker/kewr/actions)
 <!-- badges: end -->
 
 An R package to access data from RGB Kew’s APIs.

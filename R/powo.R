@@ -57,30 +57,6 @@ search_powo <- function(query, filters=NULL, limit=24) {
   )
 }
 
-# object print methods ----
-#' @export
-print.powo_search <- function(x, ...) {
-  message <- glue("<POWO search: '{x$query}' filters: '{x$filters}'>",
-                  "total results: {x$total}",
-                  "returned results: {length(x$results)}",
-                  "",
-                  .sep="\n", .trim=FALSE)
-
-  cat(message)
-  str(head(x$results, 1))
-  invisible()
-}
-
-# object format methods ----
-
-#' @importFrom purrr map_dfr
-#'
-#' @export
-format.powo_search <- function(x, ...) {
-  map_dfr(x$results, as_tibble)
-}
-
-# URL utility functions ----
 #' @noRd
 powo_search_url_ <- function() {
   base <- get_url_("powo")

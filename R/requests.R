@@ -36,11 +36,12 @@ get_filters_ <- function(resource=c("wcvp")) {
 #' @return The base URL for the requested resource.
 #'
 #' @noRd
-get_url_ <- function(resource=c("wcvp")) {
+get_url_ <- function(resource=c("wcvp", "powo")) {
   resource <- match.arg(resource)
 
   switch(resource,
-         wcvp="https://wcvp.science.kew.org/api/v1")
+         wcvp="https://wcvp.science.kew.org/api/v1",
+         powo="http://www.plantsoftheworldonline.org/api/2")
 }
 
 #' Get the package user agent.

@@ -53,13 +53,16 @@ format_query_ <- function(query, resource) {
   }
 
   if (is.list(query)) {
-    valid_keywords <- get_keywords_(resource)
-    bad_keywords <- setdiff(names(query), valid_keywords)
+    keywords <- names(query)
+    keyword_map <- get_keywords_(resource)
+    valid_keywords <- names(keyword_map)
+    bad_keywords <- setdiff(keywords, valid_keywords)
 
     if (length(bad_keywords) > 0) {
       stop(
         sprintf(
-          "Query keywords must be one of [%s]\n[%s] are not recognised.",
+          "Query keywords for [%s] must be one of [%s]\n[%s] are not recognised.",
+          resource,
           paste(valid_keywords, collapse=","),
           paste(bad_keywords, collapse=",")
         )
@@ -68,6 +71,7 @@ format_query_ <- function(query, resource) {
   }
 
   if(is.list(query)) {
+    names(query) <- keyword_map[keywords]
     query
   } else {
     list(q=query)

@@ -5,12 +5,38 @@
 #' @return A character vector of filter names.
 #'
 #' @noRd
-get_keywords_ <- function(resource=c("wcvp")) {
+get_keywords_ <- function(resource=c("wcvp", "powo")) {
   resource <- match.arg(resource)
 
   switch(
     resource,
-    wcvp=c("family", "genus", "species")
+    wcvp=c(
+      family="family",
+      genus="genus",
+      species="species"
+    ),
+    powo=c(
+      # name
+      name="name",
+      common_name="common name",
+      family="family",
+      genus="genus",
+      species="species",
+      author="author",
+      # characteristics
+      characteristic="characteristic",
+      summary="summary",
+      appearance="appearance",
+      flower="flower",
+      fruit="fruit",
+      leaf="leaf",
+      inflorescence="inflorescence",
+      seed="seed",
+      cloning="cloning",
+      use="use",
+      # geography
+      distribution="location"
+    )
   )
 }
 
@@ -26,17 +52,17 @@ get_filters_ <- function(resource=c("wcvp", "powo")) {
 
   switch(
     resource,
-    wcvp=c("accepted"="accepted",
-           "families"="family",
-           "genera"="generic",
-           "species"="specific",
-           "infraspecies"="infraspecific"),
-    powo=c("accepted"="accepted_names",
-           "has_images"="has_images",
-           "families"="family_f",
-           "genera"="genus_f",
-           "species"="species_f",
-           "infraspecies"="infraspecific_f")
+    wcvp=c(accepted="accepted",
+           families="family",
+           genera="generic",
+           species="specific",
+           infraspecies="infraspecific"),
+    powo=c(accepted="accepted_names",
+           has_images="has_images",
+           families="family_f",
+           genera="genus_f",
+           species="species_f",
+           infraspecies="infraspecific_f")
   )
 }
 

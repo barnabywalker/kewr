@@ -34,7 +34,7 @@
 #'  * `response`: the [httr response object][httr::response].
 #'
 #' @export
-search_powo <- function(query, filters=NULL, limit=24) {
+search_powo <- function(query, filters=NULL, limit=50) {
   url <- powo_search_url_()
 
   query <- list(q=query, perPage=limit)

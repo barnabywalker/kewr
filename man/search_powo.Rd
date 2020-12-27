@@ -4,7 +4,7 @@
 \alias{search_powo}
 \title{Search POWO.}
 \usage{
-search_powo(query, filters = NULL, limit = 24)
+search_powo(query, filters = NULL, limit = 50)
 }
 \arguments{
 \item{query}{The string to query POWO with.}

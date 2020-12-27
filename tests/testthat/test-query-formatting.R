@@ -12,6 +12,20 @@ test_that("error for unimplemented POWO filters", {
                ".+\\[author,monkey\\] are not recognised.")
 })
 
+test_that("error for unimplemented WCVP kewords", {
+  query <- list("distribution"="Mexico")
+
+  expect_error(format_query_(query, "wcvp"),
+               ".+\\[distribution\\] are not recognised")
+})
+
+test_that("error for unimplemented WCVP kewords", {
+  query <- list("lifeform"="epiphyte")
+
+  expect_error(format_query_(query, "powo"),
+               ".+\\[lifeform\\] are not recognised")
+})
+
 test_that("error for unrecognised resource", {
   filters <- c("accepted")
 

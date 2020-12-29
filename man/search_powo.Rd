@@ -45,3 +45,12 @@ The API returns taxonomic information as well as species descriptions and
 image locations if available. These results can be limited, for example to accepted species,
 using filters. See arguments for all implemented filters.
 }
+\seealso{
+\itemize{
+\item \code{\link[=lookup_powo]{lookup_powo()}} to look up a taxon in POWO using the IPNI ID.
+}
+
+Other POWO functions: 
+\code{\link{lookup_powo}()}
+}
+\concept{POWO functions}

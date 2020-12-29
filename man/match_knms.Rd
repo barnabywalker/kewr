@@ -43,4 +43,9 @@ match_knms("Poa annua L.")
 names <- c("Myrcia guianensis", "Calyptranthes ranulphii", "Poa annua")
 match_knms(names)
 
+# format match results into a table
+names <- c("Myrcia guianensis", "Bad plant", "Poa annua")
+matches <- match_knms(names)
+format(matches)
+
 }

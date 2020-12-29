@@ -25,3 +25,18 @@ test_that("Raises error if names aren't right", {
   expect_error(match_knms(names))
 })
 
+test_that("Line parsing returns a tibble", {
+  names <- c("Bad plant")
+  matches <- match_knms(names)
+  parsed <- parse_knms_line(matches$results[[1]])
+
+  expect_s3_class(parsed, "tbl_df")
+})
+
+test_that("Match formatting returns a tibble", {
+  names <- c("Bad plant", "Poa annua", "Myrcia guianensis")
+  matches <- match_knms(names)
+  formatted <- format(matches)
+
+  expect_s3_class(formatted, "tbl_df")
+})

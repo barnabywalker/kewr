@@ -28,7 +28,7 @@ kewr is meant to make accessing data from one of RGB Kew easier and to provide a
 This package should cover:
 
 - [x] [World Checklist of Vascular Plants](https://wcvp.science.kew.org/)
-- [ ] [Plants of the World Online](http://powo.science.kew.org/)
+- [x] [Plants of the World Online](http://powo.science.kew.org/)
 - [ ] [International Plant Names Index](https://www.ipni.org/)
 - [ ] [Kew Names Matching Service](http://namematch.science.kew.org/)
 
@@ -68,7 +68,7 @@ print(results)
 To get all accepted species in a genus:
 
 ```r
-results <- search_wcvp(list(genus="Myrcia"), filters=c("generic"))
+results <- search_wcvp(list(genus="Myrcia"), filters=c("accepted"))
 print(results)
 ```
 
@@ -83,4 +83,51 @@ It is also possible to just download a zip file containing the latest version of
 
 ``` r
 download_wcvp()
+```
+
+### POWO
+
+The interface to POWO is very similar to WCVP, except it returns slightly different information and field names.
+
+To lookup taxonomic information for a particular IPNI ID:
+
+``` r
+info <- lookup_powo("271445-2")
+print(info)
+```
+
+POWO contains distribution data for many taxa, which we can request using the lookup function:
+
+``` r
+info <- lookup_powo("271445-2")
+print(info)
+```
+
+To search POWO by name:
+
+``` r
+results <- search_powo("Myrcia guianensis")
+print(results)
+```
+
+To get all accepted species in a genus:
+
+``` r
+results <- search_powo(list(genus="Myrcia"), filters=c("accepted"))
+print(results)
+```
+
+Looking at the documentation for the POWO API, it uses a cursor for pagination. To keep things the similar between the POWO and WCVP interfaces, I haven't implemented this yet. Simple pagination is implemented by changing the maximum number of results returned.
+
+``` r
+results <- search_powo(list(distribution="Mexico"), filters=c("accepted"), limit=200)
+print(results)
+```
+
+The search and lookup results can be formatted as tibbles:
+
+```r
+format(results, synonyms="simplify")
+format(info)
+format(info, field="distribution")
 ```

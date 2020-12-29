@@ -33,6 +33,10 @@
 #'  * `query`: the query string submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
 #'
+#' @family POWO functions
+#' @seealso
+#'  * [lookup_powo()] to look up a taxon in POWO using the IPNI ID.
+#'
 #' @export
 search_powo <- function(query, filters=NULL, limit=50) {
   url <- powo_search_url_()
@@ -57,9 +61,81 @@ search_powo <- function(query, filters=NULL, limit=50) {
   )
 }
 
+#' Look up a taxon in POWO.
+#'
+#' Request the record for a taxon in Plants of the World Online (POWO)
+#' using the IPNI ID.
+#'
+#' [Plants of the World Online (POWO)](http://www.plantsoftheworldonline.org/)
+#' is a database of information on the world's flora. It curates information from
+#' published floras and other sources of floristic information.
+#'
+#' The taxon lookup API allows users to retrieve information about
+#' a specific taxon name using the unique IPNI ID. If this is not known,
+#' it can be found out using the [POWO search API][kewr::search_powo].
+#'
+#' @param taxonid A string containing a valid IPNI ID.
+#'
+#' @return A `powo_taxon` object, which is a simple structure with fields
+#'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].
+#'
+#' @examples
+#'
+#' # retrieve information for a taxon name
+#' lookup_powo("271445-2")
+#'
+#' # print a summary of the returned information
+#' r <- lookup_powo("271445-2")
+#' print(r)
+#'
+#' # format the top-level information into a tibble
+#' r <- lookup_powo("271445-2")
+#' format(r)
+#'
+#' # format the returned list of synonyms into a tibble
+#' r <- lookup_wcvp("60447743-2")
+#' format(r, field="synonyms")
+#'
+#' # format the returned list of children into a tibble
+#' r <- lookup_wcvp("30000055-2")
+#' format(r, field="children")
+#'
+#' @family POWO functions
+#' @seealso
+#'  * [search_powo()] to search POWO using a taxon name.
+#'
+#' @export
+lookup_powo <- function(taxonid, distribution=FALSE) {
+  url <- powo_taxon_url_(taxonid)
+
+  query <- NULL
+  if (distribution) {
+    query <- list(fields="distribution")
+  }
+
+  result <- make_request_(url, query=query)
+
+  # this might be better if things were explicitly listed
+  record <- result$content
+  record$response <- result$response
+  record$queryId <- taxonid
+
+  structure(
+    record,
+    class="powo_taxon"
+  )
+}
+
 #' @noRd
 powo_search_url_ <- function() {
   base <- get_url_("powo")
 
   paste0(base, "/search")
+}
+
+#' @noRd
+powo_taxon_url_ <- function(taxonid) {
+  base <- get_url_("powo")
+
+  glue("{base}/taxon/urn:lsid:ipni.org:names:{taxonid}")
 }

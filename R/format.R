@@ -67,3 +67,40 @@ format.wcvp_taxon <- function(x, field=c("none", "accepted", "synonyms", "parent
 format.powo_search <- function(x, ...) {
   map_dfr(x$results, as_tibble)
 }
+
+#' @importFrom purrr map_lgl map_dfr pluck
+#' @importFrom tibble as_tibble tibble
+#' @export
+format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classification", "basionym", "distribution", "distributionEnvelope"), ...) {
+  field <- match.arg(field)
+  if (field == "none") {
+    x$response <- NULL
+    x$queryId <- NULL
+
+    list_field <- map_lgl(x, is.list)
+    x <- x[! list_field]
+
+    null_field <- map_lgl(x, is.null)
+    x[null_field] <- NA_character_
+
+    as_tibble(x)
+  } else if (field %in% c("accepted")) {
+    x <- pluck(x, field)
+
+    as_tibble(x)
+  } else if (field %in% c("distribution")) {
+    x <- pluck(x, field)
+
+
+    map_dfr(x, ~map_dfr(.x, as_tibble))
+  } else {
+    x <- pluck(x, field)
+
+    if (field == "distributionEnvelope") {
+      warning("Unknown CRS, use with caution...")
+    }
+
+    map_dfr(x, as_tibble)
+  }
+}
+

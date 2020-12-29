@@ -51,3 +51,34 @@ print.powo_search <- function(x, ...) {
   str(head(x$results, 1))
   invisible()
 }
+
+#' @importFrom glue glue
+#' @importFrom stringr str_extract
+#' @importFrom utils str
+#' @export
+print.powo_taxon <- function(x, ...) {
+  if ("accepted" %in% names(x)) {
+    accepted_id <- str_extract(x$accepted$fqId,
+                               "(?<=names\\:)[0-9\\-]+$")
+  } else if (x$taxonomicStatus == "Accepted") {
+    accepted_id <- x$queryId
+  } else {
+    accepted_id <- "UNDEFINED"
+  }
+
+  has_distribution <- "distribution" %in% names(x)
+
+  message <- glue("<POWO taxon id: {x$queryId}>",
+                  "Name: {x$name}",
+                  "Authors: {x$authors}",
+                  "Status: {x$taxonomicStatus}",
+                  "Rank: {x$rank}",
+                  "Accepted taxon ID: {accepted_id}",
+                  "Synonyms: {length(x$synonyms)}",
+                  "Includes distribution: {has_distribution}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}

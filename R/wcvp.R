@@ -26,13 +26,13 @@
 #'  the query must be formatted as a list and keywords must be one or more
 #'  of `family`, `genus`, `species`.
 #' @param filters Filter to apply to search results. Can be one
-#' or more of `accepted`, `generic`, `specific`, `intraspecific`.
+#' or more of `accepted`, `families`, `genera`, `species`, `infraspecies`.
 #' Multiple filters must be supplied as a character vector.
 #' @param page An integer specifying the page of results to return.
 #' @param limit An integer specifying the maximum number of results
 #'  to return.
 #' @return Returns an object of class `wcvp_search` that is a simple
-#' stucture with slots for:
+#' structure with slots for:
 #'
 #'  * `total`: the total number of results held in WCVP for the query
 #'  * `page`: the page number requested from the API.
@@ -47,35 +47,35 @@
 #' search_wcvp("Myrcia")
 #'
 #' # search for all accepted species within a genus
-#' search_wcvp("Myrcia", filters=c("specific", "accepted"))
+#' search_wcvp("Myrcia", filters=c("species", "accepted"))
 #'
 #' # search for up to 10,000 species in a genus
-#' search_wcvp("Poa", filters=c("specific"), limit=10000)
+#' search_wcvp("Poa", filters=c("species"), limit=10000)
 #'
 #' # search for all names in a family
 #' search_wcvp(list(family="Myrtaceae"))
 #'
 #' # search for genera within a family
-#' search_wcvp(list(family="Myrtaceae"), filters=c("generic"))
+#' search_wcvp(list(family="Myrtaceae"), filters=c("genera"))
 #'
 #' # search for all names with a specific epithet
 #' search_wcvp(list(species="guianensis"))
 #'
 #' # search for a species name and print the results
-#' r <- search_wcvp("Myrcia guianensis", filters=c("specific"))
+#' r <- search_wcvp("Myrcia guianensis", filters=c("species"))
 #' print(r)
 #'
 #' # simplify search results to a `tibble`
-#' r <- search_wcvp("Poa", filters=c("specific"))
+#' r <- search_wcvp("Poa", filters=c("species"))
 #' format(r)
 #'
 #' # accepted name info is nested inside the records for synonyms
 #' # simplify accepted name info to the name ID
-#' r <- search_wcvp("Poa", filters=c("specific"))
+#' r <- search_wcvp("Poa", filters=c("species"))
 #' format(r, synonyms="simplify")
 #'
 #' # expand accepted name info
-#' r <- search_wcvp("Poa", filters=c("specific"))
+#' r <- search_wcvp("Poa", filters=c("species"))
 #' format(r, synonyms="expand")
 #'
 #' @references
@@ -91,13 +91,13 @@
 search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
   url <- wcvp_search_url_()
 
-  query <- format_query_(query)
+  query <- format_query_(query, "wcvp")
   # keeping a copy of this to return in the result object
   original_query <- query
 
   query$page <- page
   query$limit <- limit
-  query$f <- format_filters_(filters)
+  query$f <- format_filters_(filters, "wcvp")
 
   results <- make_request_(url, query)
 
@@ -246,182 +246,6 @@ download_wcvp <- function(save_dir=NULL, version=NULL) {
 
   invisible()
 }
-
-# query format functions ----
-
-#' Format query for WCVP search API.
-#'
-#' Checks if query is a keyword or string query,
-#' and makes sure any keywords a valid.
-#'
-#' @param query A string or list specifying the query.
-#'
-#' @importFrom glue glue
-#'
-#' @noRd
-format_query_ <- function(query) {
-
-  if (! is.list(query) & length(query) > 1) {
-    message <- glue("WCVP search query must be a named list or a string.",
-                    "Provided query type: {typeof(query)}",
-                    "Provided query length: {query_length}",
-                    "",
-                    .sep="\n", .trim=FALSE)
-
-    stop(message, call.=FALSE)
-  }
-
-  if (is.list(query)) {
-    valid_keywords <- get_keywords_("wcvp")
-    bad_keywords <- setdiff(names(query), valid_keywords)
-
-    if (length(bad_keywords) > 0) {
-      stop(
-        sprintf(
-          "Query keywords must be one of [%s]\n[%s] are not recognised.",
-          paste(valid_keywords, collapse=","),
-          paste(bad_keywords, collapse=",")
-        )
-      )
-    }
-  }
-
-  if(is.list(query)) {
-    query
-  } else {
-    list(q=query)
-  }
-}
-
-#' Format filters for WCVP search API.
-#'
-#' Checks the filters are valid before joining them
-#' together with as a comma-separated string.
-#'
-#' @param filters A character vector of filter names.
-#'
-#' @noRd
-format_filters_ <- function(filters) {
-  if (is.null(filters)) {
-    return(NULL)
-  }
-
-  valid_filters <- get_filters_("wcvp")
-  bad_filters <- setdiff(filters, valid_filters)
-  if (length(bad_filters) > 0) {
-    stop(
-      sprintf(
-        "Filters must be one of [%s]\n[%s] are not recognised.",
-        paste(valid_filters, collapse=","),
-        paste(bad_filters, collapse=",")
-      )
-    )
-  }
-
-  paste(filters, collapse=",")
-}
-
-# object print methods ----
-
-#' @importFrom glue glue
-#' @importFrom utils str head
-#' @export
-print.wcvp_search <- function(x, ...) {
-  filters <- ifelse(is.null(x$filters), "none", x$filters)
-  message <- glue("<WCVP search: '{x$query}' filters: '{filters}'>",
-                  "total results: {x$total}",
-                  "returned results: {length(x$results)}",
-                  "",
-                  .sep="\n", .trim=FALSE)
-
-  cat(message)
-  str(head(x$results, 1))
-  invisible()
-}
-
-#' @importFrom glue glue
-#' @importFrom utils str
-#' @export
-print.wcvp_taxon <- function(x, ...) {
-  accepted_id <- ifelse(is.null(x$accepted), x$id, x$accepted$id)
-
-  message <- glue("<WCVP taxon id: {x$queryId}>",
-                  "Name: {x$name}",
-                  "Authors: {x$authors}",
-                  "Status: {x$status}",
-                  "Rank: {x$rank}",
-                  "Accepted taxon ID: {accepted_id}",
-                  "Synonyms: {length(x$synonyms)}",
-                  "",
-                  .sep="\n", .trim=FALSE)
-
-  cat(message)
-  invisible()
-}
-
-# object format methods ----
-
-#' @importFrom purrr map_dfr
-#' @importFrom dplyr bind_cols
-#' @importFrom tibble as_tibble tibble
-#' @export
-format.wcvp_search <- function(x, synonyms=c("ignore", "simplify", "expand"), ...) {
-  synonyms <- match.arg(synonyms)
-
-  if (synonyms == "ignore") {
-    fcn <- as_tibble
-  } else if (synonyms == "simplify") {
-    fcn <- function(r) {
-      synonym_id <- r$synonymOf$id
-      r$synonymOf <- NULL
-      formatted <- as_tibble(r)
-      formatted$synonymOf <- synonym_id
-
-      formatted
-    }
-  } else if (synonyms == "expand") {
-    fcn <- function(r) {
-      synonym_col <- as_tibble(
-        r$synonymOf,
-        .name_repair=~paste0("synonymOf_", .x)
-      )
-      r$synonymOf <- NULL
-      formatted <- as_tibble(r)
-      bind_cols(r, synonym_col)
-    }
-  }
-
-  map_dfr(x$results, fcn)
-}
-
-#' @importFrom purrr map_lgl map_dfr pluck
-#' @importFrom tibble as_tibble tibble
-#' @export
-format.wcvp_taxon <- function(x, field=c("none", "accepted", "synonyms", "parent", "children", "hierarchy"), ...) {
-  field <- match.arg(field)
-  if (field == "none") {
-    x$response <- NULL
-    x$queryId <- NULL
-
-    list_field <- map_lgl(x, is.list)
-    x <- x[! list_field]
-
-    null_field <- map_lgl(x, is.null)
-    x[null_field] <- NA_character_
-
-    as_tibble(x)
-  } else if (field %in% c("parent", "accepted")) {
-    x <- pluck(x, field)
-
-    as_tibble(x)
-  } else {
-    x <- pluck(x, field)
-
-    map_dfr(x, as_tibble)
-  }
-}
-
-# URL utility functions ----
 
 #' Make the WCVP taxon lookup URL.
 #'

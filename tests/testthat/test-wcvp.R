@@ -25,14 +25,6 @@ test_that("taxon URL returns 404 for bad ID", {
   expect_equal(status_code(response), 404)
 })
 
-test_that("raises error for unimplemented filter", {
-  filters <- c("monkey")
-  query <- "Myrcia guianensis"
-
-  expect_error(search_wcvp(query, filters),
-               "Filter.+ not recognised")
-})
-
 test_that("raises error for unimplemented keyword", {
   query <- list(name="Myrcia guianensis")
 
@@ -51,7 +43,7 @@ test_that("accepted filter only returns accepted names", {
   filters <- c("accepted")
 
   results <- search_wcvp(query, filters)
-  all_accepted <- purrr::every(results$content$results,
+  all_accepted <- purrr::every(results$results,
                                ~.x$accepted)
 
   expect_true(all_accepted)
@@ -59,10 +51,10 @@ test_that("accepted filter only returns accepted names", {
 
 test_that("specific filter only returns species", {
   query <- "Myrcia"
-  filters <- c("specific")
+  filters <- c("species")
 
   results <- search_wcvp(query, filters)
-  all_species <- purrr::every(results$content$results,
+  all_species <- purrr::every(results$results,
                                ~.x$rank == "Species")
 
   expect_true(all_species)
@@ -70,10 +62,10 @@ test_that("specific filter only returns species", {
 
 test_that("generic filter only returns genera", {
   query <- "Myrcia"
-  filters <- c("generic")
+  filters <- c("genera")
 
   results <- search_wcvp(query, filters)
-  all_genera <- purrr::every(results$content$results,
+  all_genera <- purrr::every(results$results,
                               ~.x$rank == "Genus")
 
   expect_true(all_genera)
@@ -83,17 +75,29 @@ test_that("infraspecific filter only returns infraspecifics", {
   infra_ranks <- c("Variety", "Subspecies", "Form")
 
   query <- "Poa annua"
-  filters <- c("infraspecific")
+  filters <- c("infraspecies")
 
   results <- search_wcvp(query, filters)
-  all_infra <- purrr::every(results$content$results,
+  all_infra <- purrr::every(results$results,
                              ~.x$rank %in% infra_ranks)
 
   expect_true(all_infra)
 })
 
+test_that("family filter only returns families", {
+
+  query <- "poaceae"
+  filters <- c("families")
+
+  results <- search_wcvp(query, filters)
+  all_families <- purrr::every(results$results,
+                               ~.x$rank == "Family")
+
+  expect_true(all_families)
+})
+
 test_that("format search results returns tibble", {
-  results <- search_wcvp("Poa annua", filters=c("specific"))
+  results <- search_wcvp("Poa annua", filters=c("species"))
   formatted <- format(results)
 
   expect_s3_class(formatted, "tbl_df")

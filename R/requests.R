@@ -5,12 +5,38 @@
 #' @return A character vector of filter names.
 #'
 #' @noRd
-get_keywords_ <- function(resource=c("wcvp")) {
+get_keywords_ <- function(resource=c("wcvp", "powo")) {
   resource <- match.arg(resource)
 
   switch(
     resource,
-    wcvp=c("family", "genus", "species")
+    wcvp=c(
+      family="family",
+      genus="genus",
+      species="species"
+    ),
+    powo=c(
+      # name
+      name="name",
+      common_name="common name",
+      family="family",
+      genus="genus",
+      species="species",
+      author="author",
+      # characteristics
+      characteristic="characteristic",
+      summary="summary",
+      appearance="appearance",
+      flower="flower",
+      fruit="fruit",
+      leaf="leaf",
+      inflorescence="inflorescence",
+      seed="seed",
+      cloning="cloning",
+      use="use",
+      # geography
+      distribution="location"
+    )
   )
 }
 
@@ -21,12 +47,22 @@ get_keywords_ <- function(resource=c("wcvp")) {
 #' @return A character vector of filter names.
 #'
 #' @noRd
-get_filters_ <- function(resource=c("wcvp")) {
+get_filters_ <- function(resource=c("wcvp", "powo")) {
   resource <- match.arg(resource)
 
   switch(
     resource,
-    wcvp=c("accepted", "generic", "specific", "infraspecific")
+    wcvp=c(accepted="accepted",
+           families="family",
+           genera="generic",
+           species="specific",
+           infraspecies="infraspecific"),
+    powo=c(accepted="accepted_names",
+           has_images="has_images",
+           families="family_f",
+           genera="genus_f",
+           species="species_f",
+           infraspecies="infraspecific_f")
   )
 }
 
@@ -36,11 +72,12 @@ get_filters_ <- function(resource=c("wcvp")) {
 #' @return The base URL for the requested resource.
 #'
 #' @noRd
-get_url_ <- function(resource=c("wcvp")) {
+get_url_ <- function(resource=c("wcvp", "powo")) {
   resource <- match.arg(resource)
 
   switch(resource,
-         wcvp="https://wcvp.science.kew.org/api/v1")
+         wcvp="https://wcvp.science.kew.org/api/v1",
+         powo="http://www.plantsoftheworldonline.org/api/2")
 }
 
 #' Get the package user agent.

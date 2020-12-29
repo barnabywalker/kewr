@@ -82,3 +82,20 @@ print.powo_taxon <- function(x, ...) {
   cat(message)
   invisible()
 }
+
+# knms ----
+
+#' @importFrom glue glue
+#' @export
+print.knms_match <- function(x, ...) {
+  message <- glue("<KNMS match: {length(x$submitted)} names submitted>",
+                  "Matches returned: {x$matched}",
+                  "Multiple matches: {x$multiple_matches}",
+                  "Unmatched names: {x$unmatched}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  str(head(x$results, 1))
+  invisible()
+}

@@ -77,3 +77,33 @@ format_query_ <- function(query, resource) {
     list(q=query)
   }
 }
+
+
+#' Format body for a POST request.
+#'
+#' The body of a POST request must be a list.
+#' So far, only KNMS uses POST requests. Names
+#' for matching might be input as a character vector,
+#' so we need to ensure the body is a list and coerce it
+#' if not.
+#'
+#' @param body The raw body as input.
+#'
+#' @noRd
+format_body_ <- function(body) {
+
+  if (! is.list(body) & ! is.character(body)) {
+    message <- glue("The body of a POST request must be either a list or character vector.",
+                    "Provided body type: {typeof(query)}",
+                    "",
+                    .sep="\n", .trim=FALSE)
+
+    stop(message, call.=FALSE)
+  }
+
+  if (! is.list(body)) {
+    body <- as.list(body)
+  }
+
+  body
+}

@@ -72,12 +72,13 @@ get_filters_ <- function(resource=c("wcvp", "powo")) {
 #' @return The base URL for the requested resource.
 #'
 #' @noRd
-get_url_ <- function(resource=c("wcvp", "powo")) {
+get_url_ <- function(resource=c("wcvp", "powo", "knms")) {
   resource <- match.arg(resource)
 
   switch(resource,
          wcvp="https://wcvp.science.kew.org/api/v1",
-         powo="http://www.plantsoftheworldonline.org/api/2")
+         powo="http://www.plantsoftheworldonline.org/api/2",
+         knms="http://namematch.science.kew.org/api/v2/powo/match")
 }
 
 #' Get the package user agent.
@@ -92,7 +93,9 @@ get_user_agent_ <- function() {
 #' Make a request to a Kew resource.
 #'
 #' @param url The URL for the resource API.
-#' @param query A list specifying an optional query.
+#' @param query A list specifying a query.
+#' @param body A list specifying an optional body. If specified,
+#' the function will make a POST request to the resource.
 #'
 #' @return A list containing the returned response object and
 #'   the response content parsed into a list.
@@ -101,9 +104,14 @@ get_user_agent_ <- function() {
 #'
 #' @import httr
 #' @importFrom jsonlite fromJSON
-make_request_ <- function(url, query) {
+make_request_ <- function(url, query, body=NULL) {
   user_agent <- get_user_agent_()
-  response <- GET(url, user_agent, query=query)
+
+  if (! is.null(body)) {
+    response <- POST(url, user_agent, body=body, encode="json")
+  } else {
+    response <- GET(url, user_agent, query=query)
+  }
 
   if (http_error(response)) {
     status <- http_status(response)

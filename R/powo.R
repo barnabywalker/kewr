@@ -75,6 +75,7 @@ search_powo <- function(query, filters=NULL, limit=50) {
 #' it can be found out using the [POWO search API][kewr::search_powo].
 #'
 #' @param taxonid A string containing a valid IPNI ID.
+#' @param distribution Include distribution in results (default `FALSE`).
 #'
 #' @return A `powo_taxon` object, which is a simple structure with fields
 #'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].

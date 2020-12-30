@@ -8,6 +8,8 @@ lookup_powo(taxonid, distribution = FALSE)
 }
 \arguments{
 \item{taxonid}{A string containing a valid IPNI ID.}
+
+\item{distribution}{Include distribution in results (default \code{FALSE}).}
 }
 \value{
 A \code{powo_taxon} object, which is a simple structure with fields

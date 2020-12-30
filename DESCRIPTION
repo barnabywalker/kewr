@@ -26,4 +26,6 @@ Imports:
     dplyr,
     stringr,
     rvest,
-    here
+    here,
+    tidyr,
+    rlang

@@ -72,13 +72,14 @@ get_filters_ <- function(resource=c("wcvp", "powo")) {
 #' @return The base URL for the requested resource.
 #'
 #' @noRd
-get_url_ <- function(resource=c("wcvp", "powo", "knms")) {
+get_url_ <- function(resource=c("wcvp", "powo", "knms", "ipni")) {
   resource <- match.arg(resource)
 
   switch(resource,
          wcvp="https://wcvp.science.kew.org/api/v1",
          powo="http://www.plantsoftheworldonline.org/api/2",
-         knms="http://namematch.science.kew.org/api/v2/powo/match")
+         knms="http://namematch.science.kew.org/api/v2/powo/match",
+         ipni="https://www.ipni.org/api/1")
 }
 
 #' Get the package user agent.

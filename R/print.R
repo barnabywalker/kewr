@@ -83,6 +83,22 @@ print.powo_taxon <- function(x, ...) {
   invisible()
 }
 
+# ipni ----
+
+#' @importFrom glue glue
+#' @export
+print.ipni_search <- function(x, ...) {
+  message <- glue("<IPNI search: '{x$query}'>",
+                  "total results: {x$total}",
+                  "returned results: {length(x$results)}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  str(head(x$results, 1))
+  invisible()
+}
+
 # knms ----
 
 #' @importFrom glue glue

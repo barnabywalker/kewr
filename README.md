@@ -22,7 +22,7 @@ This package should cover:
     Plants](https://wcvp.science.kew.org/)
   - [x] [Plants of the World Online](http://powo.science.kew.org/)
   - [ ] [International Plant Names Index](https://www.ipni.org/)
-  - [ ] [Kew Names Matching Service](http://namematch.science.kew.org/)
+  - [x] [Kew Names Matching Service](http://namematch.science.kew.org/)
 
 New sources will be added as they come up.
 
@@ -135,4 +135,23 @@ The search and lookup results can be formatted as tibbles:
 format(results, synonyms="simplify")
 format(info)
 format(info, field="distribution")
+```
+
+### KNMS
+
+Multiple names can be submitted to the Kew Names Matching Service at
+once:
+
+``` r
+names <- c("Myrcia guianensis", "Poa annua L.", "Psidium sp.")
+matches <- match_knms(names)
+print(matches)
+```
+
+The raw results from KNMS are returned without column headers, and can
+be a little difficult to understand. They can be formatted into a nice
+tibble though:
+
+``` r
+format(matches)
 ```

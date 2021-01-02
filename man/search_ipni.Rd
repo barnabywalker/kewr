@@ -33,6 +33,19 @@ Query the International Plant Names Index for nomenclatural information.
 \details{
 The \href{https://www.ipni.org/}{International Plant Names Index (IPNI)}
 is a service that provides nomenclatural information for vascular plant names.
+
+The search API allows users to query the database for plant names,
+as well as authors and publications. There may be limited support for
+some sort of fuzzy matching.
+
+There is some support for querying using keyword arguments. Documentation for
+the API is currently available in the \href{https://github.com/RBGKew/pykew/blob/master/pykew/ipni_terms.py}{\code{pykew} package},
+so keywords have been copied across from there. There are sets of keywords
+relating to plants, authors, and publications.
+
+The API will return nomenclatural information (publication date, nomenclatural status, author, etc.)
+of all names matching the query. These results can be limited, for example to only family names,
+using filters. See arguments for all implemented filters.
 }
 \examples{
 # search for all names containing Poa annua
@@ -44,5 +57,19 @@ format(results)
 # extract author team information for the search results
 results_tbl <- format(results)
 tidyr::unnest(results_tbl, cols=c(authorTeam), names_sep="_")
+
+# filter results to only species names
+species_results <- search_ipni("Poa annua", filters="species")
+format(species_results)
+
+# search for species from Mexico published in 1989
+q <- list(published="1989", distribution="Mexico")
+f <- "species"
+results <- search_ipni(q, filters=f)
+format(results)
+
+# search for an author by surname
+author_results <- search_ipni(list(author_surname="Gardiner"))
+format(author_results)
 
 }

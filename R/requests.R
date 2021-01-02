@@ -5,7 +5,7 @@
 #' @return A character vector of filter names.
 #'
 #' @noRd
-get_keywords_ <- function(resource=c("wcvp", "powo")) {
+get_keywords_ <- function(resource=c("wcvp", "powo", "ipni")) {
   resource <- match.arg(resource)
 
   switch(
@@ -36,6 +36,52 @@ get_keywords_ <- function(resource=c("wcvp", "powo")) {
       use="use",
       # geography
       distribution="location"
+    ),
+    ipni=c(
+      # name
+      added="added",
+      author="name author",
+      basionym="basionym",
+      basionym_author="basionym author",
+      bibliographic_reference="bibliographic reference",
+      citation_type="citation type",
+      collection_number="collection number",
+      collectors="collector team",
+      distribution="distribution",
+      family="family",
+      full_name="full name",
+      genus="genus",
+      in_powo="in powo",
+      infrafamily="infrafamily",
+      infragenus="infragenus",
+      infraspecies="infraspecies",
+      modified="modified",
+      name_status="name status",
+      published="published",
+      published_in="published in",
+      publishing_author="publishing author",
+      rank="rank",
+      scientific_name="scientific name",
+      species="species",
+      species_author="species author",
+      version="version",
+      # author
+      author_forename="author forename",
+      author_full_name="author name",
+      author_std_form="author std",
+      author_surname="author surname",
+      # publication
+      pub_std_form="publication std",
+      bph_number="bph number",
+      pub_date="date",
+      isbn="isbn",
+      issn="issn",
+      lc_number="lc number",
+      preceded_by="preceded by",
+      superceded_by="superceded by",
+      title="publication title",
+      tl2_author="tl2 author",
+      tl2_number="tl2 number"
     )
   )
 }

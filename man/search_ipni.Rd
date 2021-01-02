@@ -73,3 +73,12 @@ author_results <- search_ipni(list(author_surname="Gardiner"))
 format(author_results)
 
 }
+\seealso{
+\itemize{
+\item \code{\link[=lookup_ipni]{lookup_ipni()}} to look up a name using an IPNI ID.
+}
+
+Other IPNI functions: 
+\code{\link{lookup_ipni}()}
+}
+\concept{IPNI functions}

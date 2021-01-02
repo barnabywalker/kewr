@@ -11,3 +11,11 @@ test_that("search URL response is json", {
 
   expect_equal(httr::http_type(response), "application/json")
 })
+
+test_that("format search results returns tibble", {
+  results <- search_ipni("Poa annua")
+  formatted <- format(results)
+
+  expect_s3_class(formatted, "tbl_df")
+})
+

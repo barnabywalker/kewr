@@ -21,6 +21,16 @@
 #'  * `query`: the query string submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
 #'
+#' @examples
+#' # search for all names containing Poa annua
+#' results <- search_ipni("Poa annua")
+#'
+#' # format search results in a table
+#' format(results)
+#'
+#' # extract author team information for the search results
+#' results_tbl <- format(results)
+#' unnest(results_tbl, cols=c(authorTeam), names_sep="_")
 #'
 #' @export
 search_ipni <- function(query, limit=50) {

@@ -4,7 +4,7 @@
 \alias{search_ipni}
 \title{Search IPNI.}
 \usage{
-search_ipni(query, filters = NULL, limit = 50)
+search_ipni(query, filters = NULL, page = 0, limit = 50)
 }
 \arguments{
 \item{query}{The string to query IPNI with.}

@@ -22,6 +22,7 @@
 #' @param filters Filter to apply to search results. Can be one
 #' or more of `families`, `genera`, `species`, `infrafamilies`,
 #' `infragenera`, and `infraspecies`.
+#' @param page The page of records to return.
 #' @param limit The maximum number of records to return.
 #'
 #' @return
@@ -65,14 +66,15 @@
 #'  * [lookup_ipni()] to look up a name using an IPNI ID.
 #'
 #' @export
-search_ipni <- function(query, filters=NULL, limit=50) {
+search_ipni <- function(query, filters=NULL, page=1, limit=50) {
   url <- ipni_search_url_()
 
   query <- format_query_(query, "ipni")
   # keeping a copy of this to return in the result object
   original_query <- query
 
-  query$limit <- limit
+  query$perPage <- limit
+  query$page <- page
   query$f <- format_filters_(filters, "ipni")
 
   results <- make_request_(url, query)

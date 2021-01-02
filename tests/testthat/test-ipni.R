@@ -12,8 +12,28 @@ test_that("search URL response is json", {
   expect_equal(httr::http_type(response), "application/json")
 })
 
+test_that("raises error for unimplemented keyword", {
+  query <- list(name="Myrcia guianensis")
+
+  expect_error(search_ipni(query),
+               "Query keyword.+ not recognised")
+})
+
+test_that("raises error for bad query input type", {
+  query <- c("this", "is", "a", "bad", "query")
+
+  expect_error(search_ipni(query))
+})
+
 test_that("format search results returns tibble", {
   results <- search_ipni("Poa annua")
+  formatted <- format(results)
+
+  expect_s3_class(formatted, "tbl_df")
+})
+
+test_that("format lookup results returns tibble", {
+  results <- lookup_ipni("30001404-2")
   formatted <- format(results)
 
   expect_s3_class(formatted, "tbl_df")

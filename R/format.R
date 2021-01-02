@@ -110,6 +110,33 @@ format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classi
 #' @importFrom purrr map_dfr
 #'
 #' @export
+format.ipni_citation <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list(x)
+}
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+format.ipni_author <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list(x)
+}
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+format.ipni_publication <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list(x)
+}
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
 format.ipni_search <- function(x, ...) {
   map_dfr(x$results, parse_nested_list)
 }

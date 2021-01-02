@@ -4,10 +4,14 @@
 \alias{search_ipni}
 \title{Search IPNI.}
 \usage{
-search_ipni(query, limit = 50)
+search_ipni(query, filters = NULL, limit = 50)
 }
 \arguments{
 \item{query}{The string to query IPNI with.}
+
+\item{filters}{Filter to apply to search results. Can be one
+or more of \code{families}, \code{genera}, \code{species}, \code{infrafamilies},
+\code{infragenera}, and \code{infraspecies}.}
 
 \item{limit}{The maximum number of records to return.}
 }
@@ -29,4 +33,16 @@ Query the International Plant Names Index for nomenclatural information.
 \details{
 The \href{https://www.ipni.org/}{International Plant Names Index (IPNI)}
 is a service that provides nomenclatural information for vascular plant names.
+}
+\examples{
+# search for all names containing Poa annua
+results <- search_ipni("Poa annua")
+
+# format search results in a table
+format(results)
+
+# extract author team information for the search results
+results_tbl <- format(results)
+tidyr::unnest(results_tbl, cols=c(authorTeam), names_sep="_")
+
 }

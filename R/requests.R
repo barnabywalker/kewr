@@ -47,7 +47,7 @@ get_keywords_ <- function(resource=c("wcvp", "powo")) {
 #' @return A character vector of filter names.
 #'
 #' @noRd
-get_filters_ <- function(resource=c("wcvp", "powo")) {
+get_filters_ <- function(resource=c("wcvp", "powo", "ipni")) {
   resource <- match.arg(resource)
 
   switch(
@@ -62,7 +62,13 @@ get_filters_ <- function(resource=c("wcvp", "powo")) {
            families="family_f",
            genera="genus_f",
            species="species_f",
-           infraspecies="infraspecific_f")
+           infraspecies="infraspecific_f"),
+    ipni=c(families="f_familial",
+           genera="f_generic",
+           species="f_specific",
+           infraspecies="f_infraspecific",
+           infragenera="f_infrageneric",
+           infrafamilies="f_infrafamilial")
   )
 }
 

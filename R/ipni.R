@@ -7,7 +7,9 @@
 #'
 #'
 #' @param query The string to query IPNI with.
-#'
+#' @param filters Filter to apply to search results. Can be one
+#' or more of `families`, `genera`, `species`, `infrafamilies`,
+#' `infragenera`, and `infraspecies`.
 #' @param limit The maximum number of records to return.
 #'
 #' @return
@@ -30,13 +32,14 @@
 #'
 #' # extract author team information for the search results
 #' results_tbl <- format(results)
-#' unnest(results_tbl, cols=c(authorTeam), names_sep="_")
+#' tidyr::unnest(results_tbl, cols=c(authorTeam), names_sep="_")
 #'
 #' @export
-search_ipni <- function(query, limit=50) {
+search_ipni <- function(query, filters=NULL, limit=50) {
   url <- ipni_search_url_()
 
   query <- list(q=query, perPage=limit)
+  query$f <- format_filters_(filters, "ipni")
 
   results <- make_request_(url, query)
 
@@ -47,6 +50,7 @@ search_ipni <- function(query, limit=50) {
       limit=results$content$perPage,
       results=results$content$results,
       query=query$q,
+      filters=query$f,
       response=results$response
     ),
     class="ipni_search"

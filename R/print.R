@@ -88,14 +88,17 @@ print.powo_taxon <- function(x, ...) {
 #' @importFrom glue glue
 #' @export
 print.ipni_search <- function(x, ...) {
-  message <- glue("<IPNI search: '{x$query}'>",
+  filters <- ifelse(is.null(x$filters), "none", x$filters)
+  message <- glue("<IPNI search: '{x$query}', filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
                   "",
                   .sep="\n", .trim=FALSE)
 
   cat(message)
-  str(head(x$results, 1))
+  if (! is.null(x$results)) {
+    str(head(x$results, 1))
+  }
   invisible()
 }
 

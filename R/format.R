@@ -105,6 +105,65 @@ format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classi
   }
 }
 
+# ipni ----
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+format.ipni_citation <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list(x)
+}
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+format.ipni_author <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list(x)
+}
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+format.ipni_publication <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list(x)
+}
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+format.ipni_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list)
+}
+
+#' Simple utility to wrap nested lists into a tibble.
+#'
+#' Nested lists are also converted to tibbles and inserted in list
+#' columns.
+#'
+#' @importFrom purrr map_chr map
+#' @importFrom tibble as_tibble_row
+#'
+#' @noRd
+parse_nested_list <- function(l) {
+  if (is.null(names(l))) {
+    return(map_dfr(l, parse_nested_list))
+  }
+
+  null_cols <- map_lgl(l, is.null)
+  l[null_cols] <- NA_character_
+
+  list_cols <- map_lgl(l, is.list)
+  l[list_cols] <- map(l[list_cols], ~list(parse_nested_list(.x)))
+
+  as_tibble_row(l)
+}
+
 # knms ----
 
 #' @importFrom purrr map_lgl map_dfr pluck

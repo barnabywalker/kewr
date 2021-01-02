@@ -12,6 +12,13 @@ test_that("error for unimplemented POWO filters", {
                ".+\\[author,monkey\\] are not recognised.")
 })
 
+test_that("error for unimplemented IPNI filters", {
+  filters <- c("infrafamilies", "author", "monkey")
+
+  expect_error(format_filters_(filters, "ipni"),
+               ".+\\[author,monkey\\] are not recognised.")
+})
+
 test_that("error for unimplemented WCVP kewords", {
   query <- list("distribution"="Mexico")
 
@@ -19,7 +26,14 @@ test_that("error for unimplemented WCVP kewords", {
                ".+\\[distribution\\] are not recognised")
 })
 
-test_that("error for unimplemented WCVP kewords", {
+test_that("error for unimplemented IPNI kewords", {
+  query <- list("common_name"="daisy")
+
+  expect_error(format_query_(query, "ipni"),
+               ".+\\[common_name\\] are not recognised")
+})
+
+test_that("error for unimplemented POWO kewords", {
   query <- list("lifeform"="epiphyte")
 
   expect_error(format_query_(query, "powo"),

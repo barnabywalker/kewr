@@ -29,7 +29,7 @@ This package should cover:
 
 - [x] [World Checklist of Vascular Plants](https://wcvp.science.kew.org/)
 - [x] [Plants of the World Online](http://powo.science.kew.org/)
-- [ ] [International Plant Names Index](https://www.ipni.org/)
+- [x] [International Plant Names Index](https://www.ipni.org/)
 - [x] [Kew Names Matching Service](http://namematch.science.kew.org/)
 
 New sources will be added as they come up.
@@ -130,6 +130,54 @@ The search and lookup results can be formatted as tibbles:
 format(results, synonyms="simplify")
 format(info)
 format(info, field="distribution")
+```
+
+### IPNI
+
+The interface for IPNI is similar to WCVP and POWO.
+
+There are three different types of record that you can look up in IPNI: taxon, author, or publication.
+
+To look up a taxon citation with an IPNI ID:
+
+``` r
+info <- lookup_ipni("271445-2", type="taxon")
+print(info)
+```
+
+To look up an author with an IPNI ID:
+
+``` r
+info <- lookup_ipni("30001404-2", type="author")
+print(info)
+```
+
+To look up a publication with an IPNI ID:
+
+``` r
+info <- lookup_ipni("987-2", type="publication")
+print(info)
+```
+
+IPNI can also be searched by name:
+
+``` r
+results <- search_ipni("Myrcia guianensis")
+print(results)
+```
+
+Or using keywords, for instance to get all family names published in 1989:
+
+``` r
+results <- search_ipni(list(published="1989"), filters=c("families"))
+print(results)
+```
+
+The search and lookup results can also be formatted as tibbles:
+
+```r
+format(results)
+format(info)
 ```
 
 ### KNMS

@@ -145,7 +145,7 @@ lookup_ipni <- function(id, type=c("taxon", "author", "publication")) {
 
   structure(
     record,
-    class="ipni_name"
+    class=paste0("ipni_", record$recordType)
   )
 }
 

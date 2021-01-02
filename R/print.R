@@ -102,6 +102,58 @@ print.ipni_search <- function(x, ...) {
   invisible()
 }
 
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.ipni_citation <- function(x, ...) {
+  message <- glue("<IPNI name id: {x$queryId}, type: {x$recordType}>",
+                  "Name: {x$name}",
+                  "Authors: {x$authors}",
+                  "Publication: {x$publication}",
+                  "Publication Year: {x$publicationYear}",
+                  "Reference: {x$reference}",
+                  "Rank: {x$rank}",
+                  "In POWO: {x$inPowo}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.ipni_author <- function(x, ...) {
+  message <- glue("<IPNI name id: {x$queryId}, type: {x$recordType}>",
+                  "Name: {x$forename} {x$surname}",
+                  "Standard form: {x$standardForm}",
+                  "Dates: {x$dates}",
+                  "Focal groups: {x$taxonGroups}",
+                  "Example taxon: {x$examples}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.ipni_publication <- function(x, ...) {
+  message <- glue("<IPNI name id: {x$queryId}, type: {x$recordType}>",
+                  "Title: {x$title}",
+                  "Abbreviation: {x$abbreviation}",
+                  "LC Number: {x$lcNumber}",
+                  "BPH Number: {x$bphNumber}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
 # knms ----
 
 #' @importFrom glue glue

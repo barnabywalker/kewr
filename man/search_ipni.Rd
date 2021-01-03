@@ -4,7 +4,7 @@
 \alias{search_ipni}
 \title{Search IPNI.}
 \usage{
-search_ipni(query, filters = NULL, page = 0, limit = 50)
+search_ipni(query, filters = NULL, page = 1, limit = 50)
 }
 \arguments{
 \item{query}{The string to query IPNI with.}
@@ -12,6 +12,8 @@ search_ipni(query, filters = NULL, page = 0, limit = 50)
 \item{filters}{Filter to apply to search results. Can be one
 or more of \code{families}, \code{genera}, \code{species}, \code{infrafamilies},
 \code{infragenera}, and \code{infraspecies}.}
+
+\item{page}{The page of records to return.}
 
 \item{limit}{The maximum number of records to return.}
 }

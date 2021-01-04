@@ -19,21 +19,21 @@ test_that("error for unimplemented IPNI filters", {
                ".+\\[author,monkey\\] are not recognised.")
 })
 
-test_that("error for unimplemented WCVP kewords", {
+test_that("error for unimplemented WCVP keywords", {
   query <- list("distribution"="Mexico")
 
   expect_error(format_query_(query, "wcvp"),
                ".+\\[distribution\\] are not recognised")
 })
 
-test_that("error for unimplemented IPNI kewords", {
+test_that("error for unimplemented IPNI keywords", {
   query <- list("common_name"="daisy")
 
   expect_error(format_query_(query, "ipni"),
                ".+\\[common_name\\] are not recognised")
 })
 
-test_that("error for unimplemented POWO kewords", {
+test_that("error for unimplemented POWO keywords", {
   query <- list("lifeform"="epiphyte")
 
   expect_error(format_query_(query, "powo"),

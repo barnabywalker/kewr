@@ -41,7 +41,11 @@
 search_powo <- function(query, filters=NULL, limit=50) {
   url <- powo_search_url_()
 
-  query <- list(q=query, perPage=limit)
+  query <- format_query_(query, "powo")
+  # keeping a copy of this to return in the result object
+  original_query <- query
+
+  query$perPage <- limit
   query$f <- format_filters_(filters, "powo")
 
   results <- make_request_(url, query)

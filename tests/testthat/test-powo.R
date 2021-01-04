@@ -25,6 +25,13 @@ test_that("taxon URL returns 404 for bad ID", {
   expect_equal(status_code(response), 404)
 })
 
+test_that("raises error for unimplemented keyword", {
+  query <- list(published="1920")
+
+  expect_error(search_powo(query),
+               "Query keyword.+ not recognised")
+})
+
 test_that("accepted filter only returns accepted names", {
   query <- "Myrcia"
   filters <- c("accepted")

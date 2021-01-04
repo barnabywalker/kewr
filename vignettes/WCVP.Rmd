@@ -1,0 +1,142 @@
+---
+title: "WCVP"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{WCVP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning=FALSE, message=FALSE}
+library(kewr)
+library(here)
+library(dplyr)
+```
+
+The [World Checklist of Vascular Plants (WCVP)](https://wcvp.science.kew.org/) is a global consensus view of all known vascular plant species. It has been compiled by staff at RBG Kew in consultation with plant group experts.
+
+The WCVP is a taxonomic database, and as such contains information like the taxonomic status and synonymy of plant names. It can be used for a number of tasks, including searching for all records with a particular name, getting a list of all accepted species in a genus, or looking up the accepted name for a species.
+
+## Searching WCVP for a taxon name
+
+Searching in WCVP works by exact matching. This means that a misspelled name will not return any results.
+
+For instance, searching for `Poa anua` gets nothing:
+
+```{r}
+results <- search_wcvp("Poa anua")
+results
+```
+
+But searching for the correctly spelled name will give a result:
+
+```{r}
+results <- search_wcvp("Poa annua")
+results
+```
+
+Similarly, searching with partial matching does not work:
+
+```{r}
+results <- search_wcvp("Ulex e")
+results
+```
+
+But searching for a genus name will return all taxa within that genus as well:
+
+```{r}
+results <- search_wcvp("Ulex")
+results
+```
+
+With this search result, we can see that there are 92 records for `Ulex` but the API has only returned the first 50.
+
+To get all results for this search, we can either do a second search to download the second page of results:
+
+```{r}
+ulex_page1 <- search_wcvp("Ulex")
+ulex_page2 <- search_wcvp("Ulex", page=2)
+ulex_page2
+```
+
+Or increase the maximum number of results to return:
+
+```{r}
+ulex_all <- search_wcvp("Ulex", limit=100)
+ulex_all
+```
+
+In both cases, we can format the results into a tibble to make subsequent analysis easier:
+
+```{r}
+format(ulex_all)
+```
+
+```{r}
+bind_rows(
+  format(ulex_page1),
+  format(ulex_page2)
+)
+```
+
+## Getting a list of accepted names in a genus
+
+The search function also accepts a number of keywords and filters that can be used to narrow down the results returned. A full list of keywords and filters can be found in the function documentation.
+
+An example use of these filters is retrieving a checklist of accepted species in a genus. In the search below, the `genus` keyword to retrieve all records in the genus *Myrcia*, while the filters `accepted` and `species` narrow these records down to just accepted species:
+
+```{r}
+checklist <- search_wcvp(list(genus="Myrcia"), 
+                         filters=c("accepted", "species"),
+                         limit=1000)
+
+checklist
+```
+
+## Looking up accepted names
+
+As well as searching by name, the WCVP API can be used to look up taxonomic information for a known IPNI ID. The returned information can then be used to find all synonyms for a name, find the accepted name for a taxon, or find the parent/child taxa.
+
+The IPNI ID can be found a few different ways, for example using the `KNMS` API to match a name to an IPNI ID. In this case we will find it using WCVP.
+
+```{r}
+search_result <- search_wcvp("Calyptranthes acevedoi", 
+                             filters=c("species"))
+
+ipni_id <- search_result$results[[1]]$id
+ipni_id
+```
+
+With this, we can look the record up.
+
+```{r}
+taxon_info <- lookup_wcvp(ipni_id)
+taxon_info
+```
+From this record, we can see that the name we had is a Homotypic Synonym. This record also contains the taxonomic information for the current accepted name:
+
+```{r}
+format(taxon_info, field="accepted")
+```
+
+## Downloading the whole WCVP
+
+There are cases where it might be easier to download all of the WCVP, rather than make lots of requests to it. The `download_wcvp` function lets you download the whole WCVP to whatever directory you want.
+
+```{r, eval=FALSE}
+save_path <- here()
+download_wcvp(save_path)
+```
+Previous versions of the WCVP are also available, for posterity and reproducibility. These can be downloaded by specifying which version you want.
+
+```{r, eval=FALSE}
+download_wcvp(save_path, version=1)
+```
+

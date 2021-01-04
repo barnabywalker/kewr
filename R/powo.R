@@ -14,7 +14,11 @@
 #' image locations if available. These results can be limited, for example to accepted species,
 #' using filters. See arguments for all implemented filters.
 #'
-#' @param query The string to query POWO with.
+#' @param query The string to query POWO with. If using keywords,
+#'  the query must be formatted as a list and keywords must be one or more
+#'  of `family`, `genus`, `species`, `name`, `common_name`, `author`, `characteristic`,
+#'  `summary`, `appearance`, `flower`, `fruit`, `leaf`, `inflorescence`, `seed`,
+#'  `cloning`, `use`, `distribution.`
 #' @param filters Filter to apply to search results. Can be one
 #' or more of `accepted`, `families`, `genera`, `species`,
 #' `infraspecies`, `has_images`.
@@ -32,6 +36,32 @@
 #'  * `results`: the query results parsed into a list.
 #'  * `query`: the query string submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
+#' @examples
+#' # search for all entries containing a genus name
+#' search_powo("Myrcia")
+#'
+#' # search for all accepted species within a genus
+#' search_powo("Myrcia", filters=c("species", "accepted"))
+#'
+#' # search for up to 10,000 species in a genus
+#' search_powo("Poa", filters=c("species"), limit=10000)
+#'
+#' # search for all names in a family
+#' search_powo(list(family="Myrtaceae"))
+#'
+#' # search for all accepted species with blue flowers
+#' search_wcvp(list(flowers="blue"), filters=c("accepted", "species))
+#'
+#' # search for all accepted genera in Mexico
+#' search_wcvp(list(distribution="Mexico"), filters=c("accepted", "genera"))
+#'
+#' # search for a species name and print the results
+#' r <- search_powo("Myrcia guianensis", filters=c("species"))
+#' print(r)
+#'
+#' # simplify search results to a `tibble`
+#' r <- search_powo("Poa", filters=c("species"))
+#' format(r)
 #'
 #' @family POWO functions
 #' @seealso

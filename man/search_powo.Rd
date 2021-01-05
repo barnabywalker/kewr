@@ -4,15 +4,22 @@
 \alias{search_powo}
 \title{Search POWO.}
 \usage{
-search_powo(query, filters = NULL, limit = 50)
+search_powo(query, filters = NULL, cursor = NULL, limit = 50)
 }
 \arguments{
-\item{query}{The string to query POWO with.}
+\item{query}{The string to query POWO with. If using keywords,
+the query must be formatted as a list and keywords must be one or more
+of \code{family}, \code{genus}, \code{species}, \code{name}, \code{common_name}, \code{author}, \code{characteristic},
+\code{summary}, \code{appearance}, \code{flower}, \code{fruit}, \code{leaf}, \code{inflorescence}, \code{seed},
+\code{cloning}, \code{use}, \code{distribution.}}
 
 \item{filters}{Filter to apply to search results. Can be one
 or more of \code{accepted}, \code{families}, \code{genera}, \code{species},
 \code{infraspecies}, \code{has_images}.
 Multiple filters must be supplied as a character vector.}
+
+\item{cursor}{A cursor returned by a previous search.
+If used, the query and filter must be exactly the same.}
 
 \item{limit}{The maximum number of records to return.}
 }
@@ -44,6 +51,34 @@ keyword arguments. See arguments for all implemented keywords.
 The API returns taxonomic information as well as species descriptions and
 image locations if available. These results can be limited, for example to accepted species,
 using filters. See arguments for all implemented filters.
+}
+\examples{
+# search for all entries containing a genus name
+search_powo("Myrcia")
+
+# search for all accepted species within a genus
+search_powo("Myrcia", filters=c("species", "accepted"))
+
+# search for up to 10,000 species in a genus
+search_powo("Poa", filters=c("species"), limit=10000)
+
+# search for all names in a family
+search_powo(list(family="Myrtaceae"))
+
+# search for all accepted species with blue flowers
+search_powo(list(flower="blue"), filters=c("accepted", "species"))
+
+# search for all accepted genera in Mexico
+search_powo(list(distribution="Mexico"), filters=c("accepted", "genera"))
+
+# search for a species name and print the results
+r <- search_powo("Myrcia guianensis", filters=c("species"))
+print(r)
+
+# simplify search results to a `tibble`
+r <- search_powo("Poa", filters=c("species"))
+format(r)
+
 }
 \seealso{
 \itemize{

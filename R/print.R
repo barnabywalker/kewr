@@ -41,7 +41,8 @@ print.wcvp_taxon <- function(x, ...) {
 #' @importFrom glue glue
 #' @export
 print.powo_search <- function(x, ...) {
-  message <- glue("<POWO search: '{x$query}' filters: '{x$filters}'>",
+  filters <- ifelse(is.null(x$filters), "none", x$filters)
+  message <- glue("<POWO search: '{x$query}' filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
                   "",

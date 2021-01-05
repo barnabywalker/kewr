@@ -122,3 +122,11 @@ test_that("format lookup results returns tibble", {
 
   expect_s3_class(formatted, "tbl_df")
 })
+
+test_that("cursor returns next page of resutls", {
+  query <- list(genus="Ulex")
+  page1 <- search_powo(query)
+  page2 <- search_powo(query, cursor=page1$cursor)
+
+  expect_false(page1$results[[1]]$fqId == page2$results[[1]]$fqId)
+})

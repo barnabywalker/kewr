@@ -150,7 +150,7 @@ print.ipni_publication <- function(x, ...) {
   message <- glue("<IPNI name id: {x$queryId}, type: {x$recordType}>",
                   "Title: {x$title}",
                   "Abbreviation: {x$abbreviation}",
-                  "LC Number: {x$lcNumber}",
+                  "LC Number: {ifelse(is.null(x$lcNumber), '', x$lcNumber)}",
                   "BPH Number: {x$bphNumber}",
                   "",
                   .sep="\n", .trim=FALSE)

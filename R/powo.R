@@ -23,6 +23,8 @@
 #' or more of `accepted`, `families`, `genera`, `species`,
 #' `infraspecies`, `has_images`.
 #' Multiple filters must be supplied as a character vector.
+#' @param cursor A cursor returned by a previous search.
+#'  If used, the query and filter must be exactly the same.
 #' @param limit The maximum number of records to return.
 #'
 #' @return
@@ -36,6 +38,7 @@
 #'  * `results`: the query results parsed into a list.
 #'  * `query`: the query string submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
+#'
 #' @examples
 #' # search for all entries containing a genus name
 #' search_powo("Myrcia")
@@ -50,10 +53,10 @@
 #' search_powo(list(family="Myrtaceae"))
 #'
 #' # search for all accepted species with blue flowers
-#' search_wcvp(list(flowers="blue"), filters=c("accepted", "species))
+#' search_powo(list(flower="blue"), filters=c("accepted", "species"))
 #'
 #' # search for all accepted genera in Mexico
-#' search_wcvp(list(distribution="Mexico"), filters=c("accepted", "genera"))
+#' search_powo(list(distribution="Mexico"), filters=c("accepted", "genera"))
 #'
 #' # search for a species name and print the results
 #' r <- search_powo("Myrcia guianensis", filters=c("species"))
@@ -68,7 +71,7 @@
 #'  * [lookup_powo()] to look up a taxon in POWO using the IPNI ID.
 #'
 #' @export
-search_powo <- function(query, filters=NULL, limit=50) {
+search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
   url <- powo_search_url_()
 
   query <- format_query_(query, "powo")
@@ -76,6 +79,7 @@ search_powo <- function(query, filters=NULL, limit=50) {
   original_query <- query
 
   query$perPage <- limit
+  query$cursor <- cursor
   query$f <- format_filters_(filters, "powo")
 
   results <- make_request_(url, query)
@@ -87,7 +91,7 @@ search_powo <- function(query, filters=NULL, limit=50) {
       limit=results$content$perPage,
       cursor=results$content$cursor,
       results=results$content$results,
-      query=query$q,
+      query=original_query,
       filters=query$f,
       response=results$response
     ),

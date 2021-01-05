@@ -12,7 +12,9 @@ print.wcvp_search <- function(x, ...) {
                   .sep="\n", .trim=FALSE)
 
   cat(message)
-  str(head(x$results, 1))
+  if (! is.null(x$results)) {
+    str(head(x$results, 1))
+  }
   invisible()
 }
 
@@ -49,7 +51,9 @@ print.powo_search <- function(x, ...) {
                   .sep="\n", .trim=FALSE)
 
   cat(message)
-  str(head(x$results, 1))
+  if (! is.null(x$results)) {
+    str(head(x$results, 1))
+  }
   invisible()
 }
 

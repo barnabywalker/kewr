@@ -220,7 +220,7 @@ using a valid IPNI ID.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># search for all entries containing a genus name</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Myrcia"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'Myrcia' filters: 'none'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: q='Myrcia' filters: 'none'&gt;
 #&gt; total results: 1376
 #&gt; returned results: 50
 #&gt; List of 1
@@ -236,7 +236,7 @@ using a valid IPNI ID.</p></li>
 #&gt;   ..$ rank    : chr "Genus"</div><div class='input'>
 <span class='co'># search for all accepted species within a genus</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Myrcia"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span>, <span class='st'>"accepted"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'Myrcia' filters: 'specific,accepted'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: q='Myrcia' filters: 'specific,accepted'&gt;
 #&gt; total results: 749
 #&gt; returned results: 50
 #&gt; List of 1
@@ -252,7 +252,7 @@ using a valid IPNI ID.</p></li>
 #&gt;   ..$ rank    : chr "Species"</div><div class='input'>
 <span class='co'># search for up to 10,000 species in a genus</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Poa"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span>, limit<span class='op'>=</span><span class='fl'>10000</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'Poa' filters: 'specific'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: q='Poa' filters: 'specific'&gt;
 #&gt; total results: 1985
 #&gt; returned results: 1985
 #&gt; List of 1
@@ -268,7 +268,7 @@ using a valid IPNI ID.</p></li>
 #&gt;   ..$ rank    : chr "Species"</div><div class='input'>
 <span class='co'># search for all names in a family</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>family<span class='op'>=</span><span class='st'>"Myrtaceae"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'Myrtaceae' filters: 'Myrtaceae'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: family='Myrtaceae' filters: 'Myrtaceae'&gt;
 #&gt; total results: 17483
 #&gt; returned results: 50
 #&gt; List of 1
@@ -279,22 +279,13 @@ using a valid IPNI ID.</p></li>
 #&gt;   ..$ display  : chr "&lt;i&gt;Abbevillea&lt;/i&gt; O.Berg"
 #&gt;   ..$ accepted : logi FALSE
 #&gt;   ..$ synonymOf:List of 9
-#&gt;   .. ..$ id      : chr "30000055-2"
-#&gt;   .. ..$ fqId    : chr "urn:lsid:ipni.org:names:30000055-2"
-#&gt;   .. ..$ url     : chr "/taxon/30000055-2"
-#&gt;   .. ..$ display : chr "&lt;b&gt;&lt;i&gt;Campomanesia&lt;/i&gt; Ruiz &amp; Pav.&lt;/b&gt;"
-#&gt;   .. ..$ accepted: logi TRUE
-#&gt;   .. ..$ family  : chr "Myrtaceae"
-#&gt;   .. ..$ name    : chr "Campomanesia"
-#&gt;   .. ..$ author  : chr "Ruiz &amp; Pav."
-#&gt;   .. ..$ rank    : chr "Genus"
 #&gt;   ..$ family   : chr "Myrtaceae"
 #&gt;   ..$ name     : chr "Abbevillea"
 #&gt;   ..$ author   : chr "O.Berg"
 #&gt;   ..$ rank     : chr "Genus"</div><div class='input'>
 <span class='co'># search for genera within a family</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>family<span class='op'>=</span><span class='st'>"Myrtaceae"</span><span class='op'>)</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"genera"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'Myrtaceae' filters: 'generic'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: family='Myrtaceae' filters: 'generic'&gt;
 #&gt; total results: 359
 #&gt; returned results: 50
 #&gt; List of 1
@@ -305,22 +296,13 @@ using a valid IPNI ID.</p></li>
 #&gt;   ..$ display  : chr "&lt;i&gt;Abbevillea&lt;/i&gt; O.Berg"
 #&gt;   ..$ accepted : logi FALSE
 #&gt;   ..$ synonymOf:List of 9
-#&gt;   .. ..$ id      : chr "30000055-2"
-#&gt;   .. ..$ fqId    : chr "urn:lsid:ipni.org:names:30000055-2"
-#&gt;   .. ..$ url     : chr "/taxon/30000055-2"
-#&gt;   .. ..$ display : chr "&lt;b&gt;&lt;i&gt;Campomanesia&lt;/i&gt; Ruiz &amp; Pav.&lt;/b&gt;"
-#&gt;   .. ..$ accepted: logi TRUE
-#&gt;   .. ..$ family  : chr "Myrtaceae"
-#&gt;   .. ..$ name    : chr "Campomanesia"
-#&gt;   .. ..$ author  : chr "Ruiz &amp; Pav."
-#&gt;   .. ..$ rank    : chr "Genus"
 #&gt;   ..$ family   : chr "Myrtaceae"
 #&gt;   ..$ name     : chr "Abbevillea"
 #&gt;   ..$ author   : chr "O.Berg"
 #&gt;   ..$ rank     : chr "Genus"</div><div class='input'>
 <span class='co'># search for all names with a specific epithet</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>species<span class='op'>=</span><span class='st'>"guianensis"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'guianensis' filters: 'none'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: species='guianensis' filters: 'none'&gt;
 #&gt; total results: 639
 #&gt; returned results: 50
 #&gt; List of 1
@@ -337,7 +319,7 @@ using a valid IPNI ID.</p></li>
 <span class='co'># search for a species name and print the results</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Myrcia guianensis"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;WCVP search: 'Myrcia guianensis' filters: 'specific'&gt;
+</div><div class='output co'>#&gt; &lt;WCVP search: q='Myrcia guianensis' filters: 'specific'&gt;
 #&gt; total results: 1
 #&gt; returned results: 1
 #&gt; List of 1

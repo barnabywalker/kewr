@@ -122,16 +122,18 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex europeaus"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;POWO search: 'Ulex europeaus' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: q='Ulex europeaus' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 0</span>
-<span class="co">#&gt; returned results: 0</span></code></pre></div>
+<span class="co">#&gt; returned results: 0</span>
+<span class="co">#&gt; First result:</span></code></pre></div>
 <p>But searching <code>Ulex europaeus</code> will:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex europaeus"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;POWO search: 'Ulex europaeus' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: q='Ulex europaeus' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 4</span>
 <span class="co">#&gt; returned results: 4</span>
+<span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ accepted: logi TRUE</span>
@@ -142,19 +144,7 @@
 <span class="co">#&gt;   ..$ rank    : chr "Species"</span>
 <span class="co">#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:524298-1"</span>
 <span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:524298-1"</span>
-<span class="co">#&gt;   ..$ images  :List of 3</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/e2d2d241720cf5be250f997d734ffb88.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/07fd4507b809a5d71849357024362220.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "Ulex europaeus L."</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/9f346ff4ef06c3e0bf05de1cd91e6f50.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/d45375d3d56f077b1b0e614101fdfddd.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "Ulex europaeus L."</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/bf6a381f0679ec44ad369cb757a57d8d.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/38f83049b09389cbe7ff979b9648d26a.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "Ulex europaeus L."</span></code></pre></div>
+<span class="co">#&gt;   ..$ images  :List of 3</span></code></pre></div>
 </div>
 <div id="pagination" class="section level2">
 <h2 class="hasAnchor">
@@ -163,9 +153,10 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;POWO search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: q='Ulex' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 118</span>
 <span class="co">#&gt; returned results: 100</span>
+<span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 10</span>
 <span class="co">#&gt;   ..$ accepted: logi TRUE</span>
@@ -177,19 +168,7 @@
 <span class="co">#&gt;   ..$ snippet : chr " &lt;b&gt;General&lt;/b&gt;: , &lt;em&gt;Ulex&lt;/em&gt; (Europe, mostly western, and Mediterranean region)&lt;br/&gt; &lt;b&gt;Use&lt;/b&gt;: &lt;em&gt;Ulex&lt;/"| __truncated__</span>
 <span class="co">#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:23746-1"</span>
 <span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:23746-1"</span>
-<span class="co">#&gt;   ..$ images  :List of 3</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/e2d2d241720cf5be250f997d734ffb88.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/07fd4507b809a5d71849357024362220.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "Ulex europaeus L."</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/9f346ff4ef06c3e0bf05de1cd91e6f50.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/d45375d3d56f077b1b0e614101fdfddd.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "Ulex europaeus L."</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/34aea2a7930b7058ea4e5d148000d6ae.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/f5384686aeddf046288c1499655661a1.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "Ulex europaeus"</span></code></pre></div>
+<span class="co">#&gt;   ..$ images  :List of 3</span></code></pre></div>
 <p>However, for searches with a large number of results, this may not be practical. In this case, or if you just don’t know how many results to expect, you can request the next page of results using the cursor returned as part of the results object.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ulex_page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
@@ -222,9 +201,10 @@
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
                        filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;POWO search: 'Ephedraceae' filters: 'accepted_names,species_f'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: family='Ephedraceae' filters: 'accepted_names,species_f'&gt;</span>
 <span class="co">#&gt; total results: 73</span>
 <span class="co">#&gt; returned results: 50</span>
+<span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ accepted: logi TRUE</span>
@@ -235,23 +215,17 @@
 <span class="co">#&gt;   ..$ rank    : chr "Species"</span>
 <span class="co">#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:383343-1"</span>
 <span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:383343-1"</span>
-<span class="co">#&gt;   ..$ images  :List of 1</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/cd4733d75820d9d1f00ef8f652ed200d.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/599c88e3056adb09ea40878920b245db.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "A specimen from Kew's Herbarium"</span></code></pre></div>
+<span class="co">#&gt;   ..$ images  :List of 1</span></code></pre></div>
 <p>As well as taxonomic keywords, it is possible to search by other characteristics.</p>
 <p>For example, finding all accepted legumes with blue flowers.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">blue_flowers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>flower<span class="op">=</span><span class="st">"blue"</span>, family<span class="op">=</span><span class="st">"Fabaceae"</span><span class="op">)</span>,
                             filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">blue_flowers</span>
-<span class="co">#&gt; &lt;POWO search: 'blue' filters: 'accepted_names'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: flower='blue', family='Fabaceae' filters: 'accepted_names'&gt;</span>
 <span class="co">#&gt; total results: 151</span>
 <span class="co">#&gt; returned results: 50</span>
-<span class="co">#&gt;  &lt;POWO search: 'Fabaceae' filters: 'accepted_names'&gt;</span>
-<span class="co">#&gt; total results: 151</span>
-<span class="co">#&gt; returned results: 50</span>
+<span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 10</span>
 <span class="co">#&gt;   ..$ accepted: logi TRUE</span>
@@ -263,20 +237,17 @@
 <span class="co">#&gt;   ..$ snippet : chr " &lt;b&gt;Flower&lt;/b&gt;: Standard &lt;em&gt;blue&lt;/em&gt; with yellow mark at the base, obovate, 1.4 cm"</span>
 <span class="co">#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:501291-1"</span>
 <span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:501291-1"</span>
-<span class="co">#&gt;   ..$ images  :List of 1</span>
-<span class="co">#&gt;   .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. ..$ thumbnail: chr "http://d2seqvvyy3b8p2.cloudfront.net/4f8f547043d6ba09f3446f5b69a61705.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ fullsize : chr "http://d2seqvvyy3b8p2.cloudfront.net/8848d8c21ba556af211cc58b27643213.jpg"</span>
-<span class="co">#&gt;   .. .. ..$ caption  : chr "A specimen from Kew's Herbarium"</span></code></pre></div>
+<span class="co">#&gt;   ..$ images  :List of 1</span></code></pre></div>
 <p>Another use is to get a checklist of accepted species in a country.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>distribution<span class="op">=</span><span class="st">"Mexico"</span><span class="op">)</span>,
                          filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">checklist</span>
-<span class="co">#&gt; &lt;POWO search: 'Mexico' filters: 'accepted_names'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: location='Mexico' filters: 'accepted_names'&gt;</span>
 <span class="co">#&gt; total results: 29933</span>
 <span class="co">#&gt; returned results: 50</span>
+<span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ accepted: logi TRUE</span>

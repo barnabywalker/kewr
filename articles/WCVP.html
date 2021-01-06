@@ -115,7 +115,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa anua"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: 'Poa anua' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: q='Poa anua' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 0</span>
 <span class="co">#&gt; returned results: 0</span>
 <span class="co">#&gt;  list()</span></code></pre></div>
@@ -123,7 +123,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: 'Poa annua' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: q='Poa annua' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 10</span>
 <span class="co">#&gt; returned results: 10</span>
 <span class="co">#&gt; List of 1</span>
@@ -141,7 +141,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex e"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: 'Ulex e' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: q='Ulex e' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 0</span>
 <span class="co">#&gt; returned results: 0</span>
 <span class="co">#&gt;  list()</span></code></pre></div>
@@ -149,7 +149,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: q='Ulex' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 92</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; List of 1</span>
@@ -169,7 +169,7 @@
 <code class="sourceCode R"><span class="va">ulex_page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, page<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">ulex_page2</span>
-<span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: q='Ulex' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 92</span>
 <span class="co">#&gt; returned results: 42</span>
 <span class="co">#&gt; List of 1</span>
@@ -180,15 +180,6 @@
 <span class="co">#&gt;   ..$ display  : chr "&lt;i&gt;Ulex intermedius&lt;/i&gt; Le Gall"</span>
 <span class="co">#&gt;   ..$ accepted : logi FALSE</span>
 <span class="co">#&gt;   ..$ synonymOf:List of 9</span>
-<span class="co">#&gt;   .. ..$ id      : chr "524303-1"</span>
-<span class="co">#&gt;   .. ..$ fqId    : chr "urn:lsid:ipni.org:names:524303-1"</span>
-<span class="co">#&gt;   .. ..$ url     : chr "/taxon/524303-1"</span>
-<span class="co">#&gt;   .. ..$ display : chr "&lt;b&gt;&lt;i&gt;Ulex gallii&lt;/i&gt; Planch.&lt;/b&gt;"</span>
-<span class="co">#&gt;   .. ..$ accepted: logi TRUE</span>
-<span class="co">#&gt;   .. ..$ family  : chr "Fabaceae"</span>
-<span class="co">#&gt;   .. ..$ name    : chr "Ulex gallii"</span>
-<span class="co">#&gt;   .. ..$ author  : chr "Planch."</span>
-<span class="co">#&gt;   .. ..$ rank    : chr "Species"</span>
 <span class="co">#&gt;   ..$ family   : chr "Fabaceae"</span>
 <span class="co">#&gt;   ..$ name     : chr "Ulex intermedius"</span>
 <span class="co">#&gt;   ..$ author   : chr "Le Gall"</span>
@@ -197,7 +188,7 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ulex_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">ulex_all</span>
-<span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: q='Ulex' filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 92</span>
 <span class="co">#&gt; returned results: 92</span>
 <span class="co">#&gt; List of 1</span>
@@ -259,7 +250,7 @@
                          limit<span class="op">=</span><span class="fl">1000</span><span class="op">)</span>
 
 <span class="va">checklist</span>
-<span class="co">#&gt; &lt;WCVP search: 'Myrcia' filters: 'accepted,specific'&gt;</span>
+<span class="co">#&gt; &lt;WCVP search: genus='Myrcia' filters: 'accepted,specific'&gt;</span>
 <span class="co">#&gt; total results: 749</span>
 <span class="co">#&gt; returned results: 749</span>
 <span class="co">#&gt; List of 1</span>

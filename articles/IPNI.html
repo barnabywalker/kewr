@@ -122,14 +122,14 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa anua"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Poa anua', filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: q='Poa anua', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 0</span>
 <span class="co">#&gt; returned results: 0</span></code></pre></div>
 <p>But <code>Poa annua</code> will:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Poa annua', filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: q='Poa annua', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 13</span>
 <span class="co">#&gt; returned results: 13</span>
 <span class="co">#&gt; List of 1</span>
@@ -138,13 +138,6 @@
 <span class="co">#&gt;   ..$ authors              : chr "L."</span>
 <span class="co">#&gt;   ..$ publishingAuthor     : chr "L."</span>
 <span class="co">#&gt;   ..$ authorTeam           :List of 1</span>
-<span class="co">#&gt;   .. ..$ :List of 6</span>
-<span class="co">#&gt;   .. .. ..$ name   : chr "L."</span>
-<span class="co">#&gt;   .. .. ..$ id     : chr "12653-1"</span>
-<span class="co">#&gt;   .. .. ..$ order  : int 0</span>
-<span class="co">#&gt;   .. .. ..$ type   : chr "aut"</span>
-<span class="co">#&gt;   .. .. ..$ summary: NULL</span>
-<span class="co">#&gt;   .. .. ..$ url    : chr "/a/12653-1"</span>
 <span class="co">#&gt;   ..$ rank                 : chr "spec."</span>
 <span class="co">#&gt;   ..$ url                  : chr "/n/320035-2"</span>
 <span class="co">#&gt;   ..$ family               : chr "Poaceae"</span>
@@ -155,24 +148,6 @@
 <span class="co">#&gt;   ..$ hybridGenus          : logi FALSE</span>
 <span class="co">#&gt;   ..$ inPowo               : logi TRUE</span>
 <span class="co">#&gt;   ..$ linkedPublication    :List of 18</span>
-<span class="co">#&gt;   .. ..$ abbreviation   : chr "Sp. Pl. [Linnaeus]"</span>
-<span class="co">#&gt;   .. ..$ date           : chr "1 May 1753"</span>
-<span class="co">#&gt;   .. ..$ fqId           : chr "urn:lsid:ipni.org:publications:1071-2"</span>
-<span class="co">#&gt;   .. ..$ id             : chr "1071-2"</span>
-<span class="co">#&gt;   .. ..$ lcNumber       : chr "QK91.S6"</span>
-<span class="co">#&gt;   .. ..$ recordType     : chr "publication"</span>
-<span class="co">#&gt;   .. ..$ remarks        : chr "For 2 volumes, the date of publication established as 1 May, 1753"</span>
-<span class="co">#&gt;   .. ..$ suppressed     : logi FALSE</span>
-<span class="co">#&gt;   .. ..$ title          : chr "Species Plantarum"</span>
-<span class="co">#&gt;   .. ..$ tl2Author      : chr "Linnaeus, Carl"</span>
-<span class="co">#&gt;   .. ..$ tl2Number      : chr "4.769"</span>
-<span class="co">#&gt;   .. ..$ url            : chr "/p/1071-2"</span>
-<span class="co">#&gt;   .. ..$ version        : chr "1.4"</span>
-<span class="co">#&gt;   .. ..$ hasBhlLinks    : logi TRUE</span>
-<span class="co">#&gt;   .. ..$ hasBhlTitleLink: logi TRUE</span>
-<span class="co">#&gt;   .. ..$ hasBhlPageLink : logi TRUE</span>
-<span class="co">#&gt;   .. ..$ bhlPageLink    : chr "http://www.biodiversitylibrary.org/openurl?ctx_ver=Z39.88-2004&amp;rft_id=http://www.biodiversitylibrary.org/page/3"| __truncated__</span>
-<span class="co">#&gt;   .. ..$ bhlTitleLink   : chr "http://www.biodiversitylibrary.org/openurl?ctx_ver=Z39.88-2004&amp;rft_id=http://www.biodiversitylibrary.org/biblio"| __truncated__</span>
 <span class="co">#&gt;   ..$ publication          : chr "Sp. Pl."</span>
 <span class="co">#&gt;   ..$ publicationYear      : int 1753</span>
 <span class="co">#&gt;   ..$ publicationYearNote  : chr "1 May 1753"</span>
@@ -196,7 +171,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: q='Poa', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 2929</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; List of 1</span>
@@ -224,7 +199,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span>, limit<span class="op">=</span><span class="fl">3000</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: q='Poa', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 2929</span>
 <span class="co">#&gt; returned results: 2929</span>
 <span class="co">#&gt; List of 1</span>
@@ -289,7 +264,7 @@
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
                        filters<span class="op">=</span><span class="st">"genera"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Ephedraceae', filters: 'f_generic'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: family='Ephedraceae', filters: 'f_generic'&gt;</span>
 <span class="co">#&gt; total results: 3</span>
 <span class="co">#&gt; returned results: 3</span>
 <span class="co">#&gt; List of 1</span>
@@ -298,13 +273,6 @@
 <span class="co">#&gt;   ..$ authors              : chr "J.Nelson"</span>
 <span class="co">#&gt;   ..$ publishingAuthor     : chr "J.Nelson"</span>
 <span class="co">#&gt;   ..$ authorTeam           :List of 1</span>
-<span class="co">#&gt;   .. ..$ :List of 6</span>
-<span class="co">#&gt;   .. .. ..$ name   : chr "J.Nelson"</span>
-<span class="co">#&gt;   .. .. ..$ id     : chr "6909-1"</span>
-<span class="co">#&gt;   .. .. ..$ order  : int 0</span>
-<span class="co">#&gt;   .. .. ..$ type   : chr "aut"</span>
-<span class="co">#&gt;   .. .. ..$ summary: NULL</span>
-<span class="co">#&gt;   .. .. ..$ url    : chr "/a/6909-1"</span>
 <span class="co">#&gt;   ..$ rank                 : chr "gen."</span>
 <span class="co">#&gt;   ..$ url                  : chr "/n/328161-2"</span>
 <span class="co">#&gt;   ..$ family               : chr "Ephedraceae"</span>
@@ -314,22 +282,6 @@
 <span class="co">#&gt;   ..$ hybridGenus          : logi FALSE</span>
 <span class="co">#&gt;   ..$ inPowo               : logi TRUE</span>
 <span class="co">#&gt;   ..$ linkedPublication    :List of 16</span>
-<span class="co">#&gt;   .. ..$ abbreviation   : chr "Pinaceae [Nelson]"</span>
-<span class="co">#&gt;   .. ..$ date           : chr "1866"</span>
-<span class="co">#&gt;   .. ..$ fqId           : chr "urn:lsid:ipni.org:publications:19531-2"</span>
-<span class="co">#&gt;   .. ..$ id             : chr "19531-2"</span>
-<span class="co">#&gt;   .. ..$ recordType     : chr "publication"</span>
-<span class="co">#&gt;   .. ..$ remarks        : chr "Description: 223 p. Johannes Senilis, pseudonym for John Nelson, as author"</span>
-<span class="co">#&gt;   .. ..$ suppressed     : logi FALSE</span>
-<span class="co">#&gt;   .. ..$ title          : chr "Pinaceae: Being a Handbook of the Firs and Pines. London"</span>
-<span class="co">#&gt;   .. ..$ tl2Author      : chr "Nelson, John"</span>
-<span class="co">#&gt;   .. ..$ tl2Number      : chr "6.739"</span>
-<span class="co">#&gt;   .. ..$ url            : chr "/p/19531-2"</span>
-<span class="co">#&gt;   .. ..$ version        : chr "1.4"</span>
-<span class="co">#&gt;   .. ..$ hasBhlLinks    : logi TRUE</span>
-<span class="co">#&gt;   .. ..$ hasBhlTitleLink: logi FALSE</span>
-<span class="co">#&gt;   .. ..$ hasBhlPageLink : logi TRUE</span>
-<span class="co">#&gt;   .. ..$ bhlPageLink    : chr "http://www.biodiversitylibrary.org/openurl?ctx_ver=Z39.88-2004&amp;rft_id=http://www.biodiversitylibrary.org/page/3"| __truncated__</span>
 <span class="co">#&gt;   ..$ publication          : chr "Pinaceae [Nelson]"</span>
 <span class="co">#&gt;   ..$ publicationYear      : int 1866</span>
 <span class="co">#&gt;   ..$ referenceCollation   : chr "161"</span>
@@ -352,7 +304,7 @@
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>published<span class="op">=</span><span class="fl">1989</span><span class="op">)</span>,
                        filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: '1989', filters: 'f_specific'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: published='1989', filters: 'f_specific'&gt;</span>
 <span class="co">#&gt; total results: 4248</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; List of 1</span>
@@ -361,20 +313,6 @@
 <span class="co">#&gt;   ..$ authors              : chr "Rushforth &amp; Narave"</span>
 <span class="co">#&gt;   ..$ publishingAuthor     : chr "Rushforth &amp; Narave"</span>
 <span class="co">#&gt;   ..$ authorTeam           :List of 2</span>
-<span class="co">#&gt;   .. ..$ :List of 6</span>
-<span class="co">#&gt;   .. .. ..$ name   : chr "Narave"</span>
-<span class="co">#&gt;   .. .. ..$ id     : chr "39110-1"</span>
-<span class="co">#&gt;   .. .. ..$ order  : int 1</span>
-<span class="co">#&gt;   .. .. ..$ type   : chr "aut"</span>
-<span class="co">#&gt;   .. .. ..$ summary: NULL</span>
-<span class="co">#&gt;   .. .. ..$ url    : chr "/a/39110-1"</span>
-<span class="co">#&gt;   .. ..$ :List of 6</span>
-<span class="co">#&gt;   .. .. ..$ name   : chr "Rushforth"</span>
-<span class="co">#&gt;   .. .. ..$ id     : chr "14928-1"</span>
-<span class="co">#&gt;   .. .. ..$ order  : int 0</span>
-<span class="co">#&gt;   .. .. ..$ type   : chr "aut"</span>
-<span class="co">#&gt;   .. .. ..$ summary: NULL</span>
-<span class="co">#&gt;   .. .. ..$ url    : chr "/a/14928-1"</span>
 <span class="co">#&gt;   ..$ rank                 : chr "spec."</span>
 <span class="co">#&gt;   ..$ url                  : chr "/n/271459-2"</span>
 <span class="co">#&gt;   ..$ family               : chr "Pinaceae"</span>
@@ -388,22 +326,6 @@
 <span class="co">#&gt;   ..$ hybridGenus          : logi FALSE</span>
 <span class="co">#&gt;   ..$ inPowo               : logi TRUE</span>
 <span class="co">#&gt;   ..$ linkedPublication    :List of 16</span>
-<span class="co">#&gt;   .. ..$ abbreviation   : chr "Notes Roy. Bot. Gard. Edinburgh"</span>
-<span class="co">#&gt;   .. ..$ bphNumber      : chr "668.12, BPH/S  p. 618"</span>
-<span class="co">#&gt;   .. ..$ date           : chr "Vol. 1-46, 1900-1989"</span>
-<span class="co">#&gt;   .. ..$ fqId           : chr "urn:lsid:ipni.org:publications:758-2"</span>
-<span class="co">#&gt;   .. ..$ id             : chr "758-2"</span>
-<span class="co">#&gt;   .. ..$ lcNumber       : chr "QK1.E4"</span>
-<span class="co">#&gt;   .. ..$ recordType     : chr "publication"</span>
-<span class="co">#&gt;   .. ..$ remarks        : chr "Superseded by: Edinburgh Journal of Botany"</span>
-<span class="co">#&gt;   .. ..$ suppressed     : logi FALSE</span>
-<span class="co">#&gt;   .. ..$ title          : chr "Notes from the Royal Botanic Garden, Edinburgh. Edinburgh and Glasgow"</span>
-<span class="co">#&gt;   .. ..$ url            : chr "/p/758-2"</span>
-<span class="co">#&gt;   .. ..$ version        : chr "1.2"</span>
-<span class="co">#&gt;   .. ..$ hasBhlLinks    : logi TRUE</span>
-<span class="co">#&gt;   .. ..$ hasBhlTitleLink: logi TRUE</span>
-<span class="co">#&gt;   .. ..$ hasBhlPageLink : logi FALSE</span>
-<span class="co">#&gt;   .. ..$ bhlTitleLink   : chr "http://www.biodiversitylibrary.org/openurl?ctx_ver=Z39.88-2004&amp;rft_id=http://www.biodiversitylibrary.org/biblio"| __truncated__</span>
 <span class="co">#&gt;   ..$ publication          : chr "Notes Roy. Bot. Gard. Edinburgh"</span>
 <span class="co">#&gt;   ..$ publicationYear      : int 1989</span>
 <span class="co">#&gt;   ..$ referenceCollation   : chr "46: 105, fig. 2"</span>
@@ -426,7 +348,7 @@
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>author_surname<span class="op">=</span><span class="st">"Gardiner"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Gardiner', filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: author surname='Gardiner', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 2</span>
 <span class="co">#&gt; returned results: 2</span>
 <span class="co">#&gt; List of 1</span>
@@ -451,7 +373,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Bulletin"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;IPNI search: 'Bulletin', filters: 'none'&gt;</span>
+<span class="co">#&gt; &lt;IPNI search: publication title='Bulletin', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 916</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; List of 1</span>

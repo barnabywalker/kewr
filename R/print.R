@@ -1,11 +1,16 @@
 # wcvp ----
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
 #' @importFrom utils str head
+#' 
 #' @export
 print.wcvp_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
-  message <- glue("<WCVP search: '{x$query}' filters: '{filters}'>",
+
+  query <- glue("{names(x$query)}='{x$query}'")
+  query <- glue_collapse(query, sep=", ")
+
+  message <- glue("<WCVP search: {query} filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
                   "",
@@ -13,7 +18,7 @@ print.wcvp_search <- function(x, ...) {
 
   cat(message)
   if (! is.null(x$results)) {
-    str(head(x$results, 1))
+    str(head(x$results, 1), max.level=2)
   }
   invisible()
 }
@@ -40,19 +45,26 @@ print.wcvp_taxon <- function(x, ...) {
 
 # powo ----
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
+#' @importFrom utils str head
+#' 
 #' @export
 print.powo_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
-  message <- glue("<POWO search: '{x$query}' filters: '{filters}'>",
+
+  query <- glue("{names(x$query)}='{x$query}'")
+  query <- glue_collapse(query, sep=", ")
+
+  message <- glue("<POWO search: {query} filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
+                  "First result:",
                   "",
                   .sep="\n", .trim=FALSE)
 
   cat(message)
   if (! is.null(x$results)) {
-    str(head(x$results, 1))
+    str(head(x$results, 1), max.level=2)
   }
   invisible()
 }
@@ -60,6 +72,7 @@ print.powo_search <- function(x, ...) {
 #' @importFrom glue glue
 #' @importFrom stringr str_extract
 #' @importFrom utils str
+#' 
 #' @export
 print.powo_taxon <- function(x, ...) {
   if ("accepted" %in% names(x)) {
@@ -90,11 +103,17 @@ print.powo_taxon <- function(x, ...) {
 
 # ipni ----
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
+#' @importFrom utils str head
+#' 
 #' @export
 print.ipni_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
-  message <- glue("<IPNI search: '{x$query}', filters: '{filters}'>",
+
+  query <- glue("{names(x$query)}='{x$query}'")
+  query <- glue_collapse(query, sep=", ")
+
+  message <- glue("<IPNI search: {query}, filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
                   "",
@@ -102,7 +121,7 @@ print.ipni_search <- function(x, ...) {
 
   cat(message)
   if (! is.null(x$results)) {
-    str(head(x$results, 1))
+    str(head(x$results, 1), max.level=2)
   }
   invisible()
 }

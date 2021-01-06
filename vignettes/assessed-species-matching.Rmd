@@ -41,7 +41,7 @@ library(stringr)
 library(ggplot2)
 ```
 
-## Getting assessment information
+## 1. Getting assessment information
 
 The first step in this problem is to get a list of assessed species for a country.
 
@@ -218,6 +218,8 @@ checklist <-
     by=c("ipni_id"="accepted_id")
   )
 ```
+
+## 5. Calculating the proportion of assessed species
 
 And now we can calculate the proportion of species assessed in Denmark!
 

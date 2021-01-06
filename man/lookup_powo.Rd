@@ -37,17 +37,19 @@ lookup_powo("271445-2")
 r <- lookup_powo("271445-2")
 print(r)
 
-# format the top-level information into a tibble
+# format returned record into a tibble
 r <- lookup_powo("271445-2")
 format(r)
 
 # format the returned list of synonyms into a tibble
 r <- lookup_wcvp("60447743-2")
-format(r, field="synonyms")
+formatted <- format(r)
+tidyr::unnest(formatted, cols=synonyms, names_sep="_")
 
 # format the returned list of children into a tibble
 r <- lookup_wcvp("30000055-2")
-format(r, field="children")
+formatted <- format(r)
+tidyr::unnest(formatted, cols=children, names_sep="_")
 
 }
 \seealso{

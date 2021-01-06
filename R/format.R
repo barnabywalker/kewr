@@ -104,6 +104,7 @@ parse_nested_list <- function(l) {
 #'
 #' @importFrom stringr str_extract
 #' @importFrom dplyr na_if
+#' @importFrom tibble tibble
 #'
 #' @noRd
 parse_knms_line <- function(line) {

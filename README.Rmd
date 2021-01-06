@@ -43,155 +43,71 @@ kewr is not on CRAN yet but you can install the latest development version from 
 devtools::install_github("barnabywalker/kewr")
 ```
 
-## Examples
+## Usage
 
-Entities in Kew's taxonomic APIs are linked together across databases by a unique identifier. The unique identifier refers to an individual name and is given to that name when it is added to the IPNI database, so is called the IPNI ID.
+Functions in this package all start with a prefix specifying what action you want to perform and a suffix referring to the resource.
 
-IPNI IDs can be used to directly look up information for a name in WCVP, POW, and IPNI. These three APIs can also be queried using a taxonomic name, or with keyword arguments. The Kew Names Matching service accepts names and will return potential matches along with their IPNI ID.
+Three of the resources (POWO, WCVP, and IPNI) are databases storing flora, taxonomic, or nomenclatural information. These three resources all have a `search_*` and `lookup_*`.
 
-### WCVP
+### Retrieving records
 
-To lookup taxonomic information for a particular IPNI ID:
-
-``` r
-info <- lookup_wcvp("271445-2")
-print(info)
-```
-
-To search WCVP by name:
+The `lookup_` functions can be used to retrieve a particular record by its unique IPNI ID:
 
 ``` r
-results <- search_wcvp("Myrcia guianensis")
-print(results)
+lookup_powo("320035-2")
+lookup_wcvp("320035-2")
+lookup_ipni("320035-2")
 ```
 
-To get all accepted species in a genus:
+IPNI contains records for authors and publications, which can also be retrieved using the `lookup_ipni` function:
 
-```r
-results <- search_wcvp(list(genus="Myrcia"), filters=c("accepted"))
-print(results)
+``` r
+lookup_ipni("20885-1", type="author")
+lookup_ipni("987-2", type="publication")
 ```
 
-The search and lookup results can be formatted as tibbles:
+### Searching databases
 
-```r
-format(results, synonyms="simplify")
-format(info)
+All three of these databases can be searched as well:
+
+``` r
+search_powo("Poa annua")
+search_wcvp("Poa annua")
+search_ipni("Poa annua")
+```
+And all use filters and keywords for more advanced searches:
+
+``` r
+search_powo(list(genus="Poa", distribution="Madagascar"), 
+            filters=c("accepted", "species"))
+search_wcvp(list(genus="Poa"), filters=c("accepted", "species"))
+search_ipni(list(genus="Poa", published=1920),
+            filters=c("species"))
 ```
 
-It is also possible to just download a zip file containing the latest version of WCVP:
+### Downloading the WCVP
+
+The whole of WCVP can be download to a directory using:
 
 ``` r
 download_wcvp()
 ```
 
-### POWO
+### Matching names
 
-The interface to POWO is very similar to WCVP, except it returns slightly different information and field names.
-
-To lookup taxonomic information for a particular IPNI ID:
-
-``` r
-info <- lookup_powo("271445-2")
-print(info)
-```
-
-POWO contains distribution data for many taxa, which we can request using the lookup function:
-
-``` r
-info <- lookup_powo("271445-2")
-print(info)
-```
-
-To search POWO by name:
-
-``` r
-results <- search_powo("Myrcia guianensis")
-print(results)
-```
-
-To get all accepted species in a genus:
-
-``` r
-results <- search_powo(list(genus="Myrcia"), filters=c("accepted"))
-print(results)
-```
-
-Looking at the documentation for the POWO API, it uses a cursor for pagination. To keep things the similar between the POWO and WCVP interfaces, I haven't implemented this yet. Simple pagination is implemented by changing the maximum number of results returned.
-
-``` r
-results <- search_powo(list(distribution="Mexico"), filters=c("accepted"), limit=200)
-print(results)
-```
-
-The search and lookup results can be formatted as tibbles:
+The KNMS resource is only used for matching names to records in POWO/WCVP:
 
 ```r
-format(results, synonyms="simplify")
-format(info)
-format(info, field="distribution")
+match_knms(c("Poa annua", "Magnolia grandifolia", "Bulbophyllum sp."))
 ```
 
-### IPNI
+### Formatting results
 
-The interface for IPNI is similar to WCVP and POWO.
+Each function in this package returns an object that stores the original response as well as the content of the response parsed into a list. This is to give the user as much flexibility as possible and to make debugging things a bit easier.
 
-There are three different types of record that you can look up in IPNI: taxon, author, or publication.
-
-To look up a taxon citation with an IPNI ID:
+But this can be hard to use, so all the results objects can be formatted as a `tibble`:
 
 ``` r
-info <- lookup_ipni("271445-2", type="taxon")
-print(info)
-```
-
-To look up an author with an IPNI ID:
-
-``` r
-info <- lookup_ipni("30001404-2", type="author")
-print(info)
-```
-
-To look up a publication with an IPNI ID:
-
-``` r
-info <- lookup_ipni("987-2", type="publication")
-print(info)
-```
-
-IPNI can also be searched by name:
-
-``` r
-results <- search_ipni("Myrcia guianensis")
-print(results)
-```
-
-Or using keywords, for instance to get all family names published in 1989:
-
-``` r
-results <- search_ipni(list(published="1989"), filters=c("families"))
-print(results)
-```
-
-The search and lookup results can also be formatted as tibbles:
-
-```r
+results <- search_powo("Poa annua")
 format(results)
-format(info)
-```
-
-### KNMS
-
-Multiple names can be submitted to the Kew Names Matching Service at once:
-
-``` r
-names <- c("Myrcia guianensis", "Poa annua L.", "Psidium sp.")
-matches <- match_knms(names)
-print(matches)
-```
-
-The raw results from KNMS are returned without column headers, and can be a little difficult to understand. They can be formatted into a nice tibble though:
-
-``` r
-format(matches)
 ```

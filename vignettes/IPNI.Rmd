@@ -1,0 +1,130 @@
+---
+title: "IPNI"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{IPNI}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(kewr)
+library(dplyr)
+```
+
+The [International Plant Names Index (IPNI)](https://www.ipni.org/) is a service that provides nomenclatural information for vascular plant names.
+
+It provides information on published plant names, as well as authors and publications. The type of information that it holds for plant names includes when it was published, the publication, the author, as well as any nomenclatural remarks.
+
+## Searching IPNI for a record
+
+Searching for IPNI operates on exact matching.
+
+For example, `Poa anua` will not return any results:
+
+```{r}
+results <- search_ipni("Poa anua")
+results
+```
+But `Poa annua` will:
+
+```{r}
+results <- search_ipni("Poa annua")
+results
+```
+
+The exact matching does, however, work on fragments of a name. For instance, `Poa` will return results for the everything that includes that term:
+
+```{r}
+results <- search_ipni("Poa")
+results
+```
+It should be noted that this will return results for authors and publications as well as taxon names. We can see the first result for this search is the publication "Poa de France, Begique et Suisse".
+
+## Pagination
+
+Looking at the search above, we can see that there were a total of `r results$total` records found but only the first `r results$limit` were returned. There are two possible ways to get the rest of the search results.
+
+The first is to increase the record limit to ensure we get everything:
+
+```{r}
+results <- search_ipni("Poa", limit=3000)
+results
+```
+
+But this might not always be ideal. For instance, if we don't know how many records a search will return, or if the search will return a large number of records.
+
+In those cases, we can ask IPNI for the next page of results.
+
+```{r}
+query <- "Poa"
+page1 <- search_ipni(query)
+page2 <- search_ipni(query, page=2)
+
+bind_rows(
+  format(page1),
+  format(page2)
+)
+```
+
+## Keywords and filtering
+
+You can perform more complicated searches using keywords and filters.
+For example, you can search for all genera names published for a particular family.
+
+```{r}
+results <- search_ipni(list(family="Ephedraceae"), 
+                       filters="genera")
+results
+```
+
+Or for all species names published in a particular year.
+
+```{r}
+results <- search_ipni(list(published=1989),
+                       filters=c("species"))
+results
+```
+
+You can also use the keywords to search for author records.
+
+```{r}
+results <- search_ipni(list(author_surname="Gardiner"))
+
+results
+```
+And for publication records.
+
+```{r}
+results <- search_ipni(list(title="Bulletin"))
+results
+```
+
+
+A full list of keywords and filters can be found in the help page for `search_ipni`.
+
+## Looking up a specific record
+
+Specific records for taxon names, authors, and publications can be looked up using the IPNI ID. These IDs are specific to each individual type of record, so the type needs provided.
+
+```{r}
+name <- lookup_ipni("385169-1", type="taxon")
+name
+```
+
+```{r}
+author <- lookup_ipni("20028192-1", type="author")
+author
+```
+
+```{r}
+pub <- lookup_ipni("12471-2", type="publication")
+pub
+```

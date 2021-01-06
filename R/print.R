@@ -12,7 +12,9 @@ print.wcvp_search <- function(x, ...) {
                   .sep="\n", .trim=FALSE)
 
   cat(message)
-  str(head(x$results, 1))
+  if (! is.null(x$results)) {
+    str(head(x$results, 1))
+  }
   invisible()
 }
 
@@ -49,7 +51,9 @@ print.powo_search <- function(x, ...) {
                   .sep="\n", .trim=FALSE)
 
   cat(message)
-  str(head(x$results, 1))
+  if (! is.null(x$results)) {
+    str(head(x$results, 1))
+  }
   invisible()
 }
 
@@ -146,7 +150,7 @@ print.ipni_publication <- function(x, ...) {
   message <- glue("<IPNI name id: {x$queryId}, type: {x$recordType}>",
                   "Title: {x$title}",
                   "Abbreviation: {x$abbreviation}",
-                  "LC Number: {x$lcNumber}",
+                  "LC Number: {ifelse(is.null(x$lcNumber), '', x$lcNumber)}",
                   "BPH Number: {x$bphNumber}",
                   "",
                   .sep="\n", .trim=FALSE)

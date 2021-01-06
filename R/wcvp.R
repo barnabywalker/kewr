@@ -174,6 +174,14 @@ lookup_wcvp <- function(taxonid) {
   record$response <- result$response
   record$queryId <- taxonid
 
+  # fill in status if unplaced
+  status <- record$status
+  record$status <- ifelse(is.null(status), "unplaced", status)
+
+  # make sure author string is not null
+  authors <- record$authors
+  record$authors <- ifelse(is.null(authors), NA_character_, authors)
+
   structure(
     record,
     class="wcvp_taxon"

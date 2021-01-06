@@ -1,0 +1,115 @@
+---
+title: "POWO"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{POWO}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+[Plants of the World Online (POWO)](http://www.plantsoftheworldonline.org/) is a database of information on the world's flora. It curates information from published floras and other sources of floristic information. POWO covers much of the same grounds as WCVP - you can get taxonomic information for names from it. But it also has more general information about taxa, like descriptions, lifeforms, images, and distributions.
+
+```{r setup}
+library(kewr)
+library(dplyr)
+```
+
+
+## Searching POWO for taxa
+
+Searching POWO works by exact matching, so any mispellings or unrecognised orthographic variants will not be matched.
+
+For example, searching `Ulex europeaus` will not return any results:
+
+```{r}
+results <- search_powo("Ulex europeaus")
+results
+```
+
+But searching `Ulex europaeus` will:
+
+```{r}
+results <- search_powo("Ulex europaeus")
+results
+```
+
+## Pagination
+
+By default, `search_powo` limits the number of results returned to 50. If you are expecting more results, you can increase this limit.
+
+```{r}
+results <- search_powo("Ulex", limit=100)
+results
+```
+
+However, for searches with a large number of results, this may not be practical. In this case, or if you just don't know how many results to expect, you can request the next page of results using the cursor returned as part of the results object.
+
+```{r}
+ulex_page1 <- search_powo("Ulex")
+ulex_page2 <- search_powo("Ulex", cursor=ulex_page1$cursor)
+
+bind_rows(
+  format(ulex_page1),
+  format(ulex_page2)
+)
+```
+
+## Keyword searches and filtering
+
+You can perform more complicated searches using keywords and filters.
+For example, you can search for all accepted species in a particular family.
+
+```{r}
+results <- search_powo(list(family="Ephedraceae"), 
+                       filters=c("accepted", "species"))
+results
+```
+
+As well as taxonomic keywords, it is possible to search by other characteristics.
+
+For example, finding all accepted legumes with blue flowers.
+
+```{r}
+blue_flowers <- search_powo(list(flower="blue", family="Fabaceae"),
+                            filters=c("accepted"))
+blue_flowers
+```
+
+Another use is to get a checklist of accepted species in a country.
+
+```{r}
+checklist <- search_powo(list(distribution="Mexico"),
+                         filters=c("accepted"))
+
+checklist
+```
+
+A full list of keywords and filters can be found in the help page for `search_powo`. 
+
+## Looking up information about a taxon
+
+As well as searching by keyword, it is possible to use the IPNI ID of a taxon to look up its record in POWO. To get the IPNI ID, you can search WCVP, POWO, or IPNI, or use KNMS to find matches for the name.
+
+```{r}
+ipni_id <- "119003-2"
+
+record <- lookup_powo(ipni_id)
+record
+```
+
+Optionally, you can choose to request the distribution information for the taxon as well.
+
+```{r}
+record <- lookup_powo(ipni_id, distribution=TRUE)
+
+record %>%
+  format(field="distribution") %>%
+  filter(establishment == "Native")
+```

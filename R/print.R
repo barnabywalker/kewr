@@ -1,7 +1,8 @@
 # wcvp ----
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
 #' @importFrom utils str head
+#' 
 #' @export
 print.wcvp_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
@@ -44,7 +45,9 @@ print.wcvp_taxon <- function(x, ...) {
 
 # powo ----
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
+#' @importFrom utils str head
+#' 
 #' @export
 print.powo_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
@@ -69,6 +72,7 @@ print.powo_search <- function(x, ...) {
 #' @importFrom glue glue
 #' @importFrom stringr str_extract
 #' @importFrom utils str
+#' 
 #' @export
 print.powo_taxon <- function(x, ...) {
   if ("accepted" %in% names(x)) {
@@ -99,7 +103,9 @@ print.powo_taxon <- function(x, ...) {
 
 # ipni ----
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
+#' @importFrom utils str head
+#' 
 #' @export
 print.ipni_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)

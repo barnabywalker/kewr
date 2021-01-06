@@ -59,8 +59,8 @@ search_powo("Myrcia")
 # search for all accepted species within a genus
 search_powo("Myrcia", filters=c("species", "accepted"))
 
-# search for up to 10,000 species in a genus
-search_powo("Poa", filters=c("species"), limit=10000)
+# search for up to 100 species in a genus
+search_powo("Poa", filters=c("species"), limit=100)
 
 # search for all names in a family
 search_powo(list(family="Myrtaceae"))

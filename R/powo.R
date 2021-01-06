@@ -46,8 +46,8 @@
 #' # search for all accepted species within a genus
 #' search_powo("Myrcia", filters=c("species", "accepted"))
 #'
-#' # search for up to 10,000 species in a genus
-#' search_powo("Poa", filters=c("species"), limit=10000)
+#' # search for up to 100 species in a genus
+#' search_powo("Poa", filters=c("species"), limit=100)
 #'
 #' # search for all names in a family
 #' search_powo(list(family="Myrtaceae"))
@@ -127,17 +127,19 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
 #' r <- lookup_powo("271445-2")
 #' print(r)
 #'
-#' # format the top-level information into a tibble
+#' # format returned record into a tibble
 #' r <- lookup_powo("271445-2")
 #' format(r)
 #'
 #' # format the returned list of synonyms into a tibble
 #' r <- lookup_wcvp("60447743-2")
-#' format(r, field="synonyms")
+#' formatted <- format(r)
+#' tidyr::unnest(formatted, cols=synonyms, names_sep="_")
 #'
 #' # format the returned list of children into a tibble
 #' r <- lookup_wcvp("30000055-2")
-#' format(r, field="children")
+#' formatted <- format(r)
+#' tidyr::unnest(formatted, cols=children, names_sep="_")
 #'
 #' @family POWO functions
 #' @seealso

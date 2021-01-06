@@ -87,11 +87,8 @@ format(r)
 # accepted name info is nested inside the records for synonyms
 # simplify accepted name info to the name ID
 r <- search_wcvp("Poa", filters=c("species"))
-format(r, synonyms="simplify")
-
-# expand accepted name info
-r <- search_wcvp("Poa", filters=c("species"))
-format(r, synonyms="expand")
+formatted <- format(r)
+tidyr::unnest(formatted, cols=synonymOf, names_sep="_")
 
 }
 \references{

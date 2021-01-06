@@ -123,7 +123,8 @@ taxon_info
 From this record, we can see that the name we had is a Homotypic Synonym. This record also contains the taxonomic information for the current accepted name:
 
 ```{r}
-format(taxon_info, field="accepted")
+formatted <- format(taxon_info)
+formatted$accepted[[1]]
 ```
 
 ## Downloading the whole WCVP

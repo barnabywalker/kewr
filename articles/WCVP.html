@@ -214,39 +214,39 @@
 <p>In both cases, we can format the results into a tibble to make subsequent analysis easier:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 240 x 10</span>
-<span class="co">#&gt;    id     fqId     url    display   accepted family name  author rank  synonymOf</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;named l&gt;</span>
-<span class="co">#&gt;  1 23746… urn:lsi… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex  L.     Genus &lt;NULL&gt;   </span>
-<span class="co">#&gt;  2 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  3 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  4 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  5 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  6 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;lgl [1]&gt;</span>
-<span class="co">#&gt;  7 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  8 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  9 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt; 10 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt; # … with 230 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 92 x 10</span>
+<span class="co">#&gt;    id     fqId   url    display   accepted family name   author  rank  synonymOf</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;list&gt;   </span>
+<span class="co">#&gt;  1 23746… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex   L.      Genus &lt;NULL&gt;   </span>
+<span class="co">#&gt;  2 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Webb    Spec… &lt;tibble …</span>
+<span class="co">#&gt;  3 99344… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Esp.Sa… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  4 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Link e… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  5 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Welw. … Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  6 77196… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  7 52427… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Mabille Spec… &lt;tibble …</span>
+<span class="co">#&gt;  8 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Clemen… Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  9 77208… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; 10 99344… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … (Planc… Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 302 x 10</span>
-<span class="co">#&gt;    id     fqId     url    display   accepted family name  author rank  synonymOf</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;named l&gt;</span>
-<span class="co">#&gt;  1 23746… urn:lsi… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex  L.     Genus &lt;NULL&gt;   </span>
-<span class="co">#&gt;  2 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  3 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  4 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  5 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  6 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;lgl [1]&gt;</span>
-<span class="co">#&gt;  7 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  8 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt;  9 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt; 10 52426… urn:lsi… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex… Webb   Spec… &lt;chr [1]&gt;</span>
-<span class="co">#&gt; # … with 292 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 92 x 10</span>
+<span class="co">#&gt;    id     fqId   url    display   accepted family name   author  rank  synonymOf</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;list&gt;   </span>
+<span class="co">#&gt;  1 23746… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex   L.      Genus &lt;NULL&gt;   </span>
+<span class="co">#&gt;  2 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Webb    Spec… &lt;tibble …</span>
+<span class="co">#&gt;  3 99344… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Esp.Sa… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  4 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Link e… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  5 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Welw. … Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  6 77196… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  7 52427… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Mabille Spec… &lt;tibble …</span>
+<span class="co">#&gt;  8 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Clemen… Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  9 77208… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; 10 99344… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … (Planc… Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
 </div>
 <div id="getting-a-list-of-accepted-names-in-a-genus" class="section level2">
 <h2 class="hasAnchor">
@@ -299,7 +299,8 @@
 <span class="co">#&gt; Synonyms: 0</span></code></pre></div>
 <p>From this record, we can see that the name we had is a Homotypic Synonym. This record also contains the taxonomic information for the current accepted name:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">taxon_info</span>, field<span class="op">=</span><span class="st">"accepted"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">formatted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">taxon_info</span><span class="op">)</span>
+<span class="va">formatted</span><span class="op">$</span><span class="va">accepted</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="co">#&gt; # A tibble: 1 x 9</span>
 <span class="co">#&gt;   id     fqId      url     display        accepted family name   author    rank </span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;          &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;</span>

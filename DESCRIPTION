@@ -18,7 +18,7 @@ Suggests:
     knitr,
     rmarkdown,
     ggplot2
-URL: https://github.com/barnabywalker/kewr
+URL: https://barnabywalker.github.io/kewr/, https://github.com/barnabywalker/kewr
 BugReports: https://github.com/barnabywalker/kewr/issues
 Imports: 
     httr,

@@ -2,7 +2,7 @@
 #'
 #' @param resource The resource being queried.
 #'
-#' @return A character vector of filter names.
+#' @return A named character vector of keywords.
 #'
 #' @noRd
 get_keywords_ <- function(resource=c("wcvp", "powo", "ipni")) {

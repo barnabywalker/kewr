@@ -1,108 +1,32 @@
 # wcvp ----
 #' @importFrom purrr map_dfr
-#' @importFrom dplyr bind_cols
-#' @importFrom tibble as_tibble tibble
+#'
 #' @export
-format.wcvp_search <- function(x, synonyms=c("ignore", "simplify", "expand"), ...) {
-  synonyms <- match.arg(synonyms)
-
-  if (synonyms == "ignore") {
-    fcn <- as_tibble
-  } else if (synonyms == "simplify") {
-    fcn <- function(r) {
-      synonym_id <- r$synonymOf$id
-      r$synonymOf <- NULL
-      formatted <- as_tibble(r)
-      formatted$synonymOf <- synonym_id
-
-      formatted
-    }
-  } else if (synonyms == "expand") {
-    fcn <- function(r) {
-      synonym_col <- as_tibble(
-        r$synonymOf,
-        .name_repair=~paste0("synonymOf_", .x)
-      )
-      r$synonymOf <- NULL
-      formatted <- as_tibble(r)
-      bind_cols(r, synonym_col)
-    }
-  }
-
-  map_dfr(x$results, fcn)
+format.wcvp_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list)
 }
 
-#' @importFrom purrr map_lgl map_dfr pluck
-#' @importFrom tibble as_tibble tibble
 #' @export
-format.wcvp_taxon <- function(x, field=c("none", "accepted", "synonyms", "parent", "children", "hierarchy"), ...) {
-  field <- match.arg(field)
-  if (field == "none") {
-    x$response <- NULL
-    x$queryId <- NULL
+format.wcvp_taxon <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
 
-    list_field <- map_lgl(x, is.list)
-    x <- x[! list_field]
-
-    null_field <- map_lgl(x, is.null)
-    x[null_field] <- NA_character_
-
-    as_tibble(x)
-  } else if (field %in% c("parent", "accepted")) {
-    x <- pluck(x, field)
-
-    as_tibble(x)
-  } else {
-    x <- pluck(x, field)
-
-    map_dfr(x, as_tibble)
-  }
+  parse_nested_list(x)
 }
 
 # powo ----
 
 #' @importFrom purrr map_dfr
-#' @importFrom tibble as_tibble tibble
 #'
 #' @export
 format.powo_search <- function(x, ...) {
-  map_dfr(x$results, as_tibble)
+  map_dfr(x$results, parse_nested_list)
 }
 
-#' @importFrom purrr map_lgl map_dfr pluck
-#' @importFrom tibble as_tibble tibble
 #' @export
 format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classification", "basionym", "distribution", "distributionEnvelope"), ...) {
-  field <- match.arg(field)
-  if (field == "none") {
-    x$response <- NULL
-    x$queryId <- NULL
+  x <- x[! names(x) %in% c("response", "queryId")]
 
-    list_field <- map_lgl(x, is.list)
-    x <- x[! list_field]
-
-    null_field <- map_lgl(x, is.null)
-    x[null_field] <- NA_character_
-
-    as_tibble(x)
-  } else if (field %in% c("accepted")) {
-    x <- pluck(x, field)
-
-    as_tibble(x)
-  } else if (field %in% c("distribution")) {
-    x <- pluck(x, field)
-
-
-    map_dfr(x, ~map_dfr(.x, as_tibble))
-  } else {
-    x <- pluck(x, field)
-
-    if (field == "distributionEnvelope") {
-      warning("Unknown CRS, use with caution...")
-    }
-
-    map_dfr(x, as_tibble)
-  }
+  parse_nested_list(x)
 }
 
 # ipni ----
@@ -110,14 +34,17 @@ format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classi
 #' @importFrom purrr map_dfr
 #'
 #' @export
+format.ipni_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list)
+}
+
+#' @export
 format.ipni_citation <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
 
   parse_nested_list(x)
 }
 
-#' @importFrom purrr map_dfr
-#'
 #' @export
 format.ipni_author <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
@@ -125,8 +52,6 @@ format.ipni_author <- function(x, ...) {
   parse_nested_list(x)
 }
 
-#' @importFrom purrr map_dfr
-#'
 #' @export
 format.ipni_publication <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
@@ -134,12 +59,23 @@ format.ipni_publication <- function(x, ...) {
   parse_nested_list(x)
 }
 
-#' @importFrom purrr map_dfr
+# knms ----
+
+#' @importFrom purrr map_lgl map_dfr pluck
+#' @importFrom tidyr fill
+#' @importFrom rlang .data
 #'
 #' @export
-format.ipni_search <- function(x, ...) {
-  map_dfr(x$results, parse_nested_list)
+format.knms_match <- function(x, ...) {
+  parsed <- map_dfr(x$results, parse_knms_line)
+
+  formatted <- fill(parsed, .data$submitted, .data$matched)
+  formatted$matched <- formatted$matched %in% c("true", "multiple_matches")
+
+  formatted
 }
+
+# utils ----
 
 #' Simple utility to wrap nested lists into a tibble.
 #'
@@ -164,22 +100,8 @@ parse_nested_list <- function(l) {
   as_tibble_row(l)
 }
 
-# knms ----
-
-#' @importFrom purrr map_lgl map_dfr pluck
-#' @importFrom tidyr fill
-#' @importFrom rlang .data
+#' Parse and format a single match result from KNMS.
 #'
-#' @export
-format.knms_match <- function(x, ...) {
-  parsed <- map_dfr(x$results, parse_knms_line)
-
-  formatted <- fill(parsed, .data$submitted, .data$matched)
-  formatted$matched <- formatted$matched %in% c("true", "multiple_matches")
-
-  formatted
-}
-
 #' @importFrom stringr str_extract
 #' @importFrom dplyr na_if
 #'

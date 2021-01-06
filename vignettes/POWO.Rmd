@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(kewr)
 library(dplyr)
+library(tidyr)
 ```
 
 
@@ -109,7 +110,11 @@ Optionally, you can choose to request the distribution information for the taxon
 ```{r}
 record <- lookup_powo(ipni_id, distribution=TRUE)
 
-record %>%
-  format(field="distribution") %>%
-  filter(establishment == "Native")
+formatted <- format(record)
+
+formatted %>%
+  select(fqId, distribution) %>%
+  unnest(cols=distribution) %>%
+  select(-introduced) %>%
+  unnest(cols=natives)
 ```

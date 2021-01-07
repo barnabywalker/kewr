@@ -85,15 +85,17 @@
 #'  * [download_wcvp()] to download the entire WCVP.
 #'
 #' @export
-search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
+search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
   url <- wcvp_search_url_()
 
-  query <- format_query_(query, "wcvp")
   # keeping a copy of this to return in the result object
   original_query <- query
 
+  query <- format_query_(query, "wcvp")
+
   query$page <- page
   query$limit <- limit
+
   query$f <- format_filters_(filters, "wcvp")
 
   results <- make_request_(url, query)
@@ -105,7 +107,7 @@ search_wcvp <- function(query, filters=NULL, page=0, limit=50) {
       limit=results$content$limit,
       results=results$content$results,
       query=original_query,
-      filters=query$f,
+      filters=filters,
       response=results$response
     ),
     class="wcvp_search"

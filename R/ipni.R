@@ -69,9 +69,10 @@
 search_ipni <- function(query, filters=NULL, page=1, limit=50) {
   url <- ipni_search_url_()
 
-  query <- format_query_(query, "ipni")
   # keeping a copy of this to return in the result object
   original_query <- query
+
+  query <- format_query_(query, "ipni")
 
   query$perPage <- limit
   query$page <- page
@@ -83,10 +84,11 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50) {
     list(
       total=results$content$totalResults,
       pages=results$content$totalPages,
+      page=results$content$page,
       limit=results$content$perPage,
       results=results$content$results,
       query=original_query,
-      filters=query$f,
+      filters=filters,
       response=results$response
     ),
     class="ipni_search"

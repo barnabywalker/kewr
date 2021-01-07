@@ -4,7 +4,7 @@
 \alias{search_wcvp}
 \title{Search WCVP for a taxon.}
 \usage{
-search_wcvp(query, filters = NULL, page = 0, limit = 50)
+search_wcvp(query, filters = NULL, page = 1, limit = 50)
 }
 \arguments{
 \item{query}{The taxon string to search WCVP for. If using keywords,

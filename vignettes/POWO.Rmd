@@ -50,11 +50,11 @@ results <- search_powo("Ulex", limit=100)
 results
 ```
 
-However, for searches with a large number of results, this may not be practical. In this case, or if you just don't know how many results to expect, you can request the next page of results using the cursor returned as part of the results object.
+However, for searches with a large number of results, this may not be practical. In this case, or if you just don't know how many results to expect, you can request the next page of results.
 
 ```{r}
 ulex_page1 <- search_powo("Ulex")
-ulex_page2 <- search_powo("Ulex", cursor=ulex_page1$cursor)
+ulex_page2 <- request_next(ulex_page1)
 
 bind_rows(
   format(ulex_page1),

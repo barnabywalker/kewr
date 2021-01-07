@@ -66,7 +66,7 @@ In those cases, we can ask IPNI for the next page of results.
 ```{r}
 query <- "Poa"
 page1 <- search_ipni(query)
-page2 <- search_ipni(query, page=2)
+page2 <- request_next(page1)
 
 bind_rows(
   format(page1),

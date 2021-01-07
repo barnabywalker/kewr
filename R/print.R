@@ -2,17 +2,23 @@
 
 #' @importFrom glue glue glue_collapse
 #' @importFrom utils str head
-#' 
+#'
 #' @export
 print.wcvp_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
 
-  query <- glue("{names(x$query)}='{x$query}'")
-  query <- glue_collapse(query, sep=", ")
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
 
   message <- glue("<WCVP search: {query} filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
+                  "total pages: {x$pages}",
+                  "current page: {x$page}",
                   "",
                   .sep="\n", .trim=FALSE)
 
@@ -47,17 +53,22 @@ print.wcvp_taxon <- function(x, ...) {
 
 #' @importFrom glue glue glue_collapse
 #' @importFrom utils str head
-#' 
+#'
 #' @export
 print.powo_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
 
-  query <- glue("{names(x$query)}='{x$query}'")
-  query <- glue_collapse(query, sep=", ")
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
 
   message <- glue("<POWO search: {query} filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
+                  "total pages: {x$pages}",
                   "First result:",
                   "",
                   .sep="\n", .trim=FALSE)
@@ -72,7 +83,7 @@ print.powo_search <- function(x, ...) {
 #' @importFrom glue glue
 #' @importFrom stringr str_extract
 #' @importFrom utils str
-#' 
+#'
 #' @export
 print.powo_taxon <- function(x, ...) {
   if ("accepted" %in% names(x)) {
@@ -105,17 +116,23 @@ print.powo_taxon <- function(x, ...) {
 
 #' @importFrom glue glue glue_collapse
 #' @importFrom utils str head
-#' 
+#'
 #' @export
 print.ipni_search <- function(x, ...) {
   filters <- ifelse(is.null(x$filters), "none", x$filters)
 
-  query <- glue("{names(x$query)}='{x$query}'")
-  query <- glue_collapse(query, sep=", ")
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
 
   message <- glue("<IPNI search: {query}, filters: '{filters}'>",
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
+                  "total pages: {x$pages}",
+                  "current page: {x$page}",
                   "",
                   .sep="\n", .trim=FALSE)
 

@@ -89,12 +89,11 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
     list(
       total=results$content$totalResults,
       pages=results$content$totalPages,
-      page=results$content$page,
       limit=results$content$perPage,
       cursor=results$content$cursor,
       results=results$content$results,
       query=original_query,
-      filters=query$f,
+      filters=filters,
       response=results$response
     ),
     class="powo_search"

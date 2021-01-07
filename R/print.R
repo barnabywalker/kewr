@@ -69,7 +69,6 @@ print.powo_search <- function(x, ...) {
                   "total results: {x$total}",
                   "returned results: {length(x$results)}",
                   "total pages: {x$pages}",
-                  "current page: {x$page}",
                   "First result:",
                   "",
                   .sep="\n", .trim=FALSE)

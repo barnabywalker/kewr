@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -115,17 +115,11 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa anua"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: q='Poa anua' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 0</span>
-<span class="co">#&gt; returned results: 0</span>
 <span class="co">#&gt;  list()</span></code></pre></div>
 <p>But searching for the correctly spelled name will give a result:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: q='Poa annua' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 10</span>
-<span class="co">#&gt; returned results: 10</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "320035-2"</span>
@@ -141,17 +135,11 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex e"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: q='Ulex e' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 0</span>
-<span class="co">#&gt; returned results: 0</span>
 <span class="co">#&gt;  list()</span></code></pre></div>
 <p>But searching for a genus name will return all taxa within that genus as well:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;WCVP search: q='Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 92</span>
-<span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "23746-1"</span>
@@ -164,14 +152,26 @@
 <span class="co">#&gt;   ..$ author  : chr "L."</span>
 <span class="co">#&gt;   ..$ rank    : chr "Genus"</span></code></pre></div>
 <p>With this search result, we can see that there are 92 records for <code>Ulex</code> but the API has only returned the first 50.</p>
-<p>To get all results for this search, we can either do a second search to download the second page of results:</p>
+<p>To get all results for this search, we can either increase the number of returned results:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ulex_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
+<span class="va">ulex_all</span>
+<span class="co">#&gt; List of 1</span>
+<span class="co">#&gt;  $ :List of 9</span>
+<span class="co">#&gt;   ..$ id      : chr "23746-1"</span>
+<span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:23746-1"</span>
+<span class="co">#&gt;   ..$ url     : chr "/taxon/23746-1"</span>
+<span class="co">#&gt;   ..$ display : chr "&lt;b&gt;&lt;i&gt;Ulex&lt;/i&gt; L.&lt;/b&gt;"</span>
+<span class="co">#&gt;   ..$ accepted: logi TRUE</span>
+<span class="co">#&gt;   ..$ family  : chr "Fabaceae"</span>
+<span class="co">#&gt;   ..$ name    : chr "Ulex"</span>
+<span class="co">#&gt;   ..$ author  : chr "L."</span>
+<span class="co">#&gt;   ..$ rank    : chr "Genus"</span></code></pre></div>
+<p>Or advance the searh on one page:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ulex_page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
-<span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, page<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>
 <span class="va">ulex_page2</span>
-<span class="co">#&gt; &lt;WCVP search: q='Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 92</span>
-<span class="co">#&gt; returned results: 42</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 10</span>
 <span class="co">#&gt;   ..$ id       : chr "524313-1"</span>
@@ -184,24 +184,6 @@
 <span class="co">#&gt;   ..$ name     : chr "Ulex intermedius"</span>
 <span class="co">#&gt;   ..$ author   : chr "Le Gall"</span>
 <span class="co">#&gt;   ..$ rank     : chr "Species"</span></code></pre></div>
-<p>Or increase the maximum number of results to return:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ulex_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
-<span class="va">ulex_all</span>
-<span class="co">#&gt; &lt;WCVP search: q='Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 92</span>
-<span class="co">#&gt; returned results: 92</span>
-<span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ :List of 9</span>
-<span class="co">#&gt;   ..$ id      : chr "23746-1"</span>
-<span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:23746-1"</span>
-<span class="co">#&gt;   ..$ url     : chr "/taxon/23746-1"</span>
-<span class="co">#&gt;   ..$ display : chr "&lt;b&gt;&lt;i&gt;Ulex&lt;/i&gt; L.&lt;/b&gt;"</span>
-<span class="co">#&gt;   ..$ accepted: logi TRUE</span>
-<span class="co">#&gt;   ..$ family  : chr "Fabaceae"</span>
-<span class="co">#&gt;   ..$ name    : chr "Ulex"</span>
-<span class="co">#&gt;   ..$ author  : chr "L."</span>
-<span class="co">#&gt;   ..$ rank    : chr "Genus"</span></code></pre></div>
 <p>In both cases, we can format the results into a tibble to make subsequent analysis easier:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
@@ -250,9 +232,6 @@
                          limit<span class="op">=</span><span class="fl">1000</span><span class="op">)</span>
 
 <span class="va">checklist</span>
-<span class="co">#&gt; &lt;WCVP search: genus='Myrcia' filters: 'accepted,specific'&gt;</span>
-<span class="co">#&gt; total results: 749</span>
-<span class="co">#&gt; returned results: 749</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "165525-2"</span>

@@ -84,6 +84,23 @@ search_ipni(list(genus="Poa", published=1920),
             filters=c("species"))
 ```
 
+The number of search results returned are determined by the `limit`
+keyword:
+
+``` r
+search_powo(list(genus="Poa"), limit=20)
+search_wcvp(list(genus="Poa"), limit=20)
+search_ipni(list(genus="Poa"), limit=20)
+```
+
+The next page for a set of search results can be requested using the
+`request_next` function:
+
+``` r
+results <- search_powo(list(genus="Poa"))
+request_next(results)
+```
+
 ### Downloading the WCVP
 
 The whole of WCVP can be download to a directory using:

@@ -58,19 +58,19 @@ results
 
 With this search result, we can see that there are 92 records for `Ulex` but the API has only returned the first 50.
 
-To get all results for this search, we can either do a second search to download the second page of results:
-
-```{r}
-ulex_page1 <- search_wcvp("Ulex")
-ulex_page2 <- search_wcvp("Ulex", page=2)
-ulex_page2
-```
-
-Or increase the maximum number of results to return:
+To get all results for this search, we can either increase the number of returned results:
 
 ```{r}
 ulex_all <- search_wcvp("Ulex", limit=100)
 ulex_all
+```
+
+Or advance the searh on one page:
+
+```{r}
+ulex_page1 <- search_wcvp("Ulex")
+ulex_page2 <- request_next(ulex_page1)
+ulex_page2
 ```
 
 In both cases, we can format the results into a tibble to make subsequent analysis easier:

@@ -8,21 +8,21 @@
 #'
 #' The search API allows users to query the database using plant names,
 #' geographic terms, and floristic characters. These can be queried using
-#' keyword arguments. See arguments for all implemented keywords.
+#' keyword arguments. Use the `get_keywords` function for a list of all implemented keywords.
 #'
 #' The API returns taxonomic information as well as species descriptions and
 #' image locations if available. These results can be limited, for example to accepted species,
-#' using filters. See arguments for all implemented filters.
+#' using filters. Use the `get_filters` function to get a list of all implemented filters.
+#'
+#' Distributions in POWO are categorised using the [World Geographical Scheme for
+#' Recording Plant Distributions (WGSRP)](https://www.tdwg.org/standards/wgsrpd/).
+#' Users can query POWO using distributions listed under WGSRPD levels 1 (continents),
+#' 2 (regions), and 3 (botanical countries). 
 #'
 #' @param query The string to query POWO with. If using keywords,
-#'  the query must be formatted as a list and keywords must be one or more
-#'  of `family`, `genus`, `species`, `name`, `common_name`, `author`, `characteristic`,
-#'  `summary`, `appearance`, `flower`, `fruit`, `leaf`, `inflorescence`, `seed`,
-#'  `cloning`, `use`, `distribution.`
-#' @param filters Filter to apply to search results. Can be one
-#' or more of `accepted`, `families`, `genera`, `species`,
-#' `infraspecies`, `has_images`.
-#' Multiple filters must be supplied as a character vector.
+#'  the query must be formatted as a list.
+#' @param filters Filter to apply to search results.
+#'  Multiple filters must be supplied as a character vector.
 #' @param cursor A cursor returned by a previous search.
 #'  If used, the query and filter must be exactly the same.
 #' @param limit The maximum number of records to return.

@@ -8,11 +8,9 @@ search_wcvp(query, filters = NULL, page = 1, limit = 50)
 }
 \arguments{
 \item{query}{The taxon string to search WCVP for. If using keywords,
-the query must be formatted as a list and keywords must be one or more
-of \code{family}, \code{genus}, \code{species}.}
+the query must be formatted as a list.}
 
-\item{filters}{Filter to apply to search results. Can be one
-or more of \code{accepted}, \code{families}, \code{genera}, \code{species}, \code{infraspecies}.
+\item{filters}{Filter to apply to search results.
 Multiple filters must be supplied as a character vector.}
 
 \item{page}{An integer specifying the page of results to return.}
@@ -51,11 +49,11 @@ but 'M' or 'Myr' will not.
 
 There is some support for querying using keyword arguments. The API is
 not currently documented, so only keywords that are definitely there have
-been implemented. See arguments for all implemented keywords.
+been implemented. Use the \code{get_keywords} function to view a list of all implemented keywords.
 
 The API will return taxonomic information (the family, authority, status, and rank)
 of all names matching the query. These results can be limited, for example to accepted species,
-using filters. See arguments for all implemented filters.
+using filters. Use the \code{get_filters} function to view a list of all implemented filters.
 }
 \examples{
 # search for all entries containing a genus name

@@ -16,18 +16,16 @@
 #'
 #' There is some support for querying using keyword arguments. The API is
 #' not currently documented, so only keywords that are definitely there have
-#' been implemented. See arguments for all implemented keywords.
+#' been implemented. Use the `get_keywords` function to view a list of all implemented keywords.
 #'
 #' The API will return taxonomic information (the family, authority, status, and rank)
 #' of all names matching the query. These results can be limited, for example to accepted species,
-#' using filters. See arguments for all implemented filters.
+#' using filters. Use the `get_filters` function to view a list of all implemented filters.
 #'
 #' @param query The taxon string to search WCVP for. If using keywords,
-#'  the query must be formatted as a list and keywords must be one or more
-#'  of `family`, `genus`, `species`.
-#' @param filters Filter to apply to search results. Can be one
-#' or more of `accepted`, `families`, `genera`, `species`, `infraspecies`.
-#' Multiple filters must be supplied as a character vector.
+#'  the query must be formatted as a list.
+#' @param filters Filter to apply to search results.
+#'  Multiple filters must be supplied as a character vector.
 #' @param page An integer specifying the page of results to return.
 #' @param limit An integer specifying the maximum number of results
 #'  to return.

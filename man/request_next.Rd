@@ -38,8 +38,11 @@ Request the next page of search results for a kewr results object.
 r <- search_wcvp("Poa")
 request_next(r)
 
+
+\donttest{
 r <- search_powo("Poa")
 request_next(r)
+}
 
 r <- search_ipni("Poa")
 request_next(r)

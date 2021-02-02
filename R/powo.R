@@ -40,6 +40,7 @@
 #'  * `response`: the [httr response object][httr::response].
 #'
 #' @examples
+#' \donttest{
 #' # search for all entries containing a genus name
 #' search_powo("Myrcia")
 #'
@@ -65,6 +66,7 @@
 #' # simplify search results to a `tibble`
 #' r <- search_powo("Poa", filters=c("species"))
 #' format(r)
+#' }
 #'
 #' @family POWO functions
 #' @seealso
@@ -120,7 +122,7 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
 #'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].
 #'
 #' @examples
-#'
+#' \donttest{
 #' # retrieve information for a taxon name
 #' lookup_powo("271445-2")
 #'
@@ -141,6 +143,7 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
 #' r <- lookup_wcvp("30000055-2")
 #' formatted <- format(r)
 #' tidyr::unnest(formatted, cols=children, names_sep="_")
+#' }
 #'
 #' @family POWO functions
 #' @seealso

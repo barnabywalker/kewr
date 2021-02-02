@@ -100,9 +100,13 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
 
   results <- make_request_(url, query)
 
+  # calculate total number of pages, because it isn't returned
+  total_pages <- ceiling(results$content$total / results$content$limit)
+
   structure(
     list(
       total=results$content$total,
+      pages=total_pages,
       page=results$content$page,
       limit=results$content$limit,
       results=results$content$results,

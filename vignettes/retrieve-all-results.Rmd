@@ -1,0 +1,112 @@
+---
+title: "Retrieving all results for a query"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{retrieve-all-results}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+To reduce the load on the servers, some of the Kew resources limit the number of results returned for a query. This tutorial will demonstrate how to download all the results for a query in a way that (hopefully) shouldn't upset the servers.
+
+```{r setup}
+library(kewr)
+library(dplyr)
+```
+
+## Increasing the maximum number of results returned
+
+Possibly the simplest option is to just tell the resource that you want more results.
+
+By default, the search functions in *kewr* set the maximum number of results to 50. You can increase this to whatever you want, to make sure you get all the results you want.
+
+For instance, I know for sure that there are fewer than 2000 accepted species in the genus *Myrcia*. If I want to get a list of all these species from WCVP, I can, therefore, increase the maximum number of results to 2000.
+
+```{r}
+results <- search_wcvp(query=list(genus="Myrcia"),
+                       filters=c("accepted", "species"),
+                       limit=2000)
+results
+```
+
+We can see from the results object that we have a single page of results that contains the entries for all 748 accepted species in the genus.
+
+However, this only really works when two things are true:
+
+1. You know for sure there aren't more results than a certain number.
+2. That number isn't too big.
+
+This strategy worked in this case because I knew there definitely weren't more than 2000 accepted species, and 2000 is a relatively small number as things go. If I there are more results than I expected, I run the risk of missing some entries. If my expected number of results was too big, say 20,000 or even 200,000, the request might time-out before I get anything back.
+
+### Advantages:
+
+* You only have to make one request.
+
+### Disadvantages:
+
+* You could miss some entries if there are more than you expect.
+* You might not get any results back if you ask for too many.
+
+## Making multiple requests to get multiple pages of results
+
+The other way to get all of your results is to iterate over all the pages of your request.
+
+Making multiple smaller requests avoids the request hanging because you asked for too much data. However, some resources could have rate-limiting enable, which means they will block you if you make too many requests in a certain time period. Therefore, you need to balance the size of the request with the number that you're making.
+
+One way to make multiple requests is with a `for` loop.
+
+To get started, we'll make our first request outside of the for loop. This way, we can see how many pages we need to loop over. I've chosen a limit of 100 results per page here.
+
+```{r}
+query <- list(genus="Myrcia")
+filters <- c("accepted", "species")
+
+r <- search_wcvp(query, filters=filters, limit=100)
+r
+```
+
+Before we get the rest of the results in a `for` loop, it's worth formatting our first result into a data frame, which we'll use to add all our subsequent results to.
+
+```{r}
+results <- format(r)
+```
+
+Now we can loop through and get the rest of our query results. 
+
+**IMPORTANT**: I've added a 0.2 second sleep at the beginning of the loop, to make sure we're not making too many requests per second to the server. In general, this is good practice when requesting data from an API, to make sure you don't use too much bandwidth.
+
+```{r}
+for (i in 2:r$pages) {
+  # don't forget to add a little sleep!
+  Sys.sleep(0.2)
+  r <- request_next(r)
+  
+  new_results <- format(r)
+  results <- bind_rows(results, new_results)
+}
+
+head(results)
+```
+
+We can check we have all the results by looking at the length of
+our results data frame:
+
+```{r}
+nrow(results)
+```
+
+### Advantages:
+
+* Smaller requests are less likely to time-out.
+* You don't have to know how many results you expect before you start.
+
+### Disadvantages
+
+* Making too many requests could overload the server and get you blocked.

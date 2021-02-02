@@ -1,0 +1,160 @@
+---
+title: "Building a species checklist"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{building-checklist}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+A common task that Plants of the World Online (POWO) can be used for is to build a checklist of native species for a country.
+
+In this demonstration, we will:
+
+1. Request a list of all accepted species that occur in a country.
+2. Get the native distribution of all those species.
+3. Narrow our checklist down to native species.
+4. Build another checklist for endemic species.
+
+## Setup 
+
+In addition to *kewr*, we'll load:
+
+* *dplyr* to manipulate the data
+* *tidyr* to reshape data frames
+* *purrr* to map functions across items in a list
+* *progress* to add a progress bar
+* *stringr* to extract some data from strings
+
+```{r setup}
+library(kewr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(progress)
+library(stringr)
+```
+
+## 1. Requesting a list of accepted species
+
+We'll get our list of accepted species for Iceland, using the POWO search API.
+
+```{r}
+query <- list(distribution="Iceland")
+filters <- c("accepted", "species")
+
+iceland_species <- search_powo(query, filters=filters, limit=1000)
+```
+
+In total, we have this many accepted species in Iceland:
+
+```{r}
+iceland_species$total
+```
+
+## 2. Get the native distribution of all the species
+
+To get the native distribution for all our species, we need to use POWO's lookup API for every single one.
+
+First we'll extract a list of IDs from our results, using the `map` function from *purrr*.
+
+```{r}
+ids <- map(iceland_species$results, ~str_extract(.x$fqId, "[\\d\\-]+$"))
+```
+
+Then we need to make all of our requests. To make sure we're not overloading POWO, we'll define a simple function to wait for a short period of time before making the request. This let's us use `map` again to make our requests, as well as adding a progress bar to track them!
+
+```{r}
+pb <- progress_bar$new(
+  format="  requesting [:bar] :current/:total (:percent)",
+  total=length(ids)
+)
+
+fcn <- function(id) {
+  pb$tick()
+  Sys.sleep(0.1)
+  
+  lookup_powo(id, distribution=TRUE)
+}
+
+iceland_records <- map(ids, fcn)
+```
+
+Now we have all the records for our species, we can format them as a data frame to make subsequent analysis a bit easier.
+
+```{r}
+iceland_checklist <- map_dfr(iceland_records, format)
+iceland_checklist
+```
+
+## 3. Narrow the checklist to native species
+
+To narrow our species down, we'll add an extra column to indicate if a species is native to Iceland or not. This will let us filter our data using that column.
+
+I've done this below in a single, chained command by using the pipe (`%>%`) operator from *dplyr*. I've also taken advantage of the `rowwise` feature in the newer versions of *dplyr*.
+
+```{r}
+check_native <- function(dist, country="Iceland") {
+  native_dist <- dist$natives[[1]]
+  
+  country %in% native_dist$name
+}
+
+iceland_checklist <-
+  iceland_checklist %>%
+  rowwise() %>%
+  mutate(is_native=check_native(distribution)) %>%
+  ungroup() %>%
+  filter(is_native)
+```
+
+Now all we have to do is tidy up our data frame by removing any columns we don't want anymore.
+
+```{r}
+iceland_checklist <-
+  iceland_checklist %>%
+  select(fqId, name, authors, taxonomicStatus, plantae, fungi,
+         kingdom, phylum, family, genus, species)
+
+iceland_checklist
+```
+
+## 4. Build a checklist of endemic species
+
+We can use our results from before to narrow the list down further to just species that are endemic to Iceland.
+
+```{r}
+check_endemic <- function(dist, country="Iceland") {
+  native_dist <- dist$natives[[1]]
+  
+  native <- country %in% native_dist$name
+  endemic <- length(native_dist$name) == 1
+  
+  native & endemic
+}
+
+iceland_endemics <- map_dfr(iceland_records, format)
+
+iceland_endemics <-
+  iceland_endemics %>%
+  rowwise() %>%
+  mutate(is_endemic=check_endemic(distribution)) %>%
+  ungroup() %>%
+  filter(is_endemic) %>%
+  select(fqId, name, authors, taxonomicStatus, plantae, fungi,
+         kingdom, phylum, family, genus, species)
+```
+
+How do the number of species in each list compare?
+
+```{r}
+paste("native species: ", nrow(iceland_checklist))
+paste("native species: ", nrow(iceland_endemics))
+```

@@ -175,6 +175,8 @@
 <p>However, for searches with a large number of results, this may not be practical. In this case, or if you just don’t know how many results to expect, you can request the next page of results.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ulex_page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
+<span class="co"># add a sleep to be nice to POWO</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span>
 <span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>
 
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
@@ -204,7 +206,7 @@
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
                        filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; &lt;POWO search: family='Ephedraceae' filters: 'accepted'&gt;</span>
+<span class="co">#&gt; &lt;POWO search: family='Ephedraceae' filters: 'accepted, species'&gt;</span>
 <span class="co">#&gt; total results: 73</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; total pages: 2</span>

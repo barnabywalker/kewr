@@ -207,7 +207,8 @@ using filters. See arguments for all implemented filters.</p>
 <code><a href='lookup_powo.html'>lookup_powo</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># search for all entries containing a genus name</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># search for all entries containing a genus name</span>
 <span class='fu'>search_powo</span><span class='op'>(</span><span class='st'>"Myrcia"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;POWO search: 'Myrcia' filters: 'none'&gt;
 #&gt; total results: 1377
@@ -228,7 +229,7 @@ using filters. See arguments for all implemented filters.</p>
 #&gt;   ..$ images  :List of 1</div><div class='input'>
 <span class='co'># search for all accepted species within a genus</span>
 <span class='fu'>search_powo</span><span class='op'>(</span><span class='st'>"Myrcia"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span>, <span class='st'>"accepted"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;POWO search: 'Myrcia' filters: 'species'&gt;
+</div><div class='output co'>#&gt; &lt;POWO search: 'Myrcia' filters: 'species, accepted'&gt;
 #&gt; total results: 748
 #&gt; returned results: 50
 #&gt; total pages: 15
@@ -284,10 +285,41 @@ using filters. See arguments for all implemented filters.</p>
 #&gt;   ..$ images  :List of 3</div><div class='input'>
 <span class='co'># search for all accepted species with blue flowers</span>
 <span class='fu'>search_powo</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>flower<span class='op'>=</span><span class='st'>"blue"</span><span class='op'>)</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"accepted"</span>, <span class='st'>"species"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: Request to 'http://www.plantsoftheworldonline.org/api/2/search' failed with code 429: Client error: (429) Too Many Requests (RFC 6585)</span></div><div class='input'>
+</div><div class='output co'>#&gt; &lt;POWO search: flower='blue' filters: 'accepted, species'&gt;
+#&gt; total results: 1169
+#&gt; returned results: 50
+#&gt; total pages: 24
+#&gt; First result:
+#&gt; List of 1
+#&gt;  $ :List of 10
+#&gt;   ..$ accepted: logi TRUE
+#&gt;   ..$ author  : chr "(Hook.f.) Jacq.-Fél."
+#&gt;   ..$ kingdom : chr "Plantae"
+#&gt;   ..$ family  : chr "Melastomataceae"
+#&gt;   ..$ name    : chr "Warneckea membranifolia"
+#&gt;   ..$ rank    : chr "Species"
+#&gt;   ..$ snippet : chr " &lt;b&gt;Flower&lt;/b&gt;: Filaments vivid &lt;em&gt;blue&lt;/em&gt;"
+#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:576916-1"
+#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:576916-1"
+#&gt;   ..$ images  :List of 1</div><div class='input'>
 <span class='co'># search for all accepted genera in Mexico</span>
 <span class='fu'>search_powo</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>distribution<span class='op'>=</span><span class='st'>"Mexico"</span><span class='op'>)</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"accepted"</span>, <span class='st'>"genera"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: Request to 'http://www.plantsoftheworldonline.org/api/2/search' failed with code 429: Client error: (429) Too Many Requests (RFC 6585)</span></div><div class='input'>
+</div><div class='output co'>#&gt; &lt;POWO search: distribution='Mexico' filters: 'accepted, genera'&gt;
+#&gt; total results: 2978
+#&gt; returned results: 50
+#&gt; total pages: 60
+#&gt; First result:
+#&gt; List of 1
+#&gt;  $ :List of 9
+#&gt;   ..$ accepted: logi TRUE
+#&gt;   ..$ author  : chr "J.T.Howell"
+#&gt;   ..$ kingdom : chr "Plantae"
+#&gt;   ..$ family  : chr "Asteraceae"
+#&gt;   ..$ name    : chr "Baeriopsis"
+#&gt;   ..$ rank    : chr "Genus"
+#&gt;   ..$ snippet : chr " &lt;b&gt;Location&lt;/b&gt;: &lt;em&gt;Mexico&lt;/em&gt;"
+#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:298120-2"
+#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:298120-2"</div><div class='input'>
 <span class='co'># search for a species name and print the results</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>search_powo</span><span class='op'>(</span><span class='st'>"Myrcia guianensis"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
@@ -309,11 +341,22 @@ using filters. See arguments for all implemented filters.</p>
 #&gt;   ..$ images  :List of 3</div><div class='input'>
 <span class='co'># simplify search results to a `tibble`</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>search_powo</span><span class='op'>(</span><span class='st'>"Poa"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: Request to 'http://www.plantsoftheworldonline.org/api/2/search' failed with code 429: Client error: (429) Too Many Requests (RFC 6585)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 9</span><span>
-#&gt;   accepted author  kingdom family  name     rank   url         fqId      images 
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> TRUE     (Aubl.… Plantae Myrtac… Myrcia … Speci… /taxon/urn… urn:lsid… </span><span style='color: #555555;'>&lt;tibbl</span><span>…</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 50 x 11</span><span>
+#&gt;    accepted author kingdom family name  rank  snippet synonymOf url   fqId 
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> FALSE    (Lam.… Plantae Poace… Agro… Spec… </span><span style='color: #555555;'>"</span><span> &lt;b&gt;S… </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 2</span><span> FALSE    Nees … Plantae Poace… Briz… Spec… </span><span style='color: #555555;'>"</span><span> &lt;b&gt;S… </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 3</span><span> FALSE    Stapf  Plantae Poace… Erag… Spec… </span><span style='color: #555555;'>"</span><span> &lt;b&gt;S… </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 4</span><span> FALSE    (Lam.… Plantae Poace… Fest… Spec… </span><span style='color: #555555;'>"</span><span> &lt;b&gt;S… </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 5</span><span> FALSE    (Lam.… Plantae Poace… Nard… Spec… </span><span style='color: #555555;'>"</span><span> &lt;b&gt;S… </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 6</span><span> FALSE    Lam. … Plantae Poace… Trit… Spec… </span><span style='color: #555555;'>"</span><span> &lt;b&gt;S… </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 7</span><span> TRUE     R.Br.  Plantae Poace… Poa … Spec…  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 8</span><span> FALSE    Schur  Plantae Poace… Poa … Spec…  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'> 9</span><span> FALSE    R.Br.  Plantae Poace… Poa … Spec…  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'>10</span><span> FALSE    Jacq.  Plantae Poace… Poa … Spec…  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #555555;'>&lt;tibble </span><span>… /tax… urn:…
+#&gt; </span><span style='color: #555555;'># … with 40 more rows, and 1 more variable: images </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span></div><div class='input'><span class='co'># }</span>
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

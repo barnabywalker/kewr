@@ -115,11 +115,21 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa anua"</span><span class="op">)</span>
 <span class="va">results</span>
+<span class="co">#&gt; &lt;WCVP search: 'Poa anua' filters: 'none'&gt;</span>
+<span class="co">#&gt; total results: 0</span>
+<span class="co">#&gt; returned results: 0</span>
+<span class="co">#&gt; total pages: 0</span>
+<span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt;  list()</span></code></pre></div>
 <p>But searching for the correctly spelled name will give a result:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
 <span class="va">results</span>
+<span class="co">#&gt; &lt;WCVP search: 'Poa annua' filters: 'none'&gt;</span>
+<span class="co">#&gt; total results: 10</span>
+<span class="co">#&gt; returned results: 10</span>
+<span class="co">#&gt; total pages: 1</span>
+<span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "320035-2"</span>
@@ -135,11 +145,21 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex e"</span><span class="op">)</span>
 <span class="va">results</span>
+<span class="co">#&gt; &lt;WCVP search: 'Ulex e' filters: 'none'&gt;</span>
+<span class="co">#&gt; total results: 0</span>
+<span class="co">#&gt; returned results: 0</span>
+<span class="co">#&gt; total pages: 0</span>
+<span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt;  list()</span></code></pre></div>
 <p>But searching for a genus name will return all taxa within that genus as well:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">results</span>
+<span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; total results: 92</span>
+<span class="co">#&gt; returned results: 50</span>
+<span class="co">#&gt; total pages: 2</span>
+<span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "23746-1"</span>
@@ -156,6 +176,11 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ulex_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">ulex_all</span>
+<span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; total results: 92</span>
+<span class="co">#&gt; returned results: 92</span>
+<span class="co">#&gt; total pages: 1</span>
+<span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "23746-1"</span>
@@ -172,6 +197,11 @@
 <code class="sourceCode R"><span class="va">ulex_page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>
 <span class="va">ulex_page2</span>
+<span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
+<span class="co">#&gt; total results: 92</span>
+<span class="co">#&gt; returned results: 42</span>
+<span class="co">#&gt; total pages: 2</span>
+<span class="co">#&gt; current page: 2</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 10</span>
 <span class="co">#&gt;   ..$ id       : chr "524313-1"</span>
@@ -232,6 +262,11 @@
                          limit<span class="op">=</span><span class="fl">1000</span><span class="op">)</span>
 
 <span class="va">checklist</span>
+<span class="co">#&gt; &lt;WCVP search: genus='Myrcia' filters: 'accepted'&gt;</span>
+<span class="co">#&gt; total results: 748</span>
+<span class="co">#&gt; returned results: 748</span>
+<span class="co">#&gt; total pages: 1</span>
+<span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
 <span class="co">#&gt;   ..$ id      : chr "165525-2"</span>

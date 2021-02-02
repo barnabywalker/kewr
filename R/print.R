@@ -5,7 +5,11 @@
 #'
 #' @export
 print.wcvp_search <- function(x, ...) {
-  filters <- ifelse(is.null(x$filters), "none", x$filters)
+  if (! is.null(x$filters)) {
+    filters <- glue_collapse(x$filters, sep=", ")
+  } else {
+    filters <- "none"
+  }
 
   if (! is.null(names(x$query))) {
     query <- glue("{names(x$query)}='{x$query}'")
@@ -56,7 +60,11 @@ print.wcvp_taxon <- function(x, ...) {
 #'
 #' @export
 print.powo_search <- function(x, ...) {
-  filters <- ifelse(is.null(x$filters), "none", x$filters)
+  if (! is.null(x$filters)) {
+    filters <- glue_collapse(x$filters, sep=", ")
+  } else {
+    filters <- "none"
+  }
 
   if (! is.null(names(x$query))) {
     query <- glue("{names(x$query)}='{x$query}'")
@@ -119,7 +127,11 @@ print.powo_taxon <- function(x, ...) {
 #'
 #' @export
 print.ipni_search <- function(x, ...) {
-  filters <- ifelse(is.null(x$filters), "none", x$filters)
+  if (! is.null(x$filters)) {
+    filters <- glue_collapse(x$filters, sep=", ")
+  } else {
+    filters <- "none"
+  }
 
   if (! is.null(names(x$query))) {
     query <- glue("{names(x$query)}='{x$query}'")

@@ -8,14 +8,9 @@ search_powo(query, filters = NULL, cursor = NULL, limit = 50)
 }
 \arguments{
 \item{query}{The string to query POWO with. If using keywords,
-the query must be formatted as a list and keywords must be one or more
-of \code{family}, \code{genus}, \code{species}, \code{name}, \code{common_name}, \code{author}, \code{characteristic},
-\code{summary}, \code{appearance}, \code{flower}, \code{fruit}, \code{leaf}, \code{inflorescence}, \code{seed},
-\code{cloning}, \code{use}, \code{distribution.}}
+the query must be formatted as a list.}
 
-\item{filters}{Filter to apply to search results. Can be one
-or more of \code{accepted}, \code{families}, \code{genera}, \code{species},
-\code{infraspecies}, \code{has_images}.
+\item{filters}{Filter to apply to search results.
 Multiple filters must be supplied as a character vector.}
 
 \item{cursor}{A cursor returned by a previous search.
@@ -46,11 +41,15 @@ published floras and other sources of floristic information.
 
 The search API allows users to query the database using plant names,
 geographic terms, and floristic characters. These can be queried using
-keyword arguments. See arguments for all implemented keywords.
+keyword arguments. Use the \code{get_keywords} function for a list of all implemented keywords.
 
 The API returns taxonomic information as well as species descriptions and
 image locations if available. These results can be limited, for example to accepted species,
-using filters. See arguments for all implemented filters.
+using filters. Use the \code{get_filters} function to get a list of all implemented filters.
+
+Distributions in POWO are categorised using the \href{https://www.tdwg.org/standards/wgsrpd/}{World Geographical Scheme for Recording Plant Distributions (WGSRP)}.
+Users can query POWO using distributions listed under WGSRPD levels 1 (continents),
+2 (regions), and 3 (botanical countries).
 }
 \examples{
 \donttest{

@@ -7,11 +7,10 @@
 search_ipni(query, filters = NULL, page = 1, limit = 50)
 }
 \arguments{
-\item{query}{The string to query IPNI with.}
+\item{query}{The string to query IPNI with. If using keywords, the query
+must be formatted as a list.}
 
-\item{filters}{Filter to apply to search results. Can be one
-or more of \code{families}, \code{genera}, \code{species}, \code{infrafamilies},
-\code{infragenera}, and \code{infraspecies}.}
+\item{filters}{Filter to apply to search results.}
 
 \item{page}{The page of records to return.}
 
@@ -43,11 +42,12 @@ some sort of fuzzy matching.
 There is some support for querying using keyword arguments. Documentation for
 the API is currently available in the \href{https://github.com/RBGKew/pykew/blob/master/pykew/ipni_terms.py}{\code{pykew} package},
 so keywords have been copied across from there. There are sets of keywords
-relating to plants, authors, and publications.
+relating to plants, authors, and publications. A full list of keywords can be viewed
+using the \code{get_keywords} function.
 
 The API will return nomenclatural information (publication date, nomenclatural status, author, etc.)
 of all names matching the query. These results can be limited, for example to only family names,
-using filters. See arguments for all implemented filters.
+using filters. Use the \code{get_filters} function to get a list of all implemented filters.
 }
 \examples{
 # search for all names containing Poa annua

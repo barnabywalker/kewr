@@ -29,6 +29,10 @@ Searching POWO works by exact matching, so any mispellings or unrecognised ortho
 
 For example, searching `Ulex europeaus` will not return any results:
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 results <- search_powo("Ulex europeaus")
 results
@@ -36,6 +40,10 @@ results
 
 But searching `Ulex europaeus` will:
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 results <- search_powo("Ulex europaeus")
 results
@@ -45,6 +53,10 @@ results
 
 By default, `search_powo` limits the number of results returned to 50. If you are expecting more results, you can increase this limit.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 results <- search_powo("Ulex", limit=100)
 results
@@ -52,8 +64,14 @@ results
 
 However, for searches with a large number of results, this may not be practical. In this case, or if you just don't know how many results to expect, you can request the next page of results.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 ulex_page1 <- search_powo("Ulex")
+# add a sleep to be nice to POWO
+Sys.sleep(0.2)
 ulex_page2 <- request_next(ulex_page1)
 
 bind_rows(
@@ -67,6 +85,10 @@ bind_rows(
 You can perform more complicated searches using keywords and filters.
 For example, you can search for all accepted species in a particular family.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 results <- search_powo(list(family="Ephedraceae"), 
                        filters=c("accepted", "species"))
@@ -77,6 +99,10 @@ As well as taxonomic keywords, it is possible to search by other characteristics
 
 For example, finding all accepted legumes with blue flowers.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 blue_flowers <- search_powo(list(flower="blue", family="Fabaceae"),
                             filters=c("accepted"))
@@ -85,6 +111,10 @@ blue_flowers
 
 Another use is to get a checklist of accepted species in a country.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 checklist <- search_powo(list(distribution="Mexico"),
                          filters=c("accepted"))
@@ -98,6 +128,10 @@ A full list of keywords and filters can be found in the help page for `search_po
 
 As well as searching by keyword, it is possible to use the IPNI ID of a taxon to look up its record in POWO. To get the IPNI ID, you can search WCVP, POWO, or IPNI, or use KNMS to find matches for the name.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 ipni_id <- "119003-2"
 
@@ -107,6 +141,10 @@ record
 
 Optionally, you can choose to request the distribution information for the taxon as well.
 
+```{r, include=FALSE}
+# this is a sleep so things don't break when knitting
+Sys.sleep(0.2)
+```
 ```{r}
 record <- lookup_powo(ipni_id, distribution=TRUE)
 

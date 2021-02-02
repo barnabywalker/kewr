@@ -53,6 +53,7 @@ image locations if available. These results can be limited, for example to accep
 using filters. See arguments for all implemented filters.
 }
 \examples{
+\donttest{
 # search for all entries containing a genus name
 search_powo("Myrcia")
 
@@ -78,6 +79,7 @@ print(r)
 # simplify search results to a `tibble`
 r <- search_powo("Poa", filters=c("species"))
 format(r)
+}
 
 }
 \seealso{

@@ -31,8 +31,11 @@ request_next.wcvp_search <- function(object) {
 #' @describeIn request_next Request the next page of POWO search results.
 #'
 #' @examples
+#'
+#' \donttest{
 #' r <- search_powo("Poa")
 #' request_next(r)
+#' }
 #'
 #' @export
 request_next.powo_search <- function(object) {

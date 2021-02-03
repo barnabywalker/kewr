@@ -73,7 +73,7 @@ for a taxon string." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -108,7 +108,13 @@ for a taxon string." />
       <a href="../articles/WCVP.html">WCVP</a>
     </li>
     <li>
-      <a href="../articles/assessed-species-matching.html">Mapping assessed species</a>
+      <a href="../articles/articles/building-checklist.html">Building a species checklist</a>
+    </li>
+    <li>
+      <a href="../articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
+    </li>
+    <li>
+      <a href="../articles/articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
     </li>
   </ul>
 </li>
@@ -151,13 +157,11 @@ for a taxon string.</p>
     <tr>
       <th>query</th>
       <td><p>The taxon string to search WCVP for. If using keywords,
-the query must be formatted as a list and keywords must be one or more
-of <code>family</code>, <code>genus</code>, <code>species</code>.</p></td>
+the query must be formatted as a list.</p></td>
     </tr>
     <tr>
       <th>filters</th>
-      <td><p>Filter to apply to search results. Can be one
-or more of <code>accepted</code>, <code>families</code>, <code>genera</code>, <code>species</code>, <code>infraspecies</code>.
+      <td><p>Filter to apply to search results.
 Multiple filters must be supplied as a character vector.</p></td>
     </tr>
     <tr>
@@ -197,10 +201,10 @@ For example, 'Myrcia' and 'Myrcia guianensis' will return results,
 but 'M' or 'Myr' will not.</p>
 <p>There is some support for querying using keyword arguments. The API is
 not currently documented, so only keywords that are definitely there have
-been implemented. See arguments for all implemented keywords.</p>
+been implemented. Use the <code>get_keywords</code> function to view a list of all implemented keywords.</p>
 <p>The API will return taxonomic information (the family, authority, status, and rank)
 of all names matching the query. These results can be limited, for example to accepted species,
-using filters. See arguments for all implemented filters.</p>
+using filters. Use the <code>get_filters</code> function to view a list of all implemented filters.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/</p>

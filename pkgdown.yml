@@ -6,6 +6,8 @@ articles:
   KNMS: KNMS.html
   POWO: POWO.html
   WCVP: WCVP.html
-  assessed-species-matching: assessed-species-matching.html
-last_built: 2021-02-02T16:27Z
+  articles/building-checklist: building-checklist.html
+  articles/mapping-assessed-species: mapping-assessed-species.html
+  articles/retrieve-all-query-results: retrieve-all-query-results.html
+last_built: 2021-02-03T14:01Z
 

@@ -32,7 +32,8 @@ Imports:
     rvest,
     here,
     tidyr,
-    rlang
+    rlang,
+    generics
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)

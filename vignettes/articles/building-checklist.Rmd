@@ -28,7 +28,7 @@ In addition to *kewr*, we'll load:
 * *progress* to add a progress bar
 * *stringr* to extract some data from strings
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 library(kewr)
 library(dplyr)
 library(tidyr)
@@ -41,7 +41,7 @@ library(stringr)
 
 We'll get our list of accepted species for Iceland, using the POWO search API.
 
-```{r}
+```{r iceland-species-query}
 query <- list(distribution="Iceland")
 filters <- c("accepted", "species")
 
@@ -50,7 +50,7 @@ iceland_species <- search_powo(query, filters=filters, limit=1000)
 
 In total, we have this many accepted species in Iceland:
 
-```{r}
+```{r display-total}
 iceland_species$total
 ```
 
@@ -60,13 +60,13 @@ To get the native distribution for all our species, we need to use POWO's lookup
 
 First we'll extract a list of IDs from our results, using the `map` function from *purrr*.
 
-```{r}
+```{r extract-species-id}
 ids <- map(iceland_species$results, ~str_extract(.x$fqId, "[\\d\\-]+$"))
 ```
 
 Then we need to make all of our requests. To make sure we're not overloading POWO, we'll define a simple function to wait for a short period of time before making the request. This let's us use `map` again to make our requests, as well as adding a progress bar to track them!
 
-```{r}
+```{r download-distributions}
 pb <- progress_bar$new(
   format="  requesting [:bar] :current/:total (:percent)",
   total=length(ids)
@@ -84,7 +84,7 @@ iceland_records <- map(ids, fcn)
 
 Now we have all the records for our species, we can tidy them as a data frame to make subsequent analysis a bit easier.
 
-```{r}
+```{r tidy-results}
 iceland_checklist <- map_dfr(iceland_records, tidy)
 iceland_checklist
 ```
@@ -95,7 +95,7 @@ To narrow our species down, we'll add an extra column to indicate if a species i
 
 I've done this below in a single, chained command by using the pipe (`%>%`) operator from *dplyr*. I've also taken advantage of the `rowwise` feature in the newer versions of *dplyr*.
 
-```{r}
+```{r filter-native}
 check_native <- function(dist, country="Iceland") {
   native_dist <- dist$natives[[1]]
   
@@ -112,7 +112,7 @@ iceland_checklist <-
 
 Now all we have to do is tidy up our data frame by removing any columns we don't want anymore.
 
-```{r}
+```{r tidy-native-checklist}
 iceland_checklist <-
   iceland_checklist %>%
   select(fqId, name, authors, taxonomicStatus, plantae, fungi,
@@ -125,7 +125,7 @@ iceland_checklist
 
 We can use our results from before to narrow the list down further to just species that are endemic to Iceland.
 
-```{r}
+```{r filter-endemic}
 check_endemic <- function(dist, country="Iceland") {
   native_dist <- dist$natives[[1]]
   
@@ -149,7 +149,7 @@ iceland_endemics <-
 
 How do the number of species in each list compare?
 
-```{r}
+```{r compare-checklist-lengths}
 paste("native species: ", nrow(iceland_checklist))
-paste("native species: ", nrow(iceland_endemics))
+paste("endemic species: ", nrow(iceland_endemics))
 ```

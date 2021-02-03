@@ -3,11 +3,13 @@
 #'
 #' @export
 format.wcvp_search <- function(x, ...) {
+  .Deprecated("tidy.wcvp_search")
   map_dfr(x$results, parse_nested_list)
 }
 
 #' @export
 format.wcvp_taxon <- function(x, ...) {
+  .Deprecated("tidy.wcvp_taxon")
   x <- x[! names(x) %in% c("response", "queryId")]
 
   parse_nested_list(x)
@@ -19,11 +21,13 @@ format.wcvp_taxon <- function(x, ...) {
 #'
 #' @export
 format.powo_search <- function(x, ...) {
+  .Deprecated("tidy.powo_search")
   map_dfr(x$results, parse_nested_list)
 }
 
 #' @export
 format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classification", "basionym", "distribution", "distributionEnvelope"), ...) {
+  .Deprecated("tidy.powo_taxon")
   x <- x[! names(x) %in% c("response", "queryId")]
 
   parse_nested_list(x)
@@ -35,11 +39,13 @@ format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classi
 #'
 #' @export
 format.ipni_search <- function(x, ...) {
+  .Deprecated("tidy.ipni_search")
   map_dfr(x$results, parse_nested_list)
 }
 
 #' @export
 format.ipni_citation <- function(x, ...) {
+  .Deprecated("tidy.ipni_citation")
   x <- x[! names(x) %in% c("response", "queryId")]
 
   parse_nested_list(x)
@@ -47,6 +53,7 @@ format.ipni_citation <- function(x, ...) {
 
 #' @export
 format.ipni_author <- function(x, ...) {
+  .Deprecated("tidy.ipni_author")
   x <- x[! names(x) %in% c("response", "queryId")]
 
   parse_nested_list(x)
@@ -54,6 +61,7 @@ format.ipni_author <- function(x, ...) {
 
 #' @export
 format.ipni_publication <- function(x, ...) {
+  .Deprecated("tidy.ipni_publication")
   x <- x[! names(x) %in% c("response", "queryId")]
 
   parse_nested_list(x)
@@ -67,6 +75,7 @@ format.ipni_publication <- function(x, ...) {
 #'
 #' @export
 format.knms_match <- function(x, ...) {
+  .Deprecated("tidy.knms_match")
   parsed <- map_dfr(x$results, parse_knms_line)
 
   formatted <- fill(parsed, .data$submitted, .data$matched)

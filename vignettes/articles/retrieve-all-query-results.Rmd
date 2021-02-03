@@ -1,10 +1,5 @@
 ---
 title: "Retrieving all results for a query"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{retrieve-all-results}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}

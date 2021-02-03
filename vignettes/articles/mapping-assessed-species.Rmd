@@ -1,10 +1,5 @@
 ---
 title: "Mapping assessed species"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{assessed-species-matching}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -51,7 +46,7 @@ You can do the same by [installing the *rredlist* package](https://github.com/ro
 
 I've bundled up the Danish plant assessments in this package to make things easier for this analysis.
 
-```{r}
+```{r view-danish-plants}
 head(danish_plants)
 ```
 
@@ -61,7 +56,7 @@ In total, there are assessments for `r format(nrow(danish_plants), big.mark=",")
 
 To match these names to an IPNI ID, we'll use the Kew Names Matching Service. The first thing we'll do, is join the taxonomic authority to the scientific name, to hopefully reduce the number of matches for each name.
 
-```{r}
+```{r make-full-names}
 danish_plants <-
   danish_plants %>%
   unite("full_name", scientific_name, authority, sep=" ", remove=FALSE)
@@ -69,7 +64,7 @@ danish_plants <-
 
 Then we put the full names through KNMS.
 
-```{r}
+```{r match-full-names}
 full_matches <- match_knms(danish_plants$full_name)
 full_matches
 ```
@@ -78,7 +73,7 @@ Most of our names had matches! Which makes things simpler. But we also got some 
 
 First we'll try putting just the scientific names of our missing matches through KNMS again.
 
-```{r}
+```{r match-partial-names}
 full_matches <- format(full_matches)
 
 unmatched <- filter(full_matches, !matched)
@@ -94,7 +89,7 @@ Almost everything returned a match. We could attempt to manually match the final
 
 Now we can join all of our matches together, link them to the IUCN taxon ID, and resolve any synonyms.
 
-```{r}
+```{r resolve-matches}
 part_matches <- format(part_matches)
 
 full_matches <- 
@@ -122,7 +117,7 @@ head(matched_names)
 
 Now that we have an IPNI ID attached to each assessment, we can look up the record for the taxa in WCVP. This will let us find out the taxonomic status of each name - the first step in resolving any synonymy issues.
 
-```{r}
+```{r resolve-synonyms}
 # wrap up the lookup_wcvp function to add a wait
 f <- function(taxonid) {
   Sys.sleep(0.1)
@@ -141,7 +136,7 @@ resolved_names <-
 
 With the taxonomic status, we'll first remove any taxa that are unplaced. We'll also remove any non-homotypic synonyms - even if we resolve these to accepted species, we can't be sure that the assessment would be valid for the new concept, so that accepted species would not be assessed.
 
-```{r}
+```{r remove-non-homotypic}
 resolved_names <-
   resolved_names %>%
   filter(status %in% c("accepted", "homotypic synonym"))
@@ -149,7 +144,7 @@ resolved_names <-
 
 Next we'll check if there are any taxa that still have multiple matches in WCVP.
 
-```{r}
+```{r check-multiple-matches}
 resolved_names %>%
   ungroup() %>%
   add_count(taxonid) %>%
@@ -160,7 +155,7 @@ There are not.
 
 So the final step is to find the accepted names for all homotypic synonyms and remove anything that is a lower rank than species.
 
-```{r}
+```{r find-accepted-names}
 resolved_names <-
   resolved_names %>%
   mutate(accepted_id=ifelse(status != "accepted",
@@ -198,7 +193,7 @@ To calculate the number of species that are assessed in Denmark, we need a check
 
 We can get this from Plants of the World Online.
 
-```{r}
+```{r download-powo-checklist}
 checklist <- search_powo(list(distribution="Denmark"),
                          filters=c("accepted", "species"),
                          limit=5000)
@@ -207,7 +202,7 @@ checklist
 
 Now we have this, we just need to join our assessments to our checklist.
 
-```{r}
+```{r join-assessments-checklist}
 checklist <-
   format(checklist) %>%
   mutate(ipni_id=str_extract(fqId, "[0-9\\-]+")) %>%
@@ -223,14 +218,14 @@ checklist <-
 
 And now we can calculate the proportion of species assessed in Denmark!
 
-```{r}
+```{r calculate-proportions}
 checklist %>%
   summarise(p_assessed=mean(! is.na(category)))
 ```
 
 And make a simple bar chart of the number of species in each category.
 
-```{r}
+```{r plot-bars}
 iucn_colours <- c("NE"="#ffffff", 
                   "DD"="#d1d1d6", 
                   "LC"="#60c659", 
@@ -253,4 +248,5 @@ checklist %>%
   guides(fill=FALSE, colour=FALSE) +
   labs(x="Number of species", y="IUCN Red List category")
 ```
+
 

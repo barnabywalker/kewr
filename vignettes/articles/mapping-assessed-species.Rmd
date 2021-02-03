@@ -28,7 +28,7 @@ In addition to *kewr*, we'll load:
 * *stringr* to extract some data from strings
 * *ggplot2* to make some plots of our final data
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 library(kewr)
 library(dplyr)
 library(tidyr)
@@ -50,7 +50,7 @@ I've bundled up the Danish plant assessments in this package to make things easi
 head(danish_plants)
 ```
 
-In total, there are assessments for `r tidy(nrow(danish_plants), big.mark=",")` vascular plants from Denmark.
+In total, there are assessments for `r format(nrow(danish_plants), big.mark=",")` vascular plants from Denmark.
 
 ## 2. Match names to an IPNI ID
 

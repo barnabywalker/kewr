@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -134,14 +134,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/">kewr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/progress#readme">progress</a></span><span class="op">)</span>
@@ -183,9 +175,9 @@
 <span class="op">}</span>
 
 <span class="va">iceland_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">ids</span>, <span class="va">fcn</span><span class="op">)</span></code></pre></div>
-<p>Now we have all the records for our species, we can format them as a data frame to make subsequent analysis a bit easier.</p>
+<p>Now we have all the records for our species, we can tidy them as a data frame to make subsequent analysis a bit easier.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iceland_checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">iceland_records</span>, <span class="va">format</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">iceland_checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">iceland_records</span>, <span class="va">tidy</span><span class="op">)</span>
 <span class="va">iceland_checklist</span>
 <span class="co">#&gt; # A tibble: 850 x 28</span>
 <span class="co">#&gt;    modified bibliographicCi… genus taxonomicStatus kingdom phylum family</span>
@@ -263,7 +255,7 @@
   <span class="va">native</span> <span class="op">&amp;</span> <span class="va">endemic</span>
 <span class="op">}</span>
 
-<span class="va">iceland_endemics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">iceland_records</span>, <span class="va">format</span><span class="op">)</span>
+<span class="va">iceland_endemics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">iceland_records</span>, <span class="va">tidy</span><span class="op">)</span>
 
 <span class="va">iceland_endemics</span> <span class="op">&lt;-</span>
   <span class="va">iceland_endemics</span> <span class="op">%&gt;%</span>
@@ -277,8 +269,8 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"native species: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iceland_checklist</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "native species:  773"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"native species: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iceland_endemics</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "native species:  261"</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"endemic species: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iceland_endemics</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "endemic species:  261"</span></code></pre></div>
 </div>
   </div>
 

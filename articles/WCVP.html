@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -220,9 +220,9 @@
 <span class="co">#&gt;   ..$ name     : chr "Ulex intermedius"</span>
 <span class="co">#&gt;   ..$ author   : chr "Le Gall"</span>
 <span class="co">#&gt;   ..$ rank     : chr "Species"</span></code></pre></div>
-<p>In both cases, we can format the results into a tibble to make subsequent analysis easier:</p>
+<p>In both cases, we can tidy the results into a tibble to make subsequent analysis easier:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 92 x 10</span>
 <span class="co">#&gt;    id     fqId   url    display   accepted family name   author  rank  synonymOf</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;list&gt;   </span>
@@ -239,8 +239,8 @@
 <span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 92 x 10</span>
 <span class="co">#&gt;    id     fqId   url    display   accepted family name   author  rank  synonymOf</span>
@@ -310,8 +310,8 @@
 <span class="co">#&gt; Synonyms: 0</span></code></pre></div>
 <p>From this record, we can see that the name we had is a Homotypic Synonym. This record also contains the taxonomic information for the current accepted name:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">formatted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">taxon_info</span><span class="op">)</span>
-<span class="va">formatted</span><span class="op">$</span><span class="va">accepted</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<code class="sourceCode R"><span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">taxon_info</span><span class="op">)</span>
+<span class="va">tidied</span><span class="op">$</span><span class="va">accepted</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="co">#&gt; # A tibble: 1 x 9</span>
 <span class="co">#&gt;   id     fqId      url     display        accepted family name   author    rank </span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;          &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;</span>

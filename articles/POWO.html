@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -186,8 +186,8 @@
 <span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>
 
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 100 x 11</span>
 <span class="co">#&gt;    accepted author kingdom family name  rank  snippet url   fqId  images</span>
@@ -296,9 +296,9 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">record</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="va">ipni_id</span>, distribution<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="va">formatted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span>
+<span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span>
 
-<span class="va">formatted</span> <span class="op">%&gt;%</span>
+<span class="va">tidied</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">introduced</span><span class="op">)</span> <span class="op">%&gt;%</span>

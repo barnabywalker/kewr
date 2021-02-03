@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -130,9 +130,9 @@
 <span class="co">#&gt;   ..$ : chr "urn:lsid:ipni.org:names:416502-1"</span>
 <span class="co">#&gt;   ..$ : chr "Poa annua Linnaea 6: 38 (1831) Schltdl. &amp; Cham. 1831"</span></code></pre></div>
 <p>Where a name could be matched with multiple records - for example, if the same name has been published as different concepts - KNMS will return multiple matches, as it has here.</p>
-<p>The raw results from KNMS can be a bit difficult to interpret, so it is best to <code>format</code> them for inspection.</p>
+<p>The raw results from KNMS can be a bit difficult to interpret, so it is best to <code>tidy</code> them for inspection.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   submitted matched ipni_id  matched_record                                     </span>
 <span class="co">#&gt;   &lt;chr&gt;     &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;                                              </span>
@@ -142,7 +142,7 @@
 <p>To avoid having to resolve these multiple matches, it is usually best to submit the author string as part of the name, if it is available.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="st">"Poa annua L."</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
+<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 4</span>
 <span class="co">#&gt;   submitted    matched ipni_id  matched_record                      </span>
 <span class="co">#&gt;   &lt;chr&gt;        &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;                               </span>
@@ -152,7 +152,7 @@
 <code class="sourceCode R"><span class="va">names_to_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Poa annua L."</span>, <span class="st">"Myrcia guianensis"</span>, <span class="st">"Bulbophyllum sp."</span><span class="op">)</span>
 
 <span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="va">names_to_match</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
+<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 4</span>
 <span class="co">#&gt;   submitted        matched ipni_id matched_record                               </span>
 <span class="co">#&gt;   &lt;chr&gt;            &lt;lgl&gt;   &lt;chr&gt;   &lt;chr&gt;                                        </span>

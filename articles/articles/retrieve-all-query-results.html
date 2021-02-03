@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -110,15 +110,7 @@
 <p>To reduce the load on the servers, some of the Kew resources limit the number of results returned for a query. This tutorial will demonstrate how to download all the results for a query in a way that (hopefully) shouldn’t upset the servers.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/">kewr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <div id="increasing-the-maximum-number-of-results-returned" class="section level2">
 <h2 class="hasAnchor">
 <a href="#increasing-the-maximum-number-of-results-returned" class="anchor"></a>Increasing the maximum number of results returned</h2>
@@ -198,9 +190,9 @@
 <span class="co">#&gt;   ..$ name    : chr "Myrcia abbotiana"</span>
 <span class="co">#&gt;   ..$ author  : chr "(Urb.) Alain"</span>
 <span class="co">#&gt;   ..$ rank    : chr "Species"</span></code></pre></div>
-<p>Before we get the rest of the results in a <code>for</code> loop, it’s worth formatting our first result into a data frame, which we’ll use to add all our subsequent results to.</p>
+<p>Before we get the rest of the results in a <code>for</code> loop, it’s worth tidying our first result into a data frame, which we’ll use to add all our subsequent results to.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
 <p>Now we can loop through and get the rest of our query results.</p>
 <p><strong>IMPORTANT</strong>: I’ve added a 0.2 second sleep at the beginning of the loop, to make sure we’re not making too many requests per second to the server. In general, this is good practice when requesting data from an API, to make sure you don’t use too much bandwidth.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -209,7 +201,7 @@
   <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span>
   <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>
   
-  <span class="va">new_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>
+  <span class="va">new_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>
   <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">new_results</span><span class="op">)</span>
 <span class="op">}</span>
 

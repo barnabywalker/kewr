@@ -69,8 +69,8 @@ page1 <- search_ipni(query)
 page2 <- request_next(page1)
 
 bind_rows(
-  format(page1),
-  format(page2)
+  tidy(page1),
+  tidy(page2)
 )
 ```
 

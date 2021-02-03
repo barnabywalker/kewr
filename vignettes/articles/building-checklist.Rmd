@@ -82,10 +82,10 @@ fcn <- function(id) {
 iceland_records <- map(ids, fcn)
 ```
 
-Now we have all the records for our species, we can format them as a data frame to make subsequent analysis a bit easier.
+Now we have all the records for our species, we can tidy them as a data frame to make subsequent analysis a bit easier.
 
 ```{r}
-iceland_checklist <- map_dfr(iceland_records, format)
+iceland_checklist <- map_dfr(iceland_records, tidy)
 iceland_checklist
 ```
 
@@ -135,7 +135,7 @@ check_endemic <- function(dist, country="Iceland") {
   native & endemic
 }
 
-iceland_endemics <- map_dfr(iceland_records, format)
+iceland_endemics <- map_dfr(iceland_records, tidy)
 
 iceland_endemics <-
   iceland_endemics %>%

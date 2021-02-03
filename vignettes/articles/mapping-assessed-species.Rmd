@@ -50,7 +50,7 @@ I've bundled up the Danish plant assessments in this package to make things easi
 head(danish_plants)
 ```
 
-In total, there are assessments for `r format(nrow(danish_plants), big.mark=",")` vascular plants from Denmark.
+In total, there are assessments for `r tidy(nrow(danish_plants), big.mark=",")` vascular plants from Denmark.
 
 ## 2. Match names to an IPNI ID
 
@@ -74,7 +74,7 @@ Most of our names had matches! Which makes things simpler. But we also got some 
 First we'll try putting just the scientific names of our missing matches through KNMS again.
 
 ```{r match-partial-names}
-full_matches <- format(full_matches)
+full_matches <- tidy(full_matches)
 
 unmatched <- filter(full_matches, !matched)
 
@@ -90,7 +90,7 @@ Almost everything returned a match. We could attempt to manually match the final
 Now we can join all of our matches together, link them to the IUCN taxon ID, and resolve any synonyms.
 
 ```{r resolve-matches}
-part_matches <- format(part_matches)
+part_matches <- tidy(part_matches)
 
 full_matches <- 
   full_matches %>%
@@ -204,7 +204,7 @@ Now we have this, we just need to join our assessments to our checklist.
 
 ```{r join-assessments-checklist}
 checklist <-
-  format(checklist) %>%
+  tidy(checklist) %>%
   mutate(ipni_id=str_extract(fqId, "[0-9\\-]+")) %>%
   select(ipni_id, family, name, author) %>%
   distinct(ipni_id, .keep_all=TRUE) %>%

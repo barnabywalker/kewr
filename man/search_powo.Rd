@@ -77,7 +77,7 @@ print(r)
 
 # simplify search results to a `tibble`
 r <- search_powo("Poa", filters=c("species"))
-format(r)
+tidy(r)
 }
 
 }

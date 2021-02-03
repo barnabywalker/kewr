@@ -67,10 +67,10 @@ r <- search_wcvp(query, filters=filters, limit=100)
 r
 ```
 
-Before we get the rest of the results in a `for` loop, it's worth formatting our first result into a data frame, which we'll use to add all our subsequent results to.
+Before we get the rest of the results in a `for` loop, it's worth tidying our first result into a data frame, which we'll use to add all our subsequent results to.
 
 ```{r}
-results <- format(r)
+results <- tidy(r)
 ```
 
 Now we can loop through and get the rest of our query results. 
@@ -83,7 +83,7 @@ for (i in 2:r$pages) {
   Sys.sleep(0.2)
   r <- request_next(r)
   
-  new_results <- format(r)
+  new_results <- tidy(r)
   results <- bind_rows(results, new_results)
 }
 

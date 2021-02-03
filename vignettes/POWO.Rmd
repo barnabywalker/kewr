@@ -75,8 +75,8 @@ Sys.sleep(0.2)
 ulex_page2 <- request_next(ulex_page1)
 
 bind_rows(
-  format(ulex_page1),
-  format(ulex_page2)
+  tidy(ulex_page1),
+  tidy(ulex_page2)
 )
 ```
 
@@ -148,9 +148,9 @@ Sys.sleep(0.2)
 ```{r}
 record <- lookup_powo(ipni_id, distribution=TRUE)
 
-formatted <- format(record)
+tidied <- tidy(record)
 
-formatted %>%
+tidied %>%
   select(fqId, distribution) %>%
   unnest(cols=distribution) %>%
   select(-introduced) %>%

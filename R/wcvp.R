@@ -65,13 +65,13 @@
 #'
 #' # simplify search results to a `tibble`
 #' r <- search_wcvp("Poa", filters=c("species"))
-#' format(r)
+#' tidy(r)
 #'
 #' # accepted name info is nested inside the records for synonyms
 #' # simplify accepted name info to the name ID
 #' r <- search_wcvp("Poa", filters=c("species"))
-#' formatted <- format(r)
-#' tidyr::unnest(formatted, cols=synonymOf, names_sep="_")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=synonymOf, names_sep="_")
 #'
 #' @references
 #' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
@@ -144,19 +144,19 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
 #' r <- lookup_wcvp("271445-2")
 #' print(r)
 #'
-#' # format into a tibble
+#' # tidy into a tibble
 #' r <- lookup_wcvp("271445-2")
-#' format(r)
+#' tidy(r)
 #'
-#' # format the returned list of synonyms into a tibble
+#' # tidy the returned list of synonyms into a tibble
 #' r <- lookup_wcvp("60447743-2")
-#' formatted <- format(r)
-#' tidyr::unnest(formatted, cols=synonyms, names_sep="_")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=synonyms, names_sep="_")
 #'
 #' # expand the child entries returned for each entry
 #' r <- lookup_wcvp("30000055-2")
-#' formatted <- format(r)
-#' tidyr::unnest(formatted, cols=children, names_sep="_")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=children, names_sep="_")
 #'
 #' @family WCVP functions
 #' @seealso

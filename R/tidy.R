@@ -2,17 +2,15 @@
 #' @importFrom purrr map_dfr
 #'
 #' @export
-format.wcvp_search <- function(x, ...) {
-  .Deprecated("tidy.wcvp_search")
-  map_dfr(x$results, parse_nested_list)
+tidy.wcvp_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list_)
 }
 
 #' @export
-format.wcvp_taxon <- function(x, ...) {
-  .Deprecated("tidy.wcvp_taxon")
+tidy.wcvp_taxon <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
 
-  parse_nested_list(x)
+  parse_nested_list_(x)
 }
 
 # powo ----
@@ -20,17 +18,15 @@ format.wcvp_taxon <- function(x, ...) {
 #' @importFrom purrr map_dfr
 #'
 #' @export
-format.powo_search <- function(x, ...) {
-  .Deprecated("tidy.powo_search")
-  map_dfr(x$results, parse_nested_list)
+tidy.powo_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list_)
 }
 
 #' @export
-format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classification", "basionym", "distribution", "distributionEnvelope"), ...) {
-  .Deprecated("tidy.powo_taxon")
+tidy.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classification", "basionym", "distribution", "distributionEnvelope"), ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
 
-  parse_nested_list(x)
+  parse_nested_list_(x)
 }
 
 # ipni ----
@@ -38,33 +34,29 @@ format.powo_taxon <- function(x, field=c("none", "accepted", "synonyms", "classi
 #' @importFrom purrr map_dfr
 #'
 #' @export
-format.ipni_search <- function(x, ...) {
-  .Deprecated("tidy.ipni_search")
-  map_dfr(x$results, parse_nested_list)
+tidy.ipni_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list_)
 }
 
 #' @export
-format.ipni_citation <- function(x, ...) {
-  .Deprecated("tidy.ipni_citation")
+tidy.ipni_citation <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
 
-  parse_nested_list(x)
+  parse_nested_list_(x)
 }
 
 #' @export
-format.ipni_author <- function(x, ...) {
-  .Deprecated("tidy.ipni_author")
+tidy.ipni_author <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
 
-  parse_nested_list(x)
+  parse_nested_list_(x)
 }
 
 #' @export
-format.ipni_publication <- function(x, ...) {
-  .Deprecated("tidy.ipni_publication")
+tidy.ipni_publication <- function(x, ...) {
   x <- x[! names(x) %in% c("response", "queryId")]
 
-  parse_nested_list(x)
+  parse_nested_list_(x)
 }
 
 # knms ----
@@ -74,14 +66,13 @@ format.ipni_publication <- function(x, ...) {
 #' @importFrom rlang .data
 #'
 #' @export
-format.knms_match <- function(x, ...) {
-  .Deprecated("tidy.knms_match")
-  parsed <- map_dfr(x$results, parse_knms_line)
+tidy.knms_match <- function(x, ...) {
+  parsed <- map_dfr(x$results, parse_knms_line_)
 
-  formatted <- fill(parsed, .data$submitted, .data$matched)
-  formatted$matched <- formatted$matched %in% c("true", "multiple_matches")
+  tidied <- fill(parsed, .data$submitted, .data$matched)
+  tidied$matched <- tidied$matched %in% c("true", "multiple_matches")
 
-  formatted
+  tidied
 }
 
 # utils ----
@@ -95,28 +86,28 @@ format.knms_match <- function(x, ...) {
 #' @importFrom tibble as_tibble_row
 #'
 #' @noRd
-parse_nested_list <- function(l) {
+parse_nested_list_ <- function(l) {
   if (is.null(names(l))) {
-    return(map_dfr(l, parse_nested_list))
+    return(map_dfr(l, parse_nested_list_))
   }
 
   null_cols <- map_lgl(l, is.null)
   l[null_cols] <- NA_character_
 
   list_cols <- map_lgl(l, is.list)
-  l[list_cols] <- map(l[list_cols], ~list(parse_nested_list(.x)))
+  l[list_cols] <- map(l[list_cols], ~list(parse_nested_list_(.x)))
 
   as_tibble_row(l)
 }
 
-#' Parse and format a single match result from KNMS.
+#' Parse a single match result from KNMS.
 #'
 #' @importFrom stringr str_extract
 #' @importFrom dplyr na_if
 #' @importFrom tibble tibble
 #'
 #' @noRd
-parse_knms_line <- function(line) {
+parse_knms_line_ <- function(line) {
   submitted <- na_if(line[[1]], "")
   matched <- na_if(line[[2]], "")
 

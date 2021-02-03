@@ -65,7 +65,7 @@
 #'
 #' # simplify search results to a `tibble`
 #' r <- search_powo("Poa", filters=c("species"))
-#' format(r)
+#' tidy(r)
 #' }
 #'
 #' @family POWO functions
@@ -130,19 +130,19 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
 #' r <- lookup_powo("271445-2")
 #' print(r)
 #'
-#' # format returned record into a tibble
+#' # tidy returned record into a tibble
 #' r <- lookup_powo("271445-2")
-#' format(r)
+#' tidy(r)
 #'
-#' # format the returned list of synonyms into a tibble
+#' # tidy the returned list of synonyms into a tibble
 #' r <- lookup_wcvp("60447743-2")
-#' formatted <- format(r)
-#' tidyr::unnest(formatted, cols=synonyms, names_sep="_")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=synonyms, names_sep="_")
 #'
-#' # format the returned list of children into a tibble
+#' # tidy the returned list of children into a tibble
 #' r <- lookup_wcvp("30000055-2")
-#' formatted <- format(r)
-#' tidyr::unnest(formatted, cols=children, names_sep="_")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=children, names_sep="_")
 #' }
 #'
 #' @family POWO functions

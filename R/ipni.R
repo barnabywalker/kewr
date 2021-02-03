@@ -40,26 +40,26 @@
 #' # search for all names containing Poa annua
 #' results <- search_ipni("Poa annua")
 #'
-#' # format search results in a table
-#' format(results)
+#' # tidy search results in a table
+#' tidy(results)
 #'
 #' # extract author team information for the search results
-#' results_tbl <- format(results)
+#' results_tbl <- tidy(results)
 #' tidyr::unnest(results_tbl, cols=c(authorTeam), names_sep="_")
 #'
 #' # filter results to only species names
 #' species_results <- search_ipni("Poa annua", filters="species")
-#' format(species_results)
+#' tidy(species_results)
 #'
 #' # search for species from Mexico published in 1989
 #' q <- list(published="1989", distribution="Mexico")
 #' f <- "species"
 #' results <- search_ipni(q, filters=f)
-#' format(results)
+#' tidy(results)
 #'
 #' # search for an author by surname
 #' author_results <- search_ipni(list(author_surname="Gardiner"))
-#' format(author_results)
+#' tidy(author_results)
 #'
 #' @family IPNI functions
 #' @seealso
@@ -119,16 +119,16 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50) {
 #' name <- lookup_ipni("271445-2", "taxon")
 #' print(name)
 #'
-#' # format the results in a table
-#' format(name)
+#' # tidy the results in a table
+#' tidy(name)
 #'
 #' # retrieve nomenclatural information for an author
 #' name <- lookup_ipni("20028192-1", type="author")
-#' format(name)
+#' tidy(name)
 #'
 #' # retrieve nomenclatural information for a publication
 #' name <- lookup_ipni("987-2", type="publication")
-#' format(name)
+#' tidy(name)
 #'
 #' @family IPNI functions
 #' @seealso

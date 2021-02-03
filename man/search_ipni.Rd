@@ -53,26 +53,26 @@ using filters. Use the \code{get_filters} function to get a list of all implemen
 # search for all names containing Poa annua
 results <- search_ipni("Poa annua")
 
-# format search results in a table
-format(results)
+# tidy search results in a table
+tidy(results)
 
 # extract author team information for the search results
-results_tbl <- format(results)
+results_tbl <- tidy(results)
 tidyr::unnest(results_tbl, cols=c(authorTeam), names_sep="_")
 
 # filter results to only species names
 species_results <- search_ipni("Poa annua", filters="species")
-format(species_results)
+tidy(species_results)
 
 # search for species from Mexico published in 1989
 q <- list(published="1989", distribution="Mexico")
 f <- "species"
 results <- search_ipni(q, filters=f)
-format(results)
+tidy(results)
 
 # search for an author by surname
 author_results <- search_ipni(list(author_surname="Gardiner"))
-format(author_results)
+tidy(author_results)
 
 }
 \seealso{

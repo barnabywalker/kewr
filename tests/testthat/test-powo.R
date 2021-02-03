@@ -127,20 +127,20 @@ test_that("lookup with distribution returns distribution field", {
   expect_true("distribution" %in% names(results))
 })
 
-test_that("format search results returns tibble", {
+test_that("tidy search results returns tibble", {
   Sys.sleep(0.3)
   results <- search_powo("Poa annua", filters=c("species"))
-  formatted <- format(results)
+  tidied <- tidy(results)
 
-  expect_s3_class(formatted, "tbl_df")
+  expect_s3_class(tidied, "tbl_df")
 })
 
-test_that("format lookup results returns tibble", {
+test_that("tidy lookup results returns tibble", {
   Sys.sleep(0.3)
   results <- lookup_powo("30001404-2")
-  formatted <- format(results)
+  tidied <- tidy(results)
 
-  expect_s3_class(formatted, "tbl_df")
+  expect_s3_class(tidied, "tbl_df")
 })
 
 test_that("cursor returns next page of resutls", {

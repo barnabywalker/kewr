@@ -33,10 +33,10 @@ test_that("Line parsing returns a tibble", {
   expect_s3_class(parsed, "tbl_df")
 })
 
-test_that("Match formatting returns a tibble", {
+test_that("Match tidying returns a tibble", {
   names <- c("Bad plant", "Poa annua", "Myrcia guianensis")
   matches <- match_knms(names)
-  formatted <- format(matches)
+  tidied <- tidy(matches)
 
-  expect_s3_class(formatted, "tbl_df")
+  expect_s3_class(tidied, "tbl_df")
 })

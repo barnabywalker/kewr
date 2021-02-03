@@ -33,16 +33,16 @@ it can be found out using the \link[=search_ipni]{IPNI search API}.
 name <- lookup_ipni("271445-2", "taxon")
 print(name)
 
-# format the results in a table
-format(name)
+# tidy the results in a table
+tidy(name)
 
 # retrieve nomenclatural information for an author
 name <- lookup_ipni("20028192-1", type="author")
-format(name)
+tidy(name)
 
 # retrieve nomenclatural information for a publication
 name <- lookup_ipni("987-2", type="publication")
-format(name)
+tidy(name)
 
 }
 \seealso{

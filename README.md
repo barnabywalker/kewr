@@ -118,17 +118,17 @@ POWO/WCVP:
 match_knms(c("Poa annua", "Magnolia grandifolia", "Bulbophyllum sp."))
 ```
 
-### Formatting results
+### Tidying results
 
 Each function in this package returns an object that stores the original
 response as well as the content of the response parsed into a list. This
 is to give the user as much flexibility as possible and to make
 debugging things a bit easier.
 
-But this can be hard to use, so all the results objects can be formatted
-as a `tibble`:
+But this can be hard to use, so all the results objects can be tidied as
+a `tibble`:
 
 ``` r
 results <- search_powo("Poa annua")
-format(results)
+tidy(results)
 ```

@@ -36,19 +36,19 @@ lookup_wcvp("271445-2")
 r <- lookup_wcvp("271445-2")
 print(r)
 
-# format into a tibble
+# tidy into a tibble
 r <- lookup_wcvp("271445-2")
-format(r)
+tidy(r)
 
-# format the returned list of synonyms into a tibble
+# tidy the returned list of synonyms into a tibble
 r <- lookup_wcvp("60447743-2")
-formatted <- format(r)
-tidyr::unnest(formatted, cols=synonyms, names_sep="_")
+tidied <- tidy(r)
+tidyr::unnest(tidied, cols=synonyms, names_sep="_")
 
 # expand the child entries returned for each entry
 r <- lookup_wcvp("30000055-2")
-formatted <- format(r)
-tidyr::unnest(formatted, cols=children, names_sep="_")
+tidied <- tidy(r)
+tidyr::unnest(tidied, cols=children, names_sep="_")
 
 }
 \references{

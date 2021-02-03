@@ -80,13 +80,13 @@ print(r)
 
 # simplify search results to a `tibble`
 r <- search_wcvp("Poa", filters=c("species"))
-format(r)
+tidy(r)
 
 # accepted name info is nested inside the records for synonyms
 # simplify accepted name info to the name ID
 r <- search_wcvp("Poa", filters=c("species"))
-formatted <- format(r)
-tidyr::unnest(formatted, cols=synonymOf, names_sep="_")
+tidied <- tidy(r)
+tidyr::unnest(tidied, cols=synonymOf, names_sep="_")
 
 }
 \references{

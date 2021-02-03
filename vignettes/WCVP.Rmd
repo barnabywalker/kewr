@@ -73,16 +73,16 @@ ulex_page2 <- request_next(ulex_page1)
 ulex_page2
 ```
 
-In both cases, we can format the results into a tibble to make subsequent analysis easier:
+In both cases, we can tidy the results into a tibble to make subsequent analysis easier:
 
 ```{r}
-format(ulex_all)
+tidy(ulex_all)
 ```
 
 ```{r}
 bind_rows(
-  format(ulex_page1),
-  format(ulex_page2)
+  tidy(ulex_page1),
+  tidy(ulex_page2)
 )
 ```
 
@@ -123,8 +123,8 @@ taxon_info
 From this record, we can see that the name we had is a Homotypic Synonym. This record also contains the taxonomic information for the current accepted name:
 
 ```{r}
-formatted <- format(taxon_info)
-formatted$accepted[[1]]
+tidied <- tidy(taxon_info)
+tidied$accepted[[1]]
 ```
 
 ## Downloading the whole WCVP

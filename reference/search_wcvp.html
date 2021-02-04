@@ -73,7 +73,7 @@ for a taxon string." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@ for a taxon string." />
 for a taxon string.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search_wcvp</span><span class='op'>(</span><span class='va'>query</span>, filters <span class='op'>=</span> <span class='cn'>NULL</span>, page <span class='op'>=</span> <span class='fl'>1</span>, limit <span class='op'>=</span> <span class='fl'>50</span>, .wait <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>search_wcvp</span><span class='op'>(</span><span class='va'>query</span>, filters <span class='op'>=</span> <span class='cn'>NULL</span>, cursor <span class='op'>=</span> <span class='st'>"*"</span>, limit <span class='op'>=</span> <span class='fl'>50</span>, .wait <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,8 +165,9 @@ the query must be formatted as a list.</p></td>
 Multiple filters must be supplied as a character vector.</p></td>
     </tr>
     <tr>
-      <th>page</th>
-      <td><p>An integer specifying the page of results to return.</p></td>
+      <th>cursor</th>
+      <td><p>A cursor returned by a previous search.
+If used, the query and filter must be exactly the same.</p></td>
     </tr>
     <tr>
       <th>limit</th>
@@ -185,7 +186,7 @@ rate limiting.</p></td>
     <p>Returns an object of class <code>wcvp_search</code> that is a simple
 structure with slots for:</p><ul>
 <li><p><code>total</code>: the total number of results held in WCVP for the query</p></li>
-<li><p><code>page</code>: the page number requested from the API.</p></li>
+<li><p><code>cursor</code>: a cursor to retrieve the next page of results from the API.</p></li>
 <li><p><code>limit</code>: the maximum number of results requested from the API.</p></li>
 <li><p><code>results</code>: the query results parsed into a list.</p></li>
 <li><p><code>query</code>: the query string submitted to the API.</p></li>
@@ -233,7 +234,7 @@ using a valid IPNI ID.</p></li>
 #&gt; total results: 1376
 #&gt; returned results: 50
 #&gt; total pages: 28
-#&gt; current page: 1
+#&gt; current page: 28
 #&gt; List of 1
 #&gt;  $ :List of 9
 #&gt;   ..$ id      : chr "30001220-2"
@@ -251,7 +252,7 @@ using a valid IPNI ID.</p></li>
 #&gt; total results: 748
 #&gt; returned results: 50
 #&gt; total pages: 15
-#&gt; current page: 1
+#&gt; current page: 15
 #&gt; List of 1
 #&gt;  $ :List of 9
 #&gt;   ..$ id      : chr "165525-2"
@@ -287,7 +288,7 @@ using a valid IPNI ID.</p></li>
 #&gt; total results: 17487
 #&gt; returned results: 50
 #&gt; total pages: 350
-#&gt; current page: 1
+#&gt; current page: 350
 #&gt; List of 1
 #&gt;  $ :List of 10
 #&gt;   ..$ id       : chr "27387-1"
@@ -306,7 +307,7 @@ using a valid IPNI ID.</p></li>
 #&gt; total results: 359
 #&gt; returned results: 50
 #&gt; total pages: 8
-#&gt; current page: 1
+#&gt; current page: 8
 #&gt; List of 1
 #&gt;  $ :List of 10
 #&gt;   ..$ id       : chr "27387-1"
@@ -325,7 +326,7 @@ using a valid IPNI ID.</p></li>
 #&gt; total results: 639
 #&gt; returned results: 50
 #&gt; total pages: 13
-#&gt; current page: 1
+#&gt; current page: 13
 #&gt; List of 1
 #&gt;  $ :List of 9
 #&gt;   ..$ id      : chr "78925-2"

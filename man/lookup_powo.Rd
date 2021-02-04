@@ -4,12 +4,15 @@
 \alias{lookup_powo}
 \title{Look up a taxon in POWO.}
 \usage{
-lookup_powo(taxonid, distribution = FALSE)
+lookup_powo(taxonid, distribution = FALSE, .wait = 0.2)
 }
 \arguments{
 \item{taxonid}{A string containing a valid IPNI ID.}
 
 \item{distribution}{Include distribution in results (default \code{FALSE}).}
+
+\item{.wait}{Time to wait before making a request, to help
+rate limiting.}
 }
 \value{
 A \code{powo_taxon} object, which is a simple structure with fields

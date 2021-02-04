@@ -4,7 +4,7 @@
 \alias{search_ipni}
 \title{Search IPNI.}
 \usage{
-search_ipni(query, filters = NULL, page = 1, limit = 50)
+search_ipni(query, filters = NULL, page = 1, limit = 50, .wait = 0.1)
 }
 \arguments{
 \item{query}{The string to query IPNI with. If using keywords, the query
@@ -15,6 +15,9 @@ must be formatted as a list.}
 \item{page}{The page of records to return.}
 
 \item{limit}{The maximum number of records to return.}
+
+\item{.wait}{Time to wait before making a request, to help
+rate limiting.}
 }
 \value{
 Returns an object of class \code{ipni_search} that is a simple

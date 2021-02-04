@@ -64,7 +64,7 @@ First we'll extract a list of IDs from our results, using the `map` function fro
 ids <- map(iceland_species$results, ~str_extract(.x$fqId, "[\\d\\-]+$"))
 ```
 
-Then we need to make all of our requests. To make sure we're not overloading POWO, we'll define a simple function to wait for a short period of time before making the request. This let's us use `map` again to make our requests, as well as adding a progress bar to track them!
+Then we need to make all of our requests. To make things easier, we'll define a simple function that just accepts a species ID, and makes use of a progress bar to track our requests!
 
 ```{r download-distributions}
 pb <- progress_bar$new(
@@ -74,7 +74,6 @@ pb <- progress_bar$new(
 
 fcn <- function(id) {
   pb$tick()
-  Sys.sleep(0.1)
   
   lookup_powo(id, distribution=TRUE)
 }

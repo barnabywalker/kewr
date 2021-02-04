@@ -149,6 +149,8 @@ get_user_agent_ <- function() {
 #' @param query A list specifying a query.
 #' @param body A list specifying an optional body. If specified,
 #' the function will make a POST request to the resource.
+#' @param .wait The time to wait before making the request,
+#'  to help with rate limiting.
 #'
 #' @return A list containing the returned response object and
 #'   the response content parsed into a list.
@@ -157,8 +159,10 @@ get_user_agent_ <- function() {
 #'
 #' @import httr
 #' @importFrom jsonlite fromJSON
-make_request_ <- function(url, query, body=NULL) {
+make_request_ <- function(url, query, body=NULL, .wait=0.1) {
   user_agent <- get_user_agent_()
+
+  Sys.sleep(.wait)
 
   if (! is.null(body)) {
     response <- POST(url, user_agent, body=body, encode="json")

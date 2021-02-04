@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Query the International Plant Names Index for nomenclatural information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search_ipni</span><span class='op'>(</span><span class='va'>query</span>, filters <span class='op'>=</span> <span class='cn'>NULL</span>, page <span class='op'>=</span> <span class='fl'>1</span>, limit <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>search_ipni</span><span class='op'>(</span><span class='va'>query</span>, filters <span class='op'>=</span> <span class='cn'>NULL</span>, page <span class='op'>=</span> <span class='fl'>1</span>, limit <span class='op'>=</span> <span class='fl'>50</span>, .wait <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +168,11 @@ must be formatted as a list.</p></td>
     <tr>
       <th>limit</th>
       <td><p>The maximum number of records to return.</p></td>
+    </tr>
+    <tr>
+      <th>.wait</th>
+      <td><p>Time to wait before making a request, to help
+rate limiting.</p></td>
     </tr>
     </table>
 

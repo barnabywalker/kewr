@@ -73,7 +73,7 @@ using the IPNI ID." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@ using the IPNI ID." />
 using the IPNI ID.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lookup_ipni</span><span class='op'>(</span><span class='va'>id</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"taxon"</span>, <span class='st'>"author"</span>, <span class='st'>"publication"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>lookup_ipni</span><span class='op'>(</span><span class='va'>id</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"taxon"</span>, <span class='st'>"author"</span>, <span class='st'>"publication"</span><span class='op'>)</span>, .wait <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,6 +161,11 @@ using the IPNI ID.</p>
     <tr>
       <th>type</th>
       <td><p>The type of record to look up. Either <code>taxon</code>, <code>author</code>, or <code>publication</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.wait</th>
+      <td><p>Time to wait before making a request, to help
+rate limiting.</p></td>
     </tr>
     </table>
 

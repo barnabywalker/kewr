@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -241,9 +241,8 @@
 <a href="#resolve-assessments-to-accepted-names" class="anchor"></a>3. Resolve assessments to accepted names</h2>
 <p>Now that we have an IPNI ID attached to each assessment, we can look up the record for the taxa in WCVP. This will let us find out the taxonomic status of each name - the first step in resolving any synonymy issues.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># wrap up the lookup_wcvp function to add a wait</span>
+<code class="sourceCode R"><span class="co"># wrap up the lookup_wcvp function to make sure it comes back as a list</span>
 <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">taxonid</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/lookup_wcvp.html">lookup_wcvp</a></span><span class="op">(</span><span class="va">taxonid</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span>
 

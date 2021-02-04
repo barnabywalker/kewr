@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -194,11 +194,9 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
 <p>Now we can loop through and get the rest of our query results.</p>
-<p><strong>IMPORTANT</strong>: I’ve added a 0.2 second sleep at the beginning of the loop, to make sure we’re not making too many requests per second to the server. In general, this is good practice when requesting data from an API, to make sure you don’t use too much bandwidth.</p>
+<p><strong>IMPORTANT</strong>: making too many requests in a short period of time to POWO can cause problems for the server. By default, the <code>request_next</code> function adds in a little waiting period before making a new request. But you might get back an error if you’re asking for lot’s of things one after the other.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span><span class="va">r</span><span class="op">$</span><span class="va">pages</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># don't forget to add a little sleep!</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span>
   <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>
   
   <span class="va">new_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>

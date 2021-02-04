@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@
 <p>First we’ll extract a list of IDs from our results, using the <code>map</code> function from <em>purrr</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">iceland_species</span><span class="op">$</span><span class="va">results</span>, <span class="op">~</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">fqId</span>, <span class="st">"[\\d\\-]+$"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Then we need to make all of our requests. To make sure we’re not overloading POWO, we’ll define a simple function to wait for a short period of time before making the request. This let’s us use <code>map</code> again to make our requests, as well as adding a progress bar to track them!</p>
+<p>Then we need to make all of our requests. To make things easier, we’ll define a simple function that just accepts a species ID, and makes use of a progress bar to track our requests!</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pb</span> <span class="op">&lt;-</span> <span class="va"><a href="https://rdrr.io/pkg/progress/man/progress_bar.html">progress_bar</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
   format<span class="op">=</span><span class="st">"  requesting [:bar] :current/:total (:percent)"</span>,
@@ -169,7 +169,6 @@
 
 <span class="va">fcn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">pb</span><span class="op">$</span><span class="fu">tick</span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span>
   
   <span class="fu"><a href="../../reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="va">id</span>, distribution<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="op">}</span>

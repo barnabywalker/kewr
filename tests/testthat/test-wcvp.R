@@ -126,3 +126,12 @@ test_that("wcvp download link errors for unimplemented version", {
   expect_error(wcvp_download_url_(3000),
                "Not a recognised version")
 })
+
+test_that("cursor returns next page of results", {
+  query <- list(genus="Ulex")
+
+  page1 <- search_wcvp(query)
+  page2 <- search_wcvp(query, cursor=page1$cursor)
+
+  expect_false(page1$results[[1]]$fqId == page2$results[[1]]$fqId)
+})

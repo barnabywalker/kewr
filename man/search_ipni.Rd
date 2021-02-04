@@ -4,7 +4,7 @@
 \alias{search_ipni}
 \title{Search IPNI.}
 \usage{
-search_ipni(query, filters = NULL, page = 1, limit = 50, .wait = 0.1)
+search_ipni(query, filters = NULL, cursor = "*", limit = 50, .wait = 0.1)
 }
 \arguments{
 \item{query}{The string to query IPNI with. If using keywords, the query
@@ -12,7 +12,8 @@ must be formatted as a list.}
 
 \item{filters}{Filter to apply to search results.}
 
-\item{page}{The page of records to return.}
+\item{cursor}{A cursor returned by a previous search.
+If used, the query and filter must be exactly the same.}
 
 \item{limit}{The maximum number of records to return.}
 
@@ -26,6 +27,7 @@ structure with slots for:
 \item \code{total}: the total number of results held in POWO for the query
 \item \code{pages}: the total number of results pages for the query.
 \item \code{limit}: the maximum number of results requested from the API, per page.
+\item \code{cursor}: a cursor to retrieve the next page of results from the API.
 \item \code{results}: the query results parsed into a list.
 \item \code{query}: the query string submitted to the API.
 \item \code{response}: the \link[httr:response]{httr response object}.

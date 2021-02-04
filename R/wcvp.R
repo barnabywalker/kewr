@@ -26,7 +26,8 @@
 #'  the query must be formatted as a list.
 #' @param filters Filter to apply to search results.
 #'  Multiple filters must be supplied as a character vector.
-#' @param page An integer specifying the page of results to return.
+#' @param cursor A cursor returned by a previous search.
+#'  If used, the query and filter must be exactly the same.
 #' @param limit An integer specifying the maximum number of results
 #'  to return.
 #' @param .wait Time to wait before making a request, to help
@@ -36,7 +37,7 @@
 #' structure with slots for:
 #'
 #'  * `total`: the total number of results held in WCVP for the query
-#'  * `page`: the page number requested from the API.
+#'  * `cursor`: a cursor to retrieve the next page of results from the API.
 #'  * `limit`: the maximum number of results requested from the API.
 #'  * `results`: the query results parsed into a list.
 #'  * `query`: the query string submitted to the API.
@@ -86,7 +87,7 @@
 #'  * [download_wcvp()] to download the entire WCVP.
 #'
 #' @export
-search_wcvp <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
+search_wcvp <- function(query, filters=NULL, cursor="*", limit=50, .wait=0.1) {
   url <- wcvp_search_url_()
 
   # keeping a copy of this to return in the result object
@@ -94,9 +95,8 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
 
   query <- format_query_(query, "wcvp")
 
-  query$page <- page
   query$limit <- limit
-
+  query$cursor <- cursor
   query$f <- format_filters_(filters, "wcvp")
 
   results <- make_request_(url, query, .wait=.wait)
@@ -108,7 +108,7 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
     list(
       total=results$content$total,
       pages=total_pages,
-      page=results$content$page,
+      cursor=results$content$cursor,
       limit=results$content$limit,
       results=results$content$results,
       query=original_query,

@@ -19,11 +19,11 @@ test_that("method exists for IPNI search results", {
   expect_true("request_next.ipni_search" %in% method_list)
 })
 
-test_that("advances to next page for WCVP", {
+test_that("cursor changes for WCVP", {
   page1 <- search_wcvp(list(genus="Poa"), filters="accepted")
   page2 <- request_next(page1)
 
-  expect_equal(page1$page + 1, page2$page)
+  expect_false(page1$cursor == page2$cursor)
 })
 
 test_that("cursor changes for POWO", {
@@ -33,11 +33,11 @@ test_that("cursor changes for POWO", {
   expect_false(page1$cursor == page2$cursor)
 })
 
-test_that("advances to next page for IPNI", {
+test_that("cursor changes for IPNI", {
   page1 <- search_ipni(list(genus="Poa"), filters="species")
   page2 <- request_next(page1)
 
-  expect_equal(page1$page + 1, page2$page)
+  expect_false(page1$cursor == page2$cursor)
 })
 
 test_that("results change for WCVP", {

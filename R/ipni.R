@@ -22,7 +22,8 @@
 #' @param query The string to query IPNI with. If using keywords, the query
 #'  must be formatted as a list.
 #' @param filters Filter to apply to search results.
-#' @param page The page of records to return.
+#' @param cursor A cursor returned by a previous search.
+#'  If used, the query and filter must be exactly the same.
 #' @param limit The maximum number of records to return.
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
@@ -34,6 +35,7 @@
 #'  * `total`: the total number of results held in POWO for the query
 #'  * `pages`: the total number of results pages for the query.
 #'  * `limit`: the maximum number of results requested from the API, per page.
+#'  * `cursor`: a cursor to retrieve the next page of results from the API.
 #'  * `results`: the query results parsed into a list.
 #'  * `query`: the query string submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
@@ -68,7 +70,7 @@
 #'  * [lookup_ipni()] to look up a name using an IPNI ID.
 #'
 #' @export
-search_ipni <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
+search_ipni <- function(query, filters=NULL, cursor="*", limit=50, .wait=0.1) {
   url <- ipni_search_url_()
 
   # keeping a copy of this to return in the result object
@@ -77,7 +79,7 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
   query <- format_query_(query, "ipni")
 
   query$perPage <- limit
-  query$page <- page
+  query$cursor <- cursor
   query$f <- format_filters_(filters, "ipni")
 
   results <- make_request_(url, query, .wait=.wait)
@@ -86,7 +88,7 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
     list(
       total=results$content$totalResults,
       pages=results$content$totalPages,
-      page=results$content$page,
+      cursor=results$content$cursor,
       limit=results$content$perPage,
       results=results$content$results,
       query=original_query,

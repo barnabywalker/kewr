@@ -26,7 +26,7 @@ request_next.wcvp_search <- function(object) {
     query=object$query,
     filters=object$filters,
     limit=object$limit,
-    page=current_page + 1,
+    cursor=object$cursor,
     .wait=.wait
   )
 }
@@ -69,7 +69,7 @@ request_next.ipni_search <- function(object) {
     query=object$query,
     filters=object$filters,
     limit=object$limit,
-    page=current_page + 1,
+    cursor=object$cursor,
     .wait=.wait
   )
 }

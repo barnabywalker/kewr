@@ -109,3 +109,11 @@ test_that("infrafamily filter only returns infrafamilies", {
   expect_true(all_families)
 })
 
+test_that("cursor returns next page of results", {
+  query <- list(genus="Ulex")
+
+  page1 <- search_ipni(query)
+  page2 <- search_ipni(query, cursor=page1$cursor)
+
+  expect_false(page1$results[[1]]$fqId == page2$results[[1]]$fqId)
+})

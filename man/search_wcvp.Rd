@@ -4,7 +4,7 @@
 \alias{search_wcvp}
 \title{Search WCVP for a taxon.}
 \usage{
-search_wcvp(query, filters = NULL, page = 1, limit = 50, .wait = 0.1)
+search_wcvp(query, filters = NULL, cursor = "*", limit = 50, .wait = 0.1)
 }
 \arguments{
 \item{query}{The taxon string to search WCVP for. If using keywords,
@@ -13,7 +13,8 @@ the query must be formatted as a list.}
 \item{filters}{Filter to apply to search results.
 Multiple filters must be supplied as a character vector.}
 
-\item{page}{An integer specifying the page of results to return.}
+\item{cursor}{A cursor returned by a previous search.
+If used, the query and filter must be exactly the same.}
 
 \item{limit}{An integer specifying the maximum number of results
 to return.}
@@ -26,7 +27,7 @@ Returns an object of class \code{wcvp_search} that is a simple
 structure with slots for:
 \itemize{
 \item \code{total}: the total number of results held in WCVP for the query
-\item \code{page}: the page number requested from the API.
+\item \code{cursor}: a cursor to retrieve the next page of results from the API.
 \item \code{limit}: the maximum number of results requested from the API.
 \item \code{results}: the query results parsed into a list.
 \item \code{query}: the query string submitted to the API.

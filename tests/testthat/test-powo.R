@@ -132,7 +132,7 @@ test_that("tidy lookup results returns tibble", {
   expect_s3_class(tidied, "tbl_df")
 })
 
-test_that("cursor returns next page of resutls", {
+test_that("cursor returns next page of results", {
   query <- list(genus="Ulex")
 
   page1 <- search_powo(query, .wait=0.3)

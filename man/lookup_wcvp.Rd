@@ -4,10 +4,13 @@
 \alias{lookup_wcvp}
 \title{Look up a taxon in WCVP.}
 \usage{
-lookup_wcvp(taxonid)
+lookup_wcvp(taxonid, .wait = 0.1)
 }
 \arguments{
 \item{taxonid}{A string containing a valid IPNI ID.}
+
+\item{.wait}{Time to wait before making a request, to help
+rate limiting.}
 }
 \value{
 A \code{wcvp_taxon} object, which is a simple structure with fields

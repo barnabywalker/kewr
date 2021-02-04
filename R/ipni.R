@@ -24,6 +24,8 @@
 #' @param filters Filter to apply to search results.
 #' @param page The page of records to return.
 #' @param limit The maximum number of records to return.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
 #'
 #' @return
 #' Returns an object of class `ipni_search` that is a simple
@@ -66,7 +68,7 @@
 #'  * [lookup_ipni()] to look up a name using an IPNI ID.
 #'
 #' @export
-search_ipni <- function(query, filters=NULL, page=1, limit=50) {
+search_ipni <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
   url <- ipni_search_url_()
 
   # keeping a copy of this to return in the result object
@@ -78,7 +80,7 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50) {
   query$page <- page
   query$f <- format_filters_(filters, "ipni")
 
-  results <- make_request_(url, query)
+  results <- make_request_(url, query, .wait=.wait)
 
   structure(
     list(
@@ -109,6 +111,8 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50) {
 #'
 #' @param id A string containing a valid IPNI ID.
 #' @param type The type of record to look up. Either `taxon`, `author`, or `publication`.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
 #'
 #' @return An `ipni_taxon` object, which is a simple structure with fields
 #'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].
@@ -135,12 +139,12 @@ search_ipni <- function(query, filters=NULL, page=1, limit=50) {
 #'  * [search_ipni()] to search IPNI using a taxon name.
 #'
 #' @export
-lookup_ipni <- function(id, type=c("taxon", "author", "publication")) {
+lookup_ipni <- function(id, type=c("taxon", "author", "publication"), .wait=0.1) {
   type <- match.arg(type)
 
   url <- ipni_lookup_url_(id, type)
 
-  result <- make_request_(url, query=NULL)
+  result <- make_request_(url, query=NULL, .wait=.wait)
 
   # this might be better if things were explicitly listed
   record <- result$content

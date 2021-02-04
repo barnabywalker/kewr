@@ -19,12 +19,15 @@ request_next <- function(object) {
 #'
 #' @export
 request_next.wcvp_search <- function(object) {
+  .wait <- calculate_wait_(object)
   current_page <- object$page
+
   search_wcvp(
     query=object$query,
     filters=object$filters,
     limit=object$limit,
-    page=current_page + 1
+    page=current_page + 1,
+    .wait=.wait
   )
 }
 
@@ -39,12 +42,15 @@ request_next.wcvp_search <- function(object) {
 #'
 #' @export
 request_next.powo_search <- function(object) {
+  .wait <- calculate_wait_(object)
   current_page <- object$page
+
   search_powo(
     query=object$query,
     filters=object$filters,
     limit=object$limit,
-    cursor=object$cursor
+    cursor=object$cursor,
+    .wait=.wait
   )
 }
 
@@ -56,11 +62,20 @@ request_next.powo_search <- function(object) {
 #'
 #' @export
 request_next.ipni_search <- function(object) {
+  .wait <- calculate_wait_(object)
   current_page <- object$page
+
   search_ipni(
     query=object$query,
     filters=object$filters,
     limit=object$limit,
-    page=current_page + 1
+    page=current_page + 1,
+    .wait=.wait
   )
+}
+
+calculate_wait_ <- function(object) {
+  response_time <- object$response$times["total"]
+
+  response_time / 2
 }

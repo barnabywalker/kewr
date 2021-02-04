@@ -75,12 +75,12 @@ results <- tidy(r)
 
 Now we can loop through and get the rest of our query results. 
 
-**IMPORTANT**: I've added a 0.2 second sleep at the beginning of the loop, to make sure we're not making too many requests per second to the server. In general, this is good practice when requesting data from an API, to make sure you don't use too much bandwidth.
+**IMPORTANT**: making too many requests in a short period of time to POWO can cause problems for the server. By default,
+the `request_next` function adds in a little waiting period before making a new request. But you might get back an error if
+you're asking for lot's of things one after the other.
 
 ```{r paged-loop-search}
 for (i in 2:r$pages) {
-  # don't forget to add a little sleep!
-  Sys.sleep(0.2)
   r <- request_next(r)
   
   new_results <- tidy(r)

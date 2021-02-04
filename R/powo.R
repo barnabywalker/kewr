@@ -17,7 +17,7 @@
 #' Distributions in POWO are categorised using the [World Geographical Scheme for
 #' Recording Plant Distributions (WGSRP)](https://www.tdwg.org/standards/wgsrpd/).
 #' Users can query POWO using distributions listed under WGSRPD levels 1 (continents),
-#' 2 (regions), and 3 (botanical countries). 
+#' 2 (regions), and 3 (botanical countries).
 #'
 #' @param query The string to query POWO with. If using keywords,
 #'  the query must be formatted as a list.
@@ -26,6 +26,8 @@
 #' @param cursor A cursor returned by a previous search.
 #'  If used, the query and filter must be exactly the same.
 #' @param limit The maximum number of records to return.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
 #'
 #' @return
 #' Returns an object of class `powo_search` that is a simple
@@ -73,7 +75,7 @@
 #'  * [lookup_powo()] to look up a taxon in POWO using the IPNI ID.
 #'
 #' @export
-search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
+search_powo <- function(query, filters=NULL, cursor=NULL, limit=50, .wait=0.2) {
   url <- powo_search_url_()
 
   # keeping a copy of this to return in the result object
@@ -85,7 +87,7 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
   query$cursor <- cursor
   query$f <- format_filters_(filters, "powo")
 
-  results <- make_request_(url, query)
+  results <- make_request_(url, query, .wait=.wait)
 
   structure(
     list(
@@ -117,6 +119,8 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
 #'
 #' @param taxonid A string containing a valid IPNI ID.
 #' @param distribution Include distribution in results (default `FALSE`).
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
 #'
 #' @return A `powo_taxon` object, which is a simple structure with fields
 #'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].
@@ -150,7 +154,7 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50) {
 #'  * [search_powo()] to search POWO using a taxon name.
 #'
 #' @export
-lookup_powo <- function(taxonid, distribution=FALSE) {
+lookup_powo <- function(taxonid, distribution=FALSE, .wait=0.2) {
   url <- powo_taxon_url_(taxonid)
 
   query <- NULL
@@ -158,7 +162,7 @@ lookup_powo <- function(taxonid, distribution=FALSE) {
     query <- list(fields="distribution")
   }
 
-  result <- make_request_(url, query=query)
+  result <- make_request_(url, query=query, .wait=.wait)
 
   # this might be better if things were explicitly listed
   record <- result$content

@@ -29,6 +29,9 @@
 #' @param page An integer specifying the page of results to return.
 #' @param limit An integer specifying the maximum number of results
 #'  to return.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
+#'
 #' @return Returns an object of class `wcvp_search` that is a simple
 #' structure with slots for:
 #'
@@ -83,7 +86,7 @@
 #'  * [download_wcvp()] to download the entire WCVP.
 #'
 #' @export
-search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
+search_wcvp <- function(query, filters=NULL, page=1, limit=50, .wait=0.1) {
   url <- wcvp_search_url_()
 
   # keeping a copy of this to return in the result object
@@ -96,7 +99,7 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
 
   query$f <- format_filters_(filters, "wcvp")
 
-  results <- make_request_(url, query)
+  results <- make_request_(url, query, .wait=.wait)
 
   # calculate total number of pages, because it isn't returned
   total_pages <- ceiling(results$content$total / results$content$limit)
@@ -131,6 +134,8 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
 #' it can be found out using the [WCVP search API][kewr::search_wcvp].
 #'
 #' @param taxonid A string containing a valid IPNI ID.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
 #'
 #' @return A `wcvp_taxon` object, which is a simple structure with fields
 #'   for each of the fields returned by the lookup API, as well as the the [httr response object][httr::response].
@@ -167,10 +172,10 @@ search_wcvp <- function(query, filters=NULL, page=1, limit=50) {
 #' WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/
 #'
 #' @export
-lookup_wcvp <- function(taxonid) {
+lookup_wcvp <- function(taxonid, .wait=0.1) {
   url <- wcvp_taxon_url_(taxonid)
 
-  result <- make_request_(url, query=NULL)
+  result <- make_request_(url, query=NULL, .wait=.wait)
 
   # this might be better if things were explicitly listed
   record <- result$content

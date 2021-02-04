@@ -4,12 +4,15 @@
 \alias{lookup_ipni}
 \title{Look up a name in IPNI.}
 \usage{
-lookup_ipni(id, type = c("taxon", "author", "publication"))
+lookup_ipni(id, type = c("taxon", "author", "publication"), .wait = 0.1)
 }
 \arguments{
 \item{id}{A string containing a valid IPNI ID.}
 
 \item{type}{The type of record to look up. Either \code{taxon}, \code{author}, or \code{publication}.}
+
+\item{.wait}{Time to wait before making a request, to help
+rate limiting.}
 }
 \value{
 An \code{ipni_taxon} object, which is a simple structure with fields

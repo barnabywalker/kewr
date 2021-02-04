@@ -4,7 +4,7 @@
 \alias{search_powo}
 \title{Search POWO.}
 \usage{
-search_powo(query, filters = NULL, cursor = NULL, limit = 50)
+search_powo(query, filters = NULL, cursor = NULL, limit = 50, .wait = 0.2)
 }
 \arguments{
 \item{query}{The string to query POWO with. If using keywords,
@@ -17,6 +17,9 @@ Multiple filters must be supplied as a character vector.}
 If used, the query and filter must be exactly the same.}
 
 \item{limit}{The maximum number of records to return.}
+
+\item{.wait}{Time to wait before making a request, to help
+rate limiting.}
 }
 \value{
 Returns an object of class \code{powo_search} that is a simple

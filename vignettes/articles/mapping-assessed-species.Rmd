@@ -118,9 +118,8 @@ head(matched_names)
 Now that we have an IPNI ID attached to each assessment, we can look up the record for the taxa in WCVP. This will let us find out the taxonomic status of each name - the first step in resolving any synonymy issues.
 
 ```{r resolve-synonyms}
-# wrap up the lookup_wcvp function to add a wait
+# wrap up the lookup_wcvp function to make sure it comes back as a list
 f <- function(taxonid) {
-  Sys.sleep(0.1)
   list(lookup_wcvp(taxonid))
 }
 

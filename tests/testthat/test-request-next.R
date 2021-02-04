@@ -7,7 +7,6 @@ test_that("method exists for WCVP search results", {
 
 test_that("method exists for POWO search results", {
   method_list <- methods(class="powo_search")
-  Sys.sleep(0.2)
   method_list <- as.list(method_list)
 
   expect_true("request_next.powo_search" %in% method_list)
@@ -29,7 +28,6 @@ test_that("advances to next page for WCVP", {
 
 test_that("cursor changes for POWO", {
   page1 <- search_powo(list(genus="Poa"), filters="accepted")
-  Sys.sleep(0.2)
   page2 <- request_next(page1)
 
   expect_false(page1$cursor == page2$cursor)
@@ -51,7 +49,6 @@ test_that("results change for WCVP", {
 
 test_that("results change for POWO", {
   page1 <- search_powo(list(genus="Poa"), filters="accepted")
-  Sys.sleep(0.2)
   page2 <- request_next(page1)
 
   expect_false(page1$results[[1]]$fqId == page2$results[[1]]$fqId)

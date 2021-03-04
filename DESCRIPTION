@@ -18,7 +18,8 @@ Suggests:
     knitr,
     rmarkdown,
     ggplot2,
-    progress
+    progress,
+    vcr
 URL: https://barnabywalker.github.io/kewr/, https://github.com/barnabywalker/kewr
 BugReports: https://github.com/barnabywalker/kewr/issues
 Imports: 

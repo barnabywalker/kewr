@@ -76,6 +76,9 @@ request_next.ipni_search <- function(object) {
 
 calculate_wait_ <- function(object) {
   response_time <- object$response$times["total"]
+  if (is.na(response_time)) {
+    response_time <- 0.2
+  }
 
   response_time / 2
 }

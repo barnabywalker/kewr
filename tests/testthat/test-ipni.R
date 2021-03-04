@@ -1,13 +1,17 @@
 test_that("search URL returns status 200", {
   url <- ipni_search_url_()
-  response <- httr::GET(url)
+  vcr::use_cassette("ipni-search-url", {
+    response <- httr::GET(url)
+  }, serialize_with="json")
 
   expect_equal(httr::status_code(response), 200)
 })
 
 test_that("search URL response is json", {
   url <- ipni_search_url_()
-  response <- httr::GET(url)
+  vcr::use_cassette("ipni-search-json", {
+    response <- httr::GET(url)
+  }, serialize_with="json")
 
   expect_equal(httr::http_type(response), "application/json")
 })
@@ -26,14 +30,20 @@ test_that("raises error for bad query input type", {
 })
 
 test_that("tidy search results returns tibble", {
-  results <- search_ipni("Poa annua")
+  vcr::use_cassette("ipni-search-tidy", {
+    results <- search_ipni("Poa annua")
+  }, serialize_with="json")
+
   tidied <- tidy(results)
 
   expect_s3_class(tidied, "tbl_df")
 })
 
 test_that("tidy lookup results returns tibble", {
-  results <- lookup_ipni("30001404-2")
+  vcr::use_cassette("ipni-lookup-tidy", {
+    results <- lookup_ipni("30001404-2")
+  }, serialize_with="json")
+
   tidied <- tidy(results)
 
   expect_s3_class(tidied, "tbl_df")
@@ -43,7 +53,10 @@ test_that("specific filter only returns species", {
   query <- "Myrcia"
   filters <- c("species")
 
-  results <- search_ipni(query, filters)
+  vcr::use_cassette("ipni-filter-species", {
+    results <- search_ipni(query, filters)
+  }, serialize_with="json")
+
   all_species <- purrr::every(results$results,
                               ~.x$rank == "spec.")
 
@@ -56,7 +69,10 @@ test_that("infraspecific filter only returns infraspecifics", {
   query <- "Poa annua"
   filters <- c("infraspecies")
 
-  results <- search_wcvp(query, filters)
+  vcr::use_cassette("ipni-filter-infraspecies", {
+    results <- search_wcvp(query, filters)
+  }, serialize_with="json")
+
   all_infra <- purrr::every(results$results,
                             ~.x$rank %in% infra_ranks)
 
@@ -67,18 +83,24 @@ test_that("generic filter only returns genera", {
   query <- "Myrcia"
   filters <- c("genera")
 
-  results <- search_ipni(query, filters)
+  vcr::use_cassette("ipni-filter-genus", {
+    results <- search_ipni(query, filters)
+  }, serialize_with="json")
+
   all_genera <- purrr::every(results$results,
                              ~.x$rank == "gen.")
 
   expect_true(all_genera)
 })
 
-test_that("infrageneric filter only returns infragenera", {
+test_that("infrageneric filter only returns infragenus", {
   query <- "Behenantha"
   filters <- c("infragenera")
 
-  results <- search_ipni(query, filters)
+  vcr::use_cassette("ipni-filter-infragenus", {
+    results <- search_ipni(query, filters)
+  }, serialize_with="json")
+
   all_genera <- purrr::every(results$results,
                              ~.x$rank == "sect.")
 
@@ -90,7 +112,10 @@ test_that("family filter only returns families", {
   query <- "poaceae"
   filters <- c("families")
 
-  results <- search_wcvp(query, filters)
+  vcr::use_cassette("ipni-filter-family", {
+    results <- search_wcvp(query, filters)
+  }, serialize_with="json")
+
   all_families <- purrr::every(results$results,
                                ~.x$rank == "fam.")
 
@@ -101,8 +126,10 @@ test_that("infrafamily filter only returns infrafamilies", {
 
   query <- "Rosoideae"
   filters <- c("infrafamilies")
+  vcr::use_cassette("ipni-filter-infrafamily", {
+    results <- search_ipni(query, filters)
+  }, serialize_with="json")
 
-  results <- search_ipni(query, filters)
   all_families <- purrr::every(results$results,
                                ~.x$rank == "subfam.")
 
@@ -111,9 +138,10 @@ test_that("infrafamily filter only returns infrafamilies", {
 
 test_that("cursor returns next page of results", {
   query <- list(genus="Ulex")
-
-  page1 <- search_ipni(query)
-  page2 <- search_ipni(query, cursor=page1$cursor)
+  vcr::use_cassette("ipni-search-cursor", {
+    page1 <- search_ipni(query)
+    page2 <- search_ipni(query, cursor=page1$cursor)
+  }, serialize_with="json")
 
   expect_false(page1$results[[1]]$fqId == page2$results[[1]]$fqId)
 })

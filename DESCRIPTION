@@ -1,6 +1,6 @@
 Package: kewr
 Title: R Package to Access Kew Data APIs
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: 
     person(given = "Barnaby",
            family = "Walker",

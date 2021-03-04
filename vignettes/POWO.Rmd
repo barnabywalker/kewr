@@ -7,18 +7,22 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 [Plants of the World Online (POWO)](http://www.plantsoftheworldonline.org/) is a database of information on the world's flora. It curates information from published floras and other sources of floristic information. POWO covers much of the same grounds as WCVP - you can get taxonomic information for names from it. But it also has more general information about taxa, like descriptions, lifeforms, images, and distributions.
 
-```{r setup}
+
+```r
 library(kewr)
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 library(tidyr)
 ```
 
@@ -28,30 +32,72 @@ library(tidyr)
 Searching POWO works by exact matching, so any mispellings or unrecognised orthographic variants will not be matched.
 
 For example, searching `Ulex europeaus` will not return any results:
-```{r}
+
+```r
 results <- search_powo("Ulex europeaus")
 results
+#> <POWO search: 'Ulex europeaus' filters: 'none'>
+#> total results: 0
+#> returned results: 0
+#> total pages: 0
+#> First result:
 ```
 
 But searching `Ulex europaeus` will:
 
-```{r}
+
+```r
 results <- search_powo("Ulex europaeus")
 results
+#> <POWO search: 'Ulex europaeus' filters: 'none'>
+#> total results: 4
+#> returned results: 4
+#> total pages: 1
+#> First result:
+#> List of 1
+#>  $ :List of 9
+#>   ..$ accepted: logi TRUE
+#>   ..$ author  : chr "L."
+#>   ..$ kingdom : chr "Plantae"
+#>   ..$ family  : chr "Fabaceae"
+#>   ..$ name    : chr "Ulex europaeus"
+#>   ..$ rank    : chr "Species"
+#>   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:524298-1"
+#>   ..$ fqId    : chr "urn:lsid:ipni.org:names:524298-1"
+#>   ..$ images  :List of 3
 ```
 
 ## Pagination
 
 By default, `search_powo` limits the number of results returned to 50. If you are expecting more results, you can increase this limit.
 
-```{r}
+
+```r
 results <- search_powo("Ulex", limit=100)
 results
+#> <POWO search: 'Ulex' filters: 'none'>
+#> total results: 118
+#> returned results: 100
+#> total pages: 2
+#> First result:
+#> List of 1
+#>  $ :List of 10
+#>   ..$ accepted: logi TRUE
+#>   ..$ author  : chr "L."
+#>   ..$ kingdom : chr "Plantae"
+#>   ..$ family  : chr "Fabaceae"
+#>   ..$ name    : chr "Ulex"
+#>   ..$ rank    : chr "Genus"
+#>   ..$ snippet : chr " <b>General</b>: , <em>Ulex</em> (Europe, mostly western, and Mediterranean region)<br/> <b>Use</b>: <em>Ulex</"| __truncated__
+#>   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:23746-1"
+#>   ..$ fqId    : chr "urn:lsid:ipni.org:names:23746-1"
+#>   ..$ images  :List of 3
 ```
 
 However, for searches with a large number of results, this may not be practical. In this case, or if you just don't know how many results to expect, you can request the next page of results.
 
-```{r}
+
+```r
 ulex_page1 <- search_powo("Ulex")
 ulex_page2 <- request_next(ulex_page1)
 
@@ -59,6 +105,21 @@ bind_rows(
   tidy(ulex_page1),
   tidy(ulex_page2)
 )
+#> # A tibble: 100 x 11
+#>    accepted author kingdom family name  rank  snippet url  
+#>    <lgl>    <chr>  <chr>   <chr>  <chr> <chr> <chr>   <chr>
+#>  1 TRUE     L.     Plantae Fabac~ Ulex  Genus " <b>G~ /tax~
+#>  2 TRUE     Desf.  Plantae Caryo~ Aren~ Spec~ " <b>S~ /tax~
+#>  3 FALSE    Webb   Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#>  4 FALSE    Esp.S~ Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#>  5 FALSE    Link ~ Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#>  6 TRUE     Welw.~ Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#>  7 FALSE    Mabil~ Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#>  8 TRUE     Cleme~ Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#>  9 FALSE    Thore  Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#> 10 FALSE    Willk~ Plantae Fabac~ Ulex~ Spec~  <NA>   /tax~
+#> # ... with 90 more rows, and 3 more variables: fqId <chr>,
+#> #   images <list>, synonymOf <list>
 ```
 
 ## Keyword searches and filtering
@@ -66,29 +127,81 @@ bind_rows(
 You can perform more complicated searches using keywords and filters.
 For example, you can search for all accepted species in a particular family.
 
-```{r}
+
+```r
 results <- search_powo(list(family="Ephedraceae"), 
                        filters=c("accepted", "species"))
 results
+#> <POWO search: family='Ephedraceae' filters: 'accepted, species'>
+#> total results: 73
+#> returned results: 50
+#> total pages: 2
+#> First result:
+#> List of 1
+#>  $ :List of 9
+#>   ..$ accepted: logi TRUE
+#>   ..$ author  : chr "Decne."
+#>   ..$ kingdom : chr "Plantae"
+#>   ..$ family  : chr "Ephedraceae"
+#>   ..$ name    : chr "Ephedra alata"
+#>   ..$ rank    : chr "Species"
+#>   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:383343-1"
+#>   ..$ fqId    : chr "urn:lsid:ipni.org:names:383343-1"
+#>   ..$ images  :List of 3
 ```
 
 As well as taxonomic keywords, it is possible to search by other characteristics.
 
 For example, finding all accepted legumes with blue flowers.
 
-```{r}
+
+```r
 blue_flowers <- search_powo(list(flower="blue", family="Fabaceae"),
                             filters=c("accepted"))
 blue_flowers
+#> <POWO search: flower='blue', family='Fabaceae' filters: 'accepted'>
+#> total results: 151
+#> returned results: 50
+#> total pages: 4
+#> First result:
+#> List of 1
+#>  $ :List of 10
+#>   ..$ accepted: logi TRUE
+#>   ..$ author  : chr "(Hutch.) Hepper"
+#>   ..$ kingdom : chr "Plantae"
+#>   ..$ family  : chr "Fabaceae"
+#>   ..$ name    : chr "Kotschya speciosa"
+#>   ..$ rank    : chr "Species"
+#>   ..$ snippet : chr " <b>Flower</b>: Standard <em>blue</em> with yellow mark at the base, obovate, 1.4 cm"
+#>   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:501291-1"
+#>   ..$ fqId    : chr "urn:lsid:ipni.org:names:501291-1"
+#>   ..$ images  :List of 1
 ```
 
 Another use is to get a checklist of accepted species in a country.
 
-```{r}
+
+```r
 checklist <- search_powo(list(distribution="Mexico"),
                          filters=c("accepted"))
 
 checklist
+#> <POWO search: distribution='Mexico' filters: 'accepted'>
+#> total results: 30121
+#> returned results: 50
+#> total pages: 603
+#> First result:
+#> List of 1
+#>  $ :List of 9
+#>   ..$ accepted: logi TRUE
+#>   ..$ author  : chr "T.F.Daniel"
+#>   ..$ kingdom : chr "Plantae"
+#>   ..$ family  : chr "Acanthaceae"
+#>   ..$ name    : chr "Justicia cymulifera"
+#>   ..$ rank    : chr "Species"
+#>   ..$ snippet : chr " <b>Location</b>: <em>Mexico</em>"
+#>   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:77089454-1"
+#>   ..$ fqId    : chr "urn:lsid:ipni.org:names:77089454-1"
 ```
 
 A full list of keywords and filters can be found in the help page for `search_powo`. 
@@ -97,16 +210,26 @@ A full list of keywords and filters can be found in the help page for `search_po
 
 As well as searching by keyword, it is possible to use the IPNI ID of a taxon to look up its record in POWO. To get the IPNI ID, you can search WCVP, POWO, or IPNI, or use KNMS to find matches for the name.
 
-```{r}
+
+```r
 ipni_id <- "119003-2"
 
 record <- lookup_powo(ipni_id)
 record
+#> <POWO taxon id: 119003-2>
+#> Name: Helianthus annuus
+#> Authors: L.
+#> Status: Accepted
+#> Rank: SPECIES
+#> Accepted taxon ID: 119003-2
+#> Synonyms: 49
+#> Includes distribution: FALSE
 ```
 
 Optionally, you can choose to request the distribution information for the taxon as well.
 
-```{r}
+
+```r
 record <- lookup_powo(ipni_id, distribution=TRUE)
 
 tidied <- tidy(record)
@@ -116,4 +239,15 @@ tidied %>%
   unnest(cols=distribution) %>%
   select(-introduced) %>%
   unnest(cols=natives)
+#> # A tibble: 8 x 6
+#>   fqId     establishment featureId tdwgCode tdwgLevel name  
+#>   <chr>    <chr>         <chr>     <chr>        <int> <chr> 
+#> 1 urn:lsi~ Native        16        ARI              3 Arizo~
+#> 2 urn:lsi~ Native        28        BAN              3 Bangl~
+#> 3 urn:lsi~ Native        52        CAL              3 Calif~
+#> 4 urn:lsi~ Native        206       MXC              3 Mexic~
+#> 5 urn:lsi~ Native        207       MXE              3 Mexic~
+#> 6 urn:lsi~ Native        210       MXN              3 Mexic~
+#> 7 urn:lsi~ Native        211       MXS              3 Mexic~
+#> 8 urn:lsi~ Native        224       NEV              3 Nevada
 ```

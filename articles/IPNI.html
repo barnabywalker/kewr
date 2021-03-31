@@ -242,20 +242,20 @@
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">page1</span><span class="op">)</span>,
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 100 x 54</span>
-<span class="co">#&gt;    abbreviation date  fqId  id    recordType suppressed title tl2Author url  </span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;lgl&gt;      &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;</span>
-<span class="co">#&gt;  1 Poa France … 15 J… urn:… 2000… publicati… FALSE      Poa … Portal, … /p/2…</span>
-<span class="co">#&gt;  2 &lt;NA&gt;         &lt;NA&gt;  urn:… 3851… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt;  3 &lt;NA&gt;         &lt;NA&gt;  urn:… 3931… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt;  4 &lt;NA&gt;         &lt;NA&gt;  urn:… 3933… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt;  5 &lt;NA&gt;         &lt;NA&gt;  urn:… 4014… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  6 &lt;NA&gt;         &lt;NA&gt;  urn:… 4032… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  7 &lt;NA&gt;         &lt;NA&gt;  urn:… 4032… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  8 &lt;NA&gt;         &lt;NA&gt;  urn:… 4092… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  9 &lt;NA&gt;         &lt;NA&gt;  urn:… 3000… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt; 10 &lt;NA&gt;         &lt;NA&gt;  urn:… 8481… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/8…</span>
-<span class="co">#&gt; # … with 90 more rows, and 45 more variables: version &lt;chr&gt;, hasBhlLinks &lt;lgl&gt;,</span>
+<span class="co">#&gt; # A tibble: 100 x 55</span>
+<span class="co">#&gt;    abbreviation  date   fqId   id    recordType suppressed title tl2Author url  </span>
+<span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;lgl&gt;      &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Poa France B… 15 Ja… urn:l… 2000… publicati… FALSE      Poa … Portal, … /p/2…</span>
+<span class="co">#&gt;  2 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3851… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
+<span class="co">#&gt;  3 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3931… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
+<span class="co">#&gt;  4 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3933… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
+<span class="co">#&gt;  5 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4014… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
+<span class="co">#&gt;  6 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4032… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
+<span class="co">#&gt;  7 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4032… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
+<span class="co">#&gt;  8 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4092… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
+<span class="co">#&gt;  9 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3000… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
+<span class="co">#&gt; 10 &lt;NA&gt;          &lt;NA&gt;   urn:l… 8481… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/8…</span>
+<span class="co">#&gt; # … with 90 more rows, and 46 more variables: version &lt;chr&gt;, hasBhlLinks &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   hasBhlTitleLink &lt;lgl&gt;, hasBhlPageLink &lt;lgl&gt;, name &lt;chr&gt;, authors &lt;chr&gt;,</span>
 <span class="co">#&gt; #   publishingAuthor &lt;chr&gt;, authorTeam &lt;list&gt;, originalRemarks &lt;chr&gt;,</span>
 <span class="co">#&gt; #   rank &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, citationType &lt;chr&gt;,</span>
@@ -266,7 +266,7 @@
 <span class="co">#&gt; #   hasLinks &lt;lgl&gt;, publicationYearNote &lt;chr&gt;, bhlLink &lt;chr&gt;, pageAsText &lt;chr&gt;,</span>
 <span class="co">#&gt; #   bibliographicReference &lt;chr&gt;, referenceRemarks &lt;chr&gt;, typeChosenBy &lt;chr&gt;,</span>
 <span class="co">#&gt; #   typeName &lt;chr&gt;, typeRemarks &lt;chr&gt;, infragenus &lt;chr&gt;, basionymStr &lt;chr&gt;,</span>
-<span class="co">#&gt; #   basionymAuthorStr &lt;chr&gt;, originalBasionym &lt;chr&gt;,</span>
+<span class="co">#&gt; #   basionymAuthorStr &lt;chr&gt;, basionymId &lt;chr&gt;, originalBasionym &lt;chr&gt;,</span>
 <span class="co">#&gt; #   originalBasionymAuthorTeam &lt;chr&gt;, remarks &lt;chr&gt;, nameStatus &lt;chr&gt;,</span>
 <span class="co">#&gt; #   nameStatusType &lt;chr&gt;, infraspecies &lt;chr&gt;</span></code></pre></div>
 </div>
@@ -336,9 +336,9 @@
 <span class="co">#&gt;   ..$ family               : chr "Pinaceae"</span>
 <span class="co">#&gt;   ..$ genus                : chr "Abies"</span>
 <span class="co">#&gt;   ..$ species              : chr "colimensis"</span>
+<span class="co">#&gt;   ..$ citationType         : chr "tax. nov."</span>
 <span class="co">#&gt;   ..$ collectionNumber     : chr "647"</span>
 <span class="co">#&gt;   ..$ collectorTeam        : chr "M.Rushforth"</span>
-<span class="co">#&gt;   ..$ citationType         : chr "tax. nov."</span>
 <span class="co">#&gt;   ..$ distribution         : chr "Nevada de Colima, 3150 m, Jalisco (Mexico, Northern America)"</span>
 <span class="co">#&gt;   ..$ hybrid               : logi FALSE</span>
 <span class="co">#&gt;   ..$ hybridGenus          : logi FALSE</span>
@@ -372,13 +372,14 @@
 <span class="co">#&gt; total pages: 1</span>
 <span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ :List of 16</span>
+<span class="co">#&gt;  $ :List of 17</span>
 <span class="co">#&gt;   ..$ alternativeNames: chr ""</span>
 <span class="co">#&gt;   ..$ dates           : chr "1981-"</span>
 <span class="co">#&gt;   ..$ examples        : chr "Vanda longitepala D.L.Roberts, L.M.Gardiner &amp; Motes in Kew Bull. 63(3): 495. 2009"</span>
 <span class="co">#&gt;   ..$ forename        : chr "Lauren Maria"</span>
 <span class="co">#&gt;   ..$ fqId            : chr "urn:lsid:ipni.org:authors:20014591-1"</span>
 <span class="co">#&gt;   ..$ id              : chr "20014591-1"</span>
+<span class="co">#&gt;   ..$ isoCountries    : chr ""</span>
 <span class="co">#&gt;   ..$ recordType      : chr "author"</span>
 <span class="co">#&gt;   ..$ source          : chr "Year of birth from author"</span>
 <span class="co">#&gt;   ..$ standardForm    : chr "L.M.Gardiner"</span>

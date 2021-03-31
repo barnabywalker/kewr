@@ -204,21 +204,20 @@ the same type.</p>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_powo.html'>search_powo</a></span><span class='op'>(</span><span class='st'>"Poa"</span><span class='op'>)</span>
 <span class='fu'>request_next</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;POWO search: 'Poa' filters: 'none'&gt;
-#&gt; total results: 2456
+#&gt; total results: 2460
 #&gt; returned results: 50
 #&gt; total pages: 50
 #&gt; First result:
 #&gt; List of 1
-#&gt;  $ :List of 9
-#&gt;   ..$ accepted : logi FALSE
-#&gt;   ..$ author   : chr "Buchanan"
-#&gt;   ..$ kingdom  : chr "Plantae"
-#&gt;   ..$ family   : chr "Poaceae"
-#&gt;   ..$ name     : chr "Poa albida"
-#&gt;   ..$ rank     : chr "Species"
-#&gt;   ..$ synonymOf:List of 5
-#&gt;   ..$ url      : chr "/taxon/urn:lsid:ipni.org:names:416448-1"
-#&gt;   ..$ fqId     : chr "urn:lsid:ipni.org:names:416448-1"</div><div class='input'><span class='co'># }</span>
+#&gt;  $ :List of 8
+#&gt;   ..$ accepted: logi TRUE
+#&gt;   ..$ author  : chr "Hitchc."
+#&gt;   ..$ kingdom : chr "Plantae"
+#&gt;   ..$ family  : chr "Poaceae"
+#&gt;   ..$ name    : chr "Poa albescens"
+#&gt;   ..$ rank    : chr "Species"
+#&gt;   ..$ url     : chr "/taxon/urn:lsid:ipni.org:names:283374-2"
+#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:283374-2"</div><div class='input'><span class='co'># }</span>
 
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_ipni.html'>search_ipni</a></span><span class='op'>(</span><span class='st'>"Poa"</span><span class='op'>)</span>
 <span class='fu'>request_next</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>

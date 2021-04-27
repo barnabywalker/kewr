@@ -55,7 +55,6 @@ Users can query POWO using distributions listed under WGSRPD levels 1 (continent
 2 (regions), and 3 (botanical countries).
 }
 \examples{
-\donttest{
 # search for all entries containing a genus name
 search_powo("Myrcia")
 
@@ -81,7 +80,6 @@ print(r)
 # simplify search results to a `tibble`
 r <- search_powo("Poa", filters=c("species"))
 tidy(r)
-}
 
 }
 \seealso{

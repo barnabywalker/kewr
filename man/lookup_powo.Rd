@@ -32,7 +32,6 @@ a specific taxon name using the unique IPNI ID. If this is not known,
 it can be found out using the \link[=search_powo]{POWO search API}.
 }
 \examples{
-\donttest{
 # retrieve information for a taxon name
 lookup_powo("271445-2")
 
@@ -53,7 +52,6 @@ tidyr::unnest(tidied, cols=synonyms, names_sep="_")
 r <- lookup_wcvp("30000055-2")
 tidied <- tidy(r)
 tidyr::unnest(tidied, cols=children, names_sep="_")
-}
 
 }
 \seealso{

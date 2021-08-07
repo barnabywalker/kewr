@@ -218,133 +218,118 @@ using filters. Use the <code>get_filters</code> function to get a list of all im
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># search for all names containing Poa annua</span>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>search_ipni</span><span class='op'>(</span><span class='st'>"Poa annua"</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'>
 <span class='co'># tidy search results in a table</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 13 x 45</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 13 × 45</span>
 #&gt;    name    authors  publishingAuthor authorTeam rank  url   family genus species
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Poa an… L.       L.               </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/3… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Poa an… Steud.   Steud.           </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/4… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Poa an… Cham. &amp;… Cham. &amp; Schltdl. </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/4… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Poa an… É.Desv.  É.Desv.          </span><span style='color: #949494;'>&lt;tibble[,</span><span>… var.  /n/2… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Poa an… Wall. e… Wall. ex Griseb. </span><span style='color: #949494;'>&lt;tibble[,</span><span>… var.  /n/6… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Poa an… Chrtek … Chrtek &amp; V.Jirá… </span><span style='color: #949494;'>&lt;tibble[,</span><span>… subs… /n/7… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Poa an… Ronniger Ronniger         </span><span style='color: #949494;'>&lt;tibble[,</span><span>… var.  /n/7… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Poa an… (Ronnig… H.Scholz         </span><span style='color: #949494;'>&lt;tibble[,</span><span>… subs… /n/7… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Poa an… Mike L.… Mike L.Grant     </span><span style='color: #949494;'>&lt;tibble[,</span><span>… f.    /n/7… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Poa an… (S.E.Fr… Chrtek           </span><span style='color: #949494;'>&lt;tibble[,</span><span>… subs… /n/1… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> Poa an… S.E.Frö… S.E.Fröhner      </span><span style='color: #949494;'>&lt;tibble[,</span><span>… var.  /n/5… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> Poa an… (Haussk… T.Koyama         </span><span style='color: #949494;'>&lt;tibble[,</span><span>… f.    /n/9… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> Poa an… L.H.Dew… L.H.Dewey        </span><span style='color: #949494;'>&lt;tibble[,</span><span>… var.  /n/2… Poace… Poa   annua  
-#&gt; </span><span style='color: #949494;'># … with 36 more variables: citationType &lt;chr&gt;, hybrid &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, publicationYearNote &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   referenceCollation &lt;chr&gt;, publicationId &lt;chr&gt;, recordType &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   reference &lt;chr&gt;, remarks &lt;chr&gt;, suppressed &lt;lgl&gt;, topCopy &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   typeLocations &lt;chr&gt;, version &lt;chr&gt;, id &lt;chr&gt;, fqId &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasLinks &lt;lgl&gt;, bhlLink &lt;chr&gt;, pageAsText &lt;chr&gt;, distribution &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   infraspecies &lt;chr&gt;, speciesAuthor &lt;chr&gt;, locality &lt;chr&gt;, basionymStr &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   basionymAuthorStr &lt;chr&gt;, basionymId &lt;chr&gt;, collectorTeam &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   collectionDate1 &lt;chr&gt;, originalBasionym &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   originalBasionymAuthorTeam &lt;chr&gt;</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'> 1</span> Poa an… L.       L.               <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/3… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 2</span> Poa an… Steud.   Steud.           <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/4… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 3</span> Poa an… Cham. &amp;… Cham. &amp; Schltdl. <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/4… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 4</span> Poa an… É.Desv.  É.Desv.          <span style='color: #949494;'>&lt;tibble [</span>… var.  /n/2… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 5</span> Poa an… Wall. e… Wall. ex Griseb. <span style='color: #949494;'>&lt;tibble [</span>… var.  /n/6… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 6</span> Poa an… Chrtek … Chrtek &amp; V.Jirá… <span style='color: #949494;'>&lt;tibble [</span>… subs… /n/7… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 7</span> Poa an… Ronniger Ronniger         <span style='color: #949494;'>&lt;tibble [</span>… var.  /n/7… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 8</span> Poa an… (Ronnig… H.Scholz         <span style='color: #949494;'>&lt;tibble [</span>… subs… /n/7… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'> 9</span> Poa an… Mike L.… Mike L.Grant     <span style='color: #949494;'>&lt;tibble [</span>… f.    /n/7… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'>10</span> Poa an… (S.E.Fr… Chrtek           <span style='color: #949494;'>&lt;tibble [</span>… subs… /n/1… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'>11</span> Poa an… S.E.Frö… S.E.Fröhner      <span style='color: #949494;'>&lt;tibble [</span>… var.  /n/5… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'>12</span> Poa an… (Haussk… T.Koyama         <span style='color: #949494;'>&lt;tibble [</span>… f.    /n/9… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'>13</span> Poa an… L.H.Dew… L.H.Dewey        <span style='color: #949494;'>&lt;tibble [</span>… var.  /n/2… Poace… Poa   annua  
+#&gt; <span style='color: #949494;'># … with 36 more variables: citationType &lt;chr&gt;, hybrid &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, publicationYearNote &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   referenceCollation &lt;chr&gt;, publicationId &lt;chr&gt;, recordType &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   reference &lt;chr&gt;, remarks &lt;chr&gt;, suppressed &lt;lgl&gt;, topCopy &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   typeLocations &lt;chr&gt;, version &lt;chr&gt;, id &lt;chr&gt;, fqId &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;, …</span></div><div class='input'>
 <span class='co'># extract author team information for the search results</span>
 <span class='va'>results_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
 <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>results_tbl</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>authorTeam</span><span class='op'>)</span>, names_sep<span class='op'>=</span><span class='st'>"_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 19 x 50</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 × 50</span>
 #&gt;    name  authors publishingAuthor authorTeam_name authorTeam_id authorTeam_order
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Poa … L.      L.               L.              12653-1                      0
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Poa … Steud.  Steud.           Steud.          10122-1                      1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Poa … Cham. … Cham. &amp; Schltdl. Schltdl.        9114-1                       2
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Poa … Cham. … Cham. &amp; Schltdl. Cham.           1504-1                       1
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Poa … É.Desv. É.Desv.          É.Desv.         2160-1                       1
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Poa … Wall. … Wall. ex Griseb. Wall.           12990-1                      1
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Poa … Wall. … Wall. ex Griseb. Griseb.         3397-1                       2
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Poa … Chrtek… Chrtek &amp; V.Jirá… Chrtek          1637-1                       1
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Poa … Chrtek… Chrtek &amp; V.Jirá… V.Jirásek       4492-1                       2
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Poa … Ronnig… Ronniger         Ronniger        8572-1                       1
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> Poa … (Ronni… H.Scholz         Ronniger        8572-1                       2
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> Poa … (Ronni… H.Scholz         H.Scholz        9229-1                       1
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> Poa … Mike L… Mike L.Grant     Mike L.Grant    20000154-1                   1
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> Poa … (S.E.F… Chrtek           S.E.Fröhner     2933-1                       1
-#&gt; </span><span style='color: #BCBCBC;'>15</span><span> Poa … (S.E.F… Chrtek           Chrtek          1637-1                       2
-#&gt; </span><span style='color: #BCBCBC;'>16</span><span> Poa … S.E.Fr… S.E.Fröhner      S.E.Fröhner     2933-1                       1
-#&gt; </span><span style='color: #BCBCBC;'>17</span><span> Poa … (Hauss… T.Koyama         T.Koyama        5003-1                       2
-#&gt; </span><span style='color: #BCBCBC;'>18</span><span> Poa … (Hauss… T.Koyama         Hausskn.        3732-1                       1
-#&gt; </span><span style='color: #BCBCBC;'>19</span><span> Poa … L.H.De… L.H.Dewey        L.H.Dewey       2178-1                       0
-#&gt; </span><span style='color: #949494;'># … with 44 more variables: authorTeam_type &lt;chr&gt;, authorTeam_summary &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   authorTeam_url &lt;chr&gt;, rank &lt;chr&gt;, url &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   species &lt;chr&gt;, citationType &lt;chr&gt;, hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;, publication &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publicationYear &lt;int&gt;, publicationYearNote &lt;chr&gt;, referenceCollation &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publicationId &lt;chr&gt;, recordType &lt;chr&gt;, reference &lt;chr&gt;, remarks &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   suppressed &lt;lgl&gt;, topCopy &lt;lgl&gt;, typeLocations &lt;chr&gt;, version &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   id &lt;chr&gt;, fqId &lt;chr&gt;, hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasOriginalData &lt;lgl&gt;, hasLinks &lt;lgl&gt;, bhlLink &lt;chr&gt;, pageAsText &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   distribution &lt;chr&gt;, infraspecies &lt;chr&gt;, speciesAuthor &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   locality &lt;chr&gt;, basionymStr &lt;chr&gt;, basionymAuthorStr &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   basionymId &lt;chr&gt;, collectorTeam &lt;chr&gt;, collectionDate1 &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   originalBasionym &lt;chr&gt;, originalBasionymAuthorTeam &lt;chr&gt;</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Poa … L.      L.               L.              12653-1                      0
+#&gt; <span style='color: #BCBCBC;'> 2</span> Poa … Steud.  Steud.           Steud.          10122-1                      1
+#&gt; <span style='color: #BCBCBC;'> 3</span> Poa … Cham. … Cham. &amp; Schltdl. Schltdl.        9114-1                       2
+#&gt; <span style='color: #BCBCBC;'> 4</span> Poa … Cham. … Cham. &amp; Schltdl. Cham.           1504-1                       1
+#&gt; <span style='color: #BCBCBC;'> 5</span> Poa … É.Desv. É.Desv.          É.Desv.         2160-1                       1
+#&gt; <span style='color: #BCBCBC;'> 6</span> Poa … Wall. … Wall. ex Griseb. Wall.           12990-1                      1
+#&gt; <span style='color: #BCBCBC;'> 7</span> Poa … Wall. … Wall. ex Griseb. Griseb.         3397-1                       2
+#&gt; <span style='color: #BCBCBC;'> 8</span> Poa … Chrtek… Chrtek &amp; V.Jirá… Chrtek          1637-1                       1
+#&gt; <span style='color: #BCBCBC;'> 9</span> Poa … Chrtek… Chrtek &amp; V.Jirá… V.Jirásek       4492-1                       2
+#&gt; <span style='color: #BCBCBC;'>10</span> Poa … Ronnig… Ronniger         Ronniger        8572-1                       1
+#&gt; <span style='color: #BCBCBC;'>11</span> Poa … (Ronni… H.Scholz         Ronniger        8572-1                       2
+#&gt; <span style='color: #BCBCBC;'>12</span> Poa … (Ronni… H.Scholz         H.Scholz        9229-1                       1
+#&gt; <span style='color: #BCBCBC;'>13</span> Poa … Mike L… Mike L.Grant     Mike L.Grant    20000154-1                   1
+#&gt; <span style='color: #BCBCBC;'>14</span> Poa … (S.E.F… Chrtek           S.E.Fröhner     2933-1                       1
+#&gt; <span style='color: #BCBCBC;'>15</span> Poa … (S.E.F… Chrtek           Chrtek          1637-1                       2
+#&gt; <span style='color: #BCBCBC;'>16</span> Poa … S.E.Fr… S.E.Fröhner      S.E.Fröhner     2933-1                       1
+#&gt; <span style='color: #BCBCBC;'>17</span> Poa … (Hauss… T.Koyama         T.Koyama        5003-1                       2
+#&gt; <span style='color: #BCBCBC;'>18</span> Poa … (Hauss… T.Koyama         Hausskn.        3732-1                       1
+#&gt; <span style='color: #BCBCBC;'>19</span> Poa … L.H.De… L.H.Dewey        L.H.Dewey       2178-1                       0
+#&gt; <span style='color: #949494;'># … with 44 more variables: authorTeam_type &lt;chr&gt;, authorTeam_summary &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   authorTeam_url &lt;chr&gt;, rank &lt;chr&gt;, url &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   species &lt;chr&gt;, citationType &lt;chr&gt;, hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;, publication &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   publicationYear &lt;int&gt;, publicationYearNote &lt;chr&gt;, referenceCollation &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   publicationId &lt;chr&gt;, recordType &lt;chr&gt;, reference &lt;chr&gt;, remarks &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   suppressed &lt;lgl&gt;, topCopy &lt;lgl&gt;, typeLocations &lt;chr&gt;, version &lt;chr&gt;, …</span></div><div class='input'>
 <span class='co'># filter results to only species names</span>
 <span class='va'>species_results</span> <span class='op'>&lt;-</span> <span class='fu'>search_ipni</span><span class='op'>(</span><span class='st'>"Poa annua"</span>, filters<span class='op'>=</span><span class='st'>"species"</span><span class='op'>)</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>species_results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 34</span><span>
-#&gt;   name   authors   publishingAuthor authorTeam  rank  url   family genus species
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Poa a… L.        L.               </span><span style='color: #949494;'>&lt;tibble[,6</span><span>… spec. /n/3… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Poa a… Steud.    Steud.           </span><span style='color: #949494;'>&lt;tibble[,6</span><span>… spec. /n/4… Poace… Poa   annua  
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Poa a… Cham. &amp; … Cham. &amp; Schltdl. </span><span style='color: #949494;'>&lt;tibble[,6</span><span>… spec. /n/4… Poace… Poa   annua  
-#&gt; </span><span style='color: #949494;'># … with 25 more variables: citationType &lt;chr&gt;, hybrid &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, publicationYearNote &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   referenceCollation &lt;chr&gt;, publicationId &lt;chr&gt;, recordType &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   reference &lt;chr&gt;, remarks &lt;chr&gt;, suppressed &lt;lgl&gt;, topCopy &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   typeLocations &lt;chr&gt;, version &lt;chr&gt;, id &lt;chr&gt;, fqId &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasLinks &lt;lgl&gt;, bhlLink &lt;chr&gt;, pageAsText &lt;chr&gt;</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>species_results</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 34</span>
+#&gt;   name      authors publishingAuthor authorTeam rank  url   family genus species
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'>1</span> Poa annua L.      L.               <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/3… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'>2</span> Poa annua Steud.  Steud.           <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/4… Poace… Poa   annua  
+#&gt; <span style='color: #BCBCBC;'>3</span> Poa annua Cham. … Cham. &amp; Schltdl. <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/4… Poace… Poa   annua  
+#&gt; <span style='color: #949494;'># … with 25 more variables: citationType &lt;chr&gt;, hybrid &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, publicationYearNote &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   referenceCollation &lt;chr&gt;, publicationId &lt;chr&gt;, recordType &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   reference &lt;chr&gt;, remarks &lt;chr&gt;, suppressed &lt;lgl&gt;, topCopy &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   typeLocations &lt;chr&gt;, version &lt;chr&gt;, id &lt;chr&gt;, fqId &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;, …</span></div><div class='input'>
 <span class='co'># search for species from Mexico published in 1989</span>
 <span class='va'>q</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>published<span class='op'>=</span><span class='st'>"1989"</span>, distribution<span class='op'>=</span><span class='st'>"Mexico"</span><span class='op'>)</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='st'>"species"</span>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>search_ipni</span><span class='op'>(</span><span class='va'>q</span>, filters<span class='op'>=</span><span class='va'>f</span><span class='op'>)</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 50 x 40</span><span>
-#&gt;    name   authors  publishingAuthor  authorTeam rank  url   family genus species
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Abies… Rushfor… Rushforth &amp; Nara… </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Pinac… Abies colime…
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Abies… Rushfor… Rushforth         </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Pinac… Abies flinck…
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Acour… L.Cabre… L.Cabrera         </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Aster… Acou… dierin…
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Aesch… Rudd     Rudd              </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Fabac… Aesc… lyonne…
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Agari… L.M.Gon… L.M.González      </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Erica… Agar… villar…
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Agera… B.L.Tur… B.L.Turner        </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Aster… Ager… chazar…
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Agera… B.L.Tur… B.L.Turner        </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Aster… Ager… chimal…
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Agera… B.L.Tur… B.L.Turner        </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Aster… Ager… perezii
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Arceu… (Hawksw… Hawksw. &amp; Wiens   </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Visca… Arce… durang…
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Arceu… Hawksw.… Hawksw. &amp; Wiens   </span><span style='color: #949494;'>&lt;tibble[,</span><span>… spec. /n/2… Visca… Arce… oaxaca…
-#&gt; </span><span style='color: #949494;'># … with 40 more rows, and 31 more variables: citationType &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   collectionNumber &lt;chr&gt;, collectorTeam &lt;chr&gt;, distribution &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, referenceCollation &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publicationId &lt;chr&gt;, recordType &lt;chr&gt;, reference &lt;chr&gt;, suppressed &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   topCopy &lt;lgl&gt;, typeLocations &lt;chr&gt;, version &lt;chr&gt;, id &lt;chr&gt;, fqId &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hasLinks &lt;lgl&gt;, bhlLink &lt;chr&gt;, typeNote &lt;chr&gt;, basionymAuthorStr &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   publicationYearNote &lt;chr&gt;, remarks &lt;chr&gt;, referenceRemarks &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   originalTaxonDistribution &lt;chr&gt;</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 50 × 40</span>
+#&gt;    name   authors   publishingAuthor authorTeam rank  url   family genus species
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'> 1</span> Abies… Rushfort… Rushforth &amp; Nar… <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Pinac… Abies colime…
+#&gt; <span style='color: #BCBCBC;'> 2</span> Abies… Rushforth Rushforth        <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Pinac… Abies flinck…
+#&gt; <span style='color: #BCBCBC;'> 3</span> Acour… L.Cabrera L.Cabrera        <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Aster… Acou… dierin…
+#&gt; <span style='color: #BCBCBC;'> 4</span> Aesch… Rudd      Rudd             <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Fabac… Aesc… lyonne…
+#&gt; <span style='color: #BCBCBC;'> 5</span> Agari… L.M.Gonz… L.M.González     <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Erica… Agar… villar…
+#&gt; <span style='color: #BCBCBC;'> 6</span> Agera… B.L.Turn… B.L.Turner       <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Aster… Ager… chazar…
+#&gt; <span style='color: #BCBCBC;'> 7</span> Agera… B.L.Turn… B.L.Turner       <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Aster… Ager… chimal…
+#&gt; <span style='color: #BCBCBC;'> 8</span> Agera… B.L.Turn… B.L.Turner       <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Aster… Ager… perezii
+#&gt; <span style='color: #BCBCBC;'> 9</span> Arceu… (Hawksw.… Hawksw. &amp; Wiens  <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Visca… Arce… durang…
+#&gt; <span style='color: #BCBCBC;'>10</span> Arceu… Hawksw. … Hawksw. &amp; Wiens  <span style='color: #949494;'>&lt;tibble [</span>… spec. /n/2… Visca… Arce… oaxaca…
+#&gt; <span style='color: #949494;'># … with 40 more rows, and 31 more variables: citationType &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   collectionNumber &lt;chr&gt;, collectorTeam &lt;chr&gt;, distribution &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, referenceCollation &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   publicationId &lt;chr&gt;, recordType &lt;chr&gt;, reference &lt;chr&gt;, suppressed &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   topCopy &lt;lgl&gt;, typeLocations &lt;chr&gt;, version &lt;chr&gt;, id &lt;chr&gt;, fqId &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;, …</span></div><div class='input'>
 <span class='co'># search for an author by surname</span>
 <span class='va'>author_results</span> <span class='op'>&lt;-</span> <span class='fu'>search_ipni</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>author_surname<span class='op'>=</span><span class='st'>"Gardiner"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>author_results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 19</span><span>
-#&gt;   alternativeNames dates  examples  forename fqId  id    isoCountries recordType
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>""</span><span>               1981-  Vanda lo… Lauren … urn:… 2001… </span><span style='color: #949494;'>""</span><span>           author    
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='color: #949494;'>""</span><span>               1808-… </span><span style='color: #BB0000;'>NA</span><span>        William  urn:… 3024… </span><span style='color: #949494;'>"</span><span>United Kin… author    
-#&gt; </span><span style='color: #949494;'># … with 11 more variables: source &lt;chr&gt;, standardForm &lt;chr&gt;, surname &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   suppressed &lt;lgl&gt;, taxonGroups &lt;chr&gt;, url &lt;chr&gt;, version &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   summary &lt;chr&gt;, hasBhlLink &lt;lgl&gt;, alternativeAbbreviations &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   bhlPageLink &lt;chr&gt;</span><span></div><div class='input'>
-</div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>author_results</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 19</span>
+#&gt;   alternativeNames dates     examples forename fqId  id    isoCountries recordType
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>""</span>               1981-     Vanda l… Lauren … urn:… 2001… <span style='color: #949494;'>""</span>           author    
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>""</span>               1808-1852 <span style='color: #BB0000;'>NA</span>       William  urn:… 3024… <span style='color: #949494;'>"</span>United Kin… author    
+#&gt; <span style='color: #949494;'># … with 11 more variables: source &lt;chr&gt;, standardForm &lt;chr&gt;, surname &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   suppressed &lt;lgl&gt;, taxonGroups &lt;chr&gt;, url &lt;chr&gt;, version &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   summary &lt;chr&gt;, hasBhlLink &lt;lgl&gt;, alternativeAbbreviations &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   bhlPageLink &lt;chr&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

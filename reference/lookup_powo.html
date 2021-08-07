@@ -192,8 +192,7 @@ it can be found out using the <a href='search_powo.html'>POWO search API</a>.</p
 <code><a href='search_powo.html'>search_powo</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># retrieve information for a taxon name</span>
+    <pre class="examples"><div class='input'><span class='co'># retrieve information for a taxon name</span>
 <span class='fu'>lookup_powo</span><span class='op'>(</span><span class='st'>"271445-2"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;POWO taxon id: 271445-2&gt;
 #&gt; Name: Abbevillea chrysophylla
@@ -217,65 +216,64 @@ it can be found out using the <a href='search_powo.html'>POWO search API</a>.</p
 <span class='co'># tidy returned record into a tibble</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>lookup_powo</span><span class='op'>(</span><span class='st'>"271445-2"</span><span class='op'>)</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 23</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 23</span>
 #&gt;   modified   bibliographicCitation  genus  taxonomicStatus kingdom phylum family
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2014-03-0… IPNI 2021. Published … Abbev… Synonym         Plantae Magno… Myrta…
-#&gt; </span><span style='color: #949494;'># … with 16 more variables: nomenclaturalCode &lt;chr&gt;, source &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   namePublishedInYear &lt;int&gt;, nomenclaturalStatus &lt;chr&gt;, accepted &lt;list&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonym &lt;lgl&gt;, plantae &lt;lgl&gt;, fungi &lt;lgl&gt;, fqId &lt;chr&gt;, name &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   authors &lt;chr&gt;, species &lt;chr&gt;, rank &lt;chr&gt;, reference &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   classification &lt;list&gt;, basionymOf &lt;list&gt;</span><span></div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> 2014-03-0… IPNI 2021. Published … Abbev… Synonym         Plantae Magno… Myrta…
+#&gt; <span style='color: #949494;'># … with 16 more variables: nomenclaturalCode &lt;chr&gt;, source &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   namePublishedInYear &lt;int&gt;, nomenclaturalStatus &lt;chr&gt;, synonym &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   plantae &lt;lgl&gt;, fungi &lt;lgl&gt;, accepted &lt;list&gt;, fqId &lt;chr&gt;, name &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   authors &lt;chr&gt;, species &lt;chr&gt;, rank &lt;chr&gt;, reference &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   classification &lt;list&gt;, basionymOf &lt;list&gt;</span></div><div class='input'>
 <span class='co'># tidy the returned list of synonyms into a tibble</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lookup_wcvp.html'>lookup_wcvp</a></span><span class='op'>(</span><span class='st'>"60447743-2"</span><span class='op'>)</span>
 <span class='va'>tidied</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>tidied</span>, cols<span class='op'>=</span><span class='va'>synonyms</span>, names_sep<span class='op'>=</span><span class='st'>"_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 11 x 27</span><span>
-#&gt;    id     link    name     display        authors   family genus specificEpithet
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> 60447… /taxon… Campoma… &lt;b&gt;&lt;i&gt;Campoma… (Cambess… Myrta… Camp… eugenioides    
-#&gt; </span><span style='color: #949494;'># … with 19 more variables: infraspecificEpithet &lt;chr&gt;, rank &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   subordinateRank &lt;chr&gt;, status &lt;chr&gt;, publication &lt;chr&gt;, reviewStatus &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   parent &lt;list&gt;, accepted &lt;chr&gt;, synonyms_id &lt;chr&gt;, synonyms_fqId &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonyms_url &lt;chr&gt;, synonyms_display &lt;chr&gt;, synonyms_accepted &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonyms_family &lt;chr&gt;, synonyms_name &lt;chr&gt;, synonyms_author &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonyms_rank &lt;chr&gt;, hierarchy &lt;list&gt;, children &lt;list&gt;</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 27</span>
+#&gt;    id         link              name  display authors family genus specificEpithet
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          
+#&gt; <span style='color: #BCBCBC;'> 1</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 2</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 3</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 4</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 5</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 6</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 7</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 8</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'> 9</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'>10</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #BCBCBC;'>11</span> 60447743-2 /taxon/60447743-2 Camp… &lt;b&gt;&lt;i&gt;… (Cambe… Myrta… Camp… eugenioides    
+#&gt; <span style='color: #949494;'># … with 19 more variables: infraspecificEpithet &lt;chr&gt;, rank &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   subordinateRank &lt;chr&gt;, status &lt;chr&gt;, publication &lt;chr&gt;, reviewStatus &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   parent &lt;list&gt;, accepted &lt;chr&gt;, synonyms_id &lt;chr&gt;, synonyms_fqId &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   synonyms_url &lt;chr&gt;, synonyms_display &lt;chr&gt;, synonyms_accepted &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   synonyms_family &lt;chr&gt;, synonyms_name &lt;chr&gt;, synonyms_author &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   synonyms_rank &lt;chr&gt;, hierarchy &lt;list&gt;, children &lt;list&gt;</span></div><div class='input'>
 <span class='co'># tidy the returned list of children into a tibble</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lookup_wcvp.html'>lookup_wcvp</a></span><span class='op'>(</span><span class='st'>"30000055-2"</span><span class='op'>)</span>
 <span class='va'>tidied</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>tidied</span>, cols<span class='op'>=</span><span class='va'>children</span>, names_sep<span class='op'>=</span><span class='st'>"_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 42 x 27</span><span>
-#&gt;    id      link     name    display        authors family genus  specificEpithet
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 300000… /taxon/… Campom… &lt;b&gt;&lt;i&gt;Campoma… Ruiz &amp;… Myrta… Campo… </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #949494;'># … with 32 more rows, and 19 more variables: infraspecificEpithet &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   rank &lt;chr&gt;, subordinateRank &lt;chr&gt;, status &lt;chr&gt;, publication &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   reviewStatus &lt;chr&gt;, parent &lt;chr&gt;, accepted &lt;chr&gt;, synonyms &lt;list&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hierarchy &lt;list&gt;, children_id &lt;chr&gt;, children_fqId &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   children_url &lt;chr&gt;, children_display &lt;chr&gt;, children_accepted &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   children_family &lt;chr&gt;, children_name &lt;chr&gt;, children_author &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   children_rank &lt;chr&gt;</span><span></div><div class='input'><span class='co'># }</span>
-
-</div></span></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 42 × 27</span>
+#&gt;    id         link              name         display authors family genus specificEpithet
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          
+#&gt; <span style='color: #BCBCBC;'> 1</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 2</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 3</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 4</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 5</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 6</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 7</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 8</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'> 9</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #BCBCBC;'>10</span> 30000055-2 /taxon/30000055-2 Campomanesia &lt;b&gt;&lt;i&gt;… Ruiz &amp;… Myrta… Camp… <span style='color: #BB0000;'>NA</span>             
+#&gt; <span style='color: #949494;'># … with 32 more rows, and 19 more variables: infraspecificEpithet &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   rank &lt;chr&gt;, subordinateRank &lt;chr&gt;, status &lt;chr&gt;, publication &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   reviewStatus &lt;chr&gt;, parent &lt;chr&gt;, accepted &lt;chr&gt;, synonyms &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hierarchy &lt;list&gt;, children_id &lt;chr&gt;, children_fqId &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   children_url &lt;chr&gt;, children_display &lt;chr&gt;, children_accepted &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   children_family &lt;chr&gt;, children_name &lt;chr&gt;, children_author &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   children_rank &lt;chr&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

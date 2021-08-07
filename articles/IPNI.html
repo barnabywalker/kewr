@@ -127,6 +127,7 @@
 <p>For example, <code>Poa anua</code> will not return any results:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa anua"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa anua', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 0</span>
@@ -136,6 +137,7 @@
 <p>But <code>Poa annua</code> will:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa annua', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 13</span>
@@ -180,6 +182,7 @@
 <p>The exact matching does, however, work on fragments of a name. For instance, <code>Poa</code> will return results for the everything that includes that term:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 2929</span>
@@ -210,6 +213,7 @@
 <p>The first is to increase the record limit to ensure we get everything:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span>, limit<span class="op">=</span><span class="fl">3000</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 2929</span>
@@ -236,13 +240,15 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query</span> <span class="op">&lt;-</span> <span class="st">"Poa"</span>
 <span class="va">page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">page1</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">page1</span><span class="op">)</span>,
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 100 x 55</span>
+<span class="co">#&gt; # A tibble: 100 × 55</span>
 <span class="co">#&gt;    abbreviation  date   fqId   id    recordType suppressed title tl2Author url  </span>
 <span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;lgl&gt;      &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;</span>
 <span class="co">#&gt;  1 Poa France B… 15 Ja… urn:l… 2000… publicati… FALSE      Poa … Portal, … /p/2…</span>
@@ -261,14 +267,7 @@
 <span class="co">#&gt; #   rank &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, citationType &lt;chr&gt;,</span>
 <span class="co">#&gt; #   hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span>
 <span class="co">#&gt; #   publication &lt;chr&gt;, publicationYear &lt;int&gt;, referenceCollation &lt;chr&gt;,</span>
-<span class="co">#&gt; #   publicationId &lt;chr&gt;, reference &lt;chr&gt;, topCopy &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   hasNomenclaturalNotes &lt;lgl&gt;, hasTypeData &lt;lgl&gt;, hasOriginalData &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   hasLinks &lt;lgl&gt;, publicationYearNote &lt;chr&gt;, bhlLink &lt;chr&gt;, pageAsText &lt;chr&gt;,</span>
-<span class="co">#&gt; #   bibliographicReference &lt;chr&gt;, referenceRemarks &lt;chr&gt;, typeChosenBy &lt;chr&gt;,</span>
-<span class="co">#&gt; #   typeName &lt;chr&gt;, typeRemarks &lt;chr&gt;, infragenus &lt;chr&gt;, basionymStr &lt;chr&gt;,</span>
-<span class="co">#&gt; #   basionymAuthorStr &lt;chr&gt;, basionymId &lt;chr&gt;, originalBasionym &lt;chr&gt;,</span>
-<span class="co">#&gt; #   originalBasionymAuthorTeam &lt;chr&gt;, remarks &lt;chr&gt;, nameStatus &lt;chr&gt;,</span>
-<span class="co">#&gt; #   nameStatusType &lt;chr&gt;, infraspecies &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; #   publicationId &lt;chr&gt;, reference &lt;chr&gt;, topCopy &lt;lgl&gt;, …</span></code></pre></div>
 </div>
 <div id="keywords-and-filtering" class="section level2">
 <h2 class="hasAnchor">
@@ -277,6 +276,7 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
                        filters<span class="op">=</span><span class="st">"genera"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: family='Ephedraceae', filters: 'genera'&gt;</span>
 <span class="co">#&gt; total results: 3</span>
@@ -319,6 +319,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>published<span class="op">=</span><span class="fl">1989</span><span class="op">)</span>,
                        filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: published='1989', filters: 'species'&gt;</span>
 <span class="co">#&gt; total results: 4248</span>
@@ -364,6 +365,7 @@
 <p>You can also use the keywords to search for author records.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>author_surname<span class="op">=</span><span class="st">"Gardiner"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: author_surname='Gardiner', filters: 'none'&gt;</span>
@@ -393,6 +395,7 @@
 <p>And for publication records.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Bulletin"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: title='Bulletin', filters: 'none'&gt;</span>
 <span class="co">#&gt; total results: 916</span>
@@ -422,6 +425,7 @@
 <p>Specific records for taxon names, authors, and publications can be looked up using the IPNI ID. These IDs are specific to each individual type of record, so the type needs provided.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_ipni.html">lookup_ipni</a></span><span class="op">(</span><span class="st">"385169-1"</span>, type<span class="op">=</span><span class="st">"taxon"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">name</span>
 <span class="co">#&gt; &lt;IPNI name id: 385169-1, type: citation&gt;</span>
 <span class="co">#&gt; Name: Agropyron poa</span>
@@ -433,6 +437,7 @@
 <span class="co">#&gt; In POWO: TRUE</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">author</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_ipni.html">lookup_ipni</a></span><span class="op">(</span><span class="st">"20028192-1"</span>, type<span class="op">=</span><span class="st">"author"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">author</span>
 <span class="co">#&gt; &lt;IPNI name id: 20028192-1, type: author&gt;</span>
 <span class="co">#&gt; Name: Liam A. Trethowan</span>
@@ -442,6 +447,7 @@
 <span class="co">#&gt; Example taxon: Schnella accrescens (Killip &amp; J.F. Macbride) Trethowan &amp; R. Clark in Phytotaxa 204(4): 240. 2015</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_ipni.html">lookup_ipni</a></span><span class="op">(</span><span class="st">"12471-2"</span>, type<span class="op">=</span><span class="st">"publication"</span><span class="op">)</span>
+<span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">pub</span>
 <span class="co">#&gt; &lt;IPNI name id: 12471-2, type: publication&gt;</span>
 <span class="co">#&gt; Title: A'in Shams Science Bulletin.  Cairo</span>

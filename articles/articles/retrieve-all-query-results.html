@@ -123,8 +123,8 @@
                        limit<span class="op">=</span><span class="fl">2000</span><span class="op">)</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;WCVP search: genus='Myrcia' filters: 'accepted, species'&gt;</span>
-<span class="co">#&gt; total results: 748</span>
-<span class="co">#&gt; returned results: 748</span>
+<span class="co">#&gt; total results: 767</span>
+<span class="co">#&gt; returned results: 767</span>
 <span class="co">#&gt; total pages: 1</span>
 <span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
@@ -175,7 +175,7 @@
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="va">query</span>, filters<span class="op">=</span><span class="va">filters</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">r</span>
 <span class="co">#&gt; &lt;WCVP search: genus='Myrcia' filters: 'accepted, species'&gt;</span>
-<span class="co">#&gt; total results: 748</span>
+<span class="co">#&gt; total results: 767</span>
 <span class="co">#&gt; returned results: 100</span>
 <span class="co">#&gt; total pages: 8</span>
 <span class="co">#&gt; current page: 8</span>
@@ -204,19 +204,19 @@
 <span class="op">}</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 9</span>
-<span class="co">#&gt;   id     fqId      url     display        accepted family name   author    rank </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;          &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;</span>
-<span class="co">#&gt; 1 16552… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… (Urb.) A… Spec…</span>
-<span class="co">#&gt; 2 77107… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… (O.Berg)… Spec…</span>
-<span class="co">#&gt; 3 77191… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… (Alain) … Spec…</span>
-<span class="co">#&gt; 4 16553… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… Borhidi   Spec…</span>
-<span class="co">#&gt; 5 77199… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… (Urb.) K… Spec…</span>
-<span class="co">#&gt; 6 77191… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… A.R.Lour… Spec…</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 6 × 9</span>
+<span class="co">#&gt;   id         fqId     url     display      accepted family name   author   rank </span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;</span>
+<span class="co">#&gt; 1 165525-2   urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrci… TRUE     Myrta… Myrci… (Urb.) … Spec…</span>
+<span class="co">#&gt; 2 77107082-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrci… TRUE     Myrta… Myrci… (O.Berg… Spec…</span>
+<span class="co">#&gt; 3 77191340-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrci… TRUE     Myrta… Myrci… (Alain)… Spec…</span>
+<span class="co">#&gt; 4 165530-2   urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrci… TRUE     Myrta… Myrci… Borhidi  Spec…</span>
+<span class="co">#&gt; 5 77199392-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrci… TRUE     Myrta… Myrci… (Urb.) … Spec…</span>
+<span class="co">#&gt; 6 77191341-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrci… TRUE     Myrta… Myrci… A.R.Lou… Spec…</span></code></pre></div>
 <p>We can check we have all the results by looking at the length of our results data frame:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
-<span class="co">#&gt; [1] 748</span></code></pre></div>
+<span class="co">#&gt; [1] 767</span></code></pre></div>
 <div id="advantages-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#advantages-1" class="anchor"></a>Advantages:</h3>

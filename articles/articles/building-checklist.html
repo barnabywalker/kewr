@@ -151,7 +151,7 @@
 <p>In total, we have this many accepted species in Iceland:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iceland_species</span><span class="op">$</span><span class="va">total</span>
-<span class="co">#&gt; [1] 850</span></code></pre></div>
+<span class="co">#&gt; [1] 864</span></code></pre></div>
 </div>
 <div id="get-the-native-distribution-of-all-the-species" class="section level2">
 <h2 class="hasAnchor">
@@ -178,20 +178,20 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iceland_checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">iceland_records</span>, <span class="va">tidy</span><span class="op">)</span>
 <span class="va">iceland_checklist</span>
-<span class="co">#&gt; # A tibble: 850 x 28</span>
+<span class="co">#&gt; # A tibble: 864 × 28</span>
 <span class="co">#&gt;    modified   bibliographicCitation  genus taxonomicStatus kingdom phylum family</span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                  &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; </span>
-<span class="co">#&gt;  1 2021-03-2… IPNI 2021. Published … Ante… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  2 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  3 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  4 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  5 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  6 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  7 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  8 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt;  9 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt; 10 2021-03-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
-<span class="co">#&gt; # … with 840 more rows, and 21 more variables: nomenclaturalCode &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 2021-07-2… IPNI 2021. Published … Ante… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  2 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  3 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  4 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  5 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  6 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  7 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  8 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  9 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt; 10 2021-07-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt; # … with 854 more rows, and 21 more variables: nomenclaturalCode &lt;chr&gt;,</span>
 <span class="co">#&gt; #   source &lt;chr&gt;, namePublishedInYear &lt;int&gt;, taxonRemarks &lt;chr&gt;,</span>
 <span class="co">#&gt; #   nomenclaturalStatus &lt;chr&gt;, synonym &lt;lgl&gt;, plantae &lt;lgl&gt;, fungi &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   fqId &lt;chr&gt;, name &lt;chr&gt;, authors &lt;chr&gt;, species &lt;chr&gt;, rank &lt;chr&gt;,</span>
@@ -225,7 +225,7 @@
          <span class="va">kingdom</span>, <span class="va">phylum</span>, <span class="va">family</span>, <span class="va">genus</span>, <span class="va">species</span><span class="op">)</span>
 
 <span class="va">iceland_checklist</span>
-<span class="co">#&gt; # A tibble: 773 x 11</span>
+<span class="co">#&gt; # A tibble: 782 × 11</span>
 <span class="co">#&gt;    fqId  name  authors taxonomicStatus plantae fungi kingdom phylum family genus</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;lgl&gt;   &lt;lgl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;</span>
 <span class="co">#&gt;  1 urn:… Ante… A.E.Po… Accepted        TRUE    FALSE Plantae Magno… Aster… Ante…</span>
@@ -238,7 +238,7 @@
 <span class="co">#&gt;  8 urn:… Hier… Ósk.    Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
 <span class="co">#&gt;  9 urn:… Hier… Omang   Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
 <span class="co">#&gt; 10 urn:… Hier… &lt;NA&gt;    Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
-<span class="co">#&gt; # … with 763 more rows, and 1 more variable: species &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; # … with 772 more rows, and 1 more variable: species &lt;chr&gt;</span></code></pre></div>
 </div>
 <div id="build-a-checklist-of-endemic-species" class="section level2">
 <h2 class="hasAnchor">
@@ -267,7 +267,7 @@
 <p>How do the number of species in each list compare?</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"native species: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iceland_checklist</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "native species:  773"</span>
+<span class="co">#&gt; [1] "native species:  782"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"endemic species: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iceland_endemics</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "endemic species:  261"</span></code></pre></div>
 </div>

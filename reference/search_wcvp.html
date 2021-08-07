@@ -231,10 +231,10 @@ using a valid IPNI ID.</p></li>
     <pre class="examples"><div class='input'><span class='co'># search for all entries containing a genus name</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Myrcia"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;WCVP search: 'Myrcia' filters: 'none'&gt;
-#&gt; total results: 1376
+#&gt; total results: 1401
 #&gt; returned results: 50
-#&gt; total pages: 28
-#&gt; current page: 28
+#&gt; total pages: 29
+#&gt; current page: 29
 #&gt; List of 1
 #&gt;  $ :List of 9
 #&gt;   ..$ id      : chr "30001220-2"
@@ -249,10 +249,10 @@ using a valid IPNI ID.</p></li>
 <span class='co'># search for all accepted species within a genus</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Myrcia"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span>, <span class='st'>"accepted"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;WCVP search: 'Myrcia' filters: 'species, accepted'&gt;
-#&gt; total results: 748
+#&gt; total results: 767
 #&gt; returned results: 50
-#&gt; total pages: 15
-#&gt; current page: 15
+#&gt; total pages: 16
+#&gt; current page: 16
 #&gt; List of 1
 #&gt;  $ :List of 9
 #&gt;   ..$ id      : chr "165525-2"
@@ -267,8 +267,8 @@ using a valid IPNI ID.</p></li>
 <span class='co'># search for up to 10,000 species in a genus</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Poa"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span>, limit<span class='op'>=</span><span class='fl'>10000</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;WCVP search: 'Poa' filters: 'species'&gt;
-#&gt; total results: 1985
-#&gt; returned results: 1985
+#&gt; total results: 1992
+#&gt; returned results: 1992
 #&gt; total pages: 1
 #&gt; current page: 1
 #&gt; List of 1
@@ -285,10 +285,10 @@ using a valid IPNI ID.</p></li>
 <span class='co'># search for all names in a family</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>family<span class='op'>=</span><span class='st'>"Myrtaceae"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;WCVP search: family='Myrtaceae' filters: 'none'&gt;
-#&gt; total results: 17487
+#&gt; total results: 17594
 #&gt; returned results: 50
-#&gt; total pages: 350
-#&gt; current page: 350
+#&gt; total pages: 352
+#&gt; current page: 352
 #&gt; List of 1
 #&gt;  $ :List of 10
 #&gt;   ..$ id       : chr "27387-1"
@@ -323,7 +323,7 @@ using a valid IPNI ID.</p></li>
 <span class='co'># search for all names with a specific epithet</span>
 <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>species<span class='op'>=</span><span class='st'>"guianensis"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;WCVP search: species='guianensis' filters: 'none'&gt;
-#&gt; total results: 639
+#&gt; total results: 641
 #&gt; returned results: 50
 #&gt; total pages: 13
 #&gt; current page: 13
@@ -360,43 +360,43 @@ using a valid IPNI ID.</p></li>
 <span class='co'># simplify search results to a `tibble`</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Poa"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 50 x 10</span><span>
-#&gt;    id     fqId    url    display    accepted family name  author rank  synonymOf
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 41640… urn:ls… /taxo… &lt;b&gt;&lt;i&gt;Poa… TRUE     Poace… Poa … R.Br.  Spec… </span><span style='color: #949494;'>&lt;NULL&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 41641… urn:ls… /taxo… &lt;i&gt;Poa ab… FALSE    Poace… Poa … Schur  Spec… </span><span style='color: #949494;'>&lt;tibble[</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 41641… urn:ls… /taxo… &lt;i&gt;Poa ab… FALSE    Poace… Poa … R.Br.  Spec… </span><span style='color: #949494;'>&lt;tibble[</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 32259… urn:ls… /taxo… &lt;i&gt;Poa ab… FALSE    Poace… Poa … Jacq.  Spec… </span><span style='color: #949494;'>&lt;tibble[</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 41641… urn:ls… /taxo… &lt;b&gt;&lt;i&gt;Poa… TRUE     Poace… Poa … Bucha… Spec… </span><span style='color: #949494;'>&lt;NULL&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 41641… urn:ls… /taxo… &lt;i&gt;Poa ac… FALSE    Poace… Poa … (Trin… Spec… </span><span style='color: #949494;'>&lt;tibble[</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 41641… urn:ls… /taxo… &lt;b&gt;&lt;i&gt;Poa… TRUE     Poace… Poa … É.Des… Spec… </span><span style='color: #949494;'>&lt;NULL&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 70027… urn:ls… /taxo… &lt;i&gt;Poa ac… FALSE    Poace… Poa … Keng … Spec… </span><span style='color: #949494;'>&lt;tibble[</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 20405… urn:ls… /taxo… &lt;i&gt;Poa ac… FALSE    Poace… Poa … Hack.  Spec… </span><span style='color: #949494;'>&lt;tibble[</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 41641… urn:ls… /taxo… &lt;b&gt;&lt;i&gt;Poa… TRUE     Poace… Poa … Steud. Spec… </span><span style='color: #949494;'>&lt;NULL&gt;</span><span>   
-#&gt; </span><span style='color: #949494;'># … with 40 more rows</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 50 × 10</span>
+#&gt;    id         fqId   url    display accepted family name  author rank  synonymOf
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'> 1</span> 416409-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Poace… Poa … R.Br.  Spec… <span style='color: #949494;'>&lt;NULL&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'> 2</span> 416411-1   urn:l… /taxo… &lt;i&gt;Poa… FALSE    Poace… Poa … Schur  Spec… <span style='color: #949494;'>&lt;tibble </span>…
+#&gt; <span style='color: #BCBCBC;'> 3</span> 416412-1   urn:l… /taxo… &lt;i&gt;Poa… FALSE    Poace… Poa … R.Br.  Spec… <span style='color: #949494;'>&lt;tibble </span>…
+#&gt; <span style='color: #BCBCBC;'> 4</span> 322592-2   urn:l… /taxo… &lt;i&gt;Poa… FALSE    Poace… Poa … Jacq.  Spec… <span style='color: #949494;'>&lt;tibble </span>…
+#&gt; <span style='color: #BCBCBC;'> 5</span> 416414-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Poace… Poa … Bucha… Spec… <span style='color: #949494;'>&lt;NULL&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'> 6</span> 416415-1   urn:l… /taxo… &lt;i&gt;Poa… FALSE    Poace… Poa … (Trin… Spec… <span style='color: #949494;'>&lt;tibble </span>…
+#&gt; <span style='color: #BCBCBC;'> 7</span> 416416-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Poace… Poa … É.Des… Spec… <span style='color: #949494;'>&lt;NULL&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'> 8</span> 70027705-1 urn:l… /taxo… &lt;i&gt;Poa… FALSE    Poace… Poa … Keng … Spec… <span style='color: #949494;'>&lt;tibble </span>…
+#&gt; <span style='color: #BCBCBC;'> 9</span> 204059-2   urn:l… /taxo… &lt;i&gt;Poa… FALSE    Poace… Poa … Hack.  Spec… <span style='color: #949494;'>&lt;tibble </span>…
+#&gt; <span style='color: #BCBCBC;'>10</span> 416418-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Poace… Poa … Steud. Spec… <span style='color: #949494;'>&lt;NULL&gt;</span>   
+#&gt; <span style='color: #949494;'># … with 40 more rows</span></div><div class='input'>
 <span class='co'># accepted name info is nested inside the records for synonyms</span>
 <span class='co'># simplify accepted name info to the name ID</span>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>search_wcvp</span><span class='op'>(</span><span class='st'>"Poa"</span>, filters<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>tidied</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>tidied</span>, cols<span class='op'>=</span><span class='va'>synonymOf</span>, names_sep<span class='op'>=</span><span class='st'>"_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 27 x 18</span><span>
-#&gt;    id     fqId    url   display  accepted family name  author rank  synonymOf_id
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 41641… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Schur  Spec… 204398-2    
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 41641… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … R.Br.  Spec… 404736-1    
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 32259… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Jacq.  Spec… 1105499-2   
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 41641… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … (Trin… Spec… 322581-2    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 70027… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Keng … Spec… 320039-2    
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 20405… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Hack.  Spec… 77091513-1  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 77107… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … (Olon… Spec… 416557-1    
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 41642… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Ovcz.  Spec… 417077-1    
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 41642… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Ovcz.… Spec… 416668-1    
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 32257… urn:ls… /tax… &lt;i&gt;Poa … FALSE    Poace… Poa … Kunth  Spec… 1051970-2   
-#&gt; </span><span style='color: #949494;'># … with 17 more rows, and 8 more variables: synonymOf_fqId &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonymOf_url &lt;chr&gt;, synonymOf_display &lt;chr&gt;, synonymOf_accepted &lt;lgl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonymOf_family &lt;chr&gt;, synonymOf_name &lt;chr&gt;, synonymOf_author &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   synonymOf_rank &lt;chr&gt;</span><span></div><div class='input'>
-</div></span></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 26 × 18</span>
+#&gt;    id         fqId  url   display accepted family name  author rank  synonymOf_id
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
+#&gt; <span style='color: #BCBCBC;'> 1</span> 416411-1   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Schur  Spec… 204398-2    
+#&gt; <span style='color: #BCBCBC;'> 2</span> 416412-1   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … R.Br.  Spec… 404736-1    
+#&gt; <span style='color: #BCBCBC;'> 3</span> 322592-2   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Jacq.  Spec… 1105499-2   
+#&gt; <span style='color: #BCBCBC;'> 4</span> 416415-1   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … (Trin… Spec… 322581-2    
+#&gt; <span style='color: #BCBCBC;'> 5</span> 70027705-1 urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Keng … Spec… 320039-2    
+#&gt; <span style='color: #BCBCBC;'> 6</span> 204059-2   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Hack.  Spec… 77091513-1  
+#&gt; <span style='color: #BCBCBC;'> 7</span> 77107419-1 urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … (Olon… Spec… 416557-1    
+#&gt; <span style='color: #BCBCBC;'> 8</span> 416420-1   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Ovcz.  Spec… 417077-1    
+#&gt; <span style='color: #BCBCBC;'> 9</span> 416421-1   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Ovcz.… Spec… 416668-1    
+#&gt; <span style='color: #BCBCBC;'>10</span> 322577-2   urn:… /tax… &lt;i&gt;Poa… FALSE    Poace… Poa … Kunth  Spec… 1051970-2   
+#&gt; <span style='color: #949494;'># … with 16 more rows, and 8 more variables: synonymOf_fqId &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   synonymOf_url &lt;chr&gt;, synonymOf_display &lt;chr&gt;, synonymOf_accepted &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   synonymOf_family &lt;chr&gt;, synonymOf_name &lt;chr&gt;, synonymOf_author &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   synonymOf_rank &lt;chr&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

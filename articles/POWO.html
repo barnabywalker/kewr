@@ -187,7 +187,7 @@
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 100 x 11</span>
+<span class="co">#&gt; # A tibble: 100 × 11</span>
 <span class="co">#&gt;    accepted author   kingdom family  name   rank  snippet   url    fqId   images</span>
 <span class="co">#&gt;    &lt;lgl&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;list&gt;</span>
 <span class="co">#&gt;  1 TRUE     L.       Plantae Fabace… Ulex   Genus " &lt;b&gt;Gen… /taxo… urn:l… &lt;tibb…</span>
@@ -256,9 +256,9 @@
 
 <span class="va">checklist</span>
 <span class="co">#&gt; &lt;POWO search: distribution='Mexico' filters: 'accepted'&gt;</span>
-<span class="co">#&gt; total results: 30156</span>
+<span class="co">#&gt; total results: 30493</span>
 <span class="co">#&gt; returned results: 50</span>
-<span class="co">#&gt; total pages: 604</span>
+<span class="co">#&gt; total pages: 610</span>
 <span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
@@ -288,7 +288,7 @@
 <span class="co">#&gt; Status: Accepted</span>
 <span class="co">#&gt; Rank: SPECIES</span>
 <span class="co">#&gt; Accepted taxon ID: 119003-2</span>
-<span class="co">#&gt; Synonyms: 49</span>
+<span class="co">#&gt; Synonyms: 52</span>
 <span class="co">#&gt; Includes distribution: FALSE</span></code></pre></div>
 <p>Optionally, you can choose to request the distribution information for the taxon as well.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -301,7 +301,7 @@
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">introduced</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">natives</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 6</span>
+<span class="co">#&gt; # A tibble: 8 × 6</span>
 <span class="co">#&gt;   fqId                    establishment featureId tdwgCode tdwgLevel name       </span>
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;      </span>
 <span class="co">#&gt; 1 urn:lsid:ipni.org:name… Native        16        ARI              3 Arizona    </span>

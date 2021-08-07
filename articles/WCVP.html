@@ -223,38 +223,38 @@
 <p>In both cases, we can tidy the results into a tibble to make subsequent analysis easier:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 92 x 10</span>
-<span class="co">#&gt;    id     fqId   url    display   accepted family name   author  rank  synonymOf</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;list&gt;   </span>
-<span class="co">#&gt;  1 23746… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex   L.      Genus &lt;NULL&gt;   </span>
-<span class="co">#&gt;  2 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Webb    Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  3 99344… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Esp.Sa… Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  4 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Link e… Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  5 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Welw. … Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  6 77196… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  7 52427… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Mabille Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  8 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Clemen… Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  9 77208… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt; 10 99344… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … (Planc… Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; # A tibble: 92 × 10</span>
+<span class="co">#&gt;    id         fqId   url    display accepted family name  author rank  synonymOf</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;list&gt;   </span>
+<span class="co">#&gt;  1 23746-1    urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex  L.     Genus &lt;NULL&gt;   </span>
+<span class="co">#&gt;  2 524268-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Webb   Spec… &lt;tibble …</span>
+<span class="co">#&gt;  3 993445-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Esp.S… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  4 524269-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Link … Spec… &lt;tibble …</span>
+<span class="co">#&gt;  5 524270-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Welw.… Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  6 77196491-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  7 524271-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Mabil… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  8 524273-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Cleme… Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  9 77208445-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; 10 993446-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… (Plan… Subs… &lt;NULL&gt;   </span>
 <span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
   <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 92 x 10</span>
-<span class="co">#&gt;    id     fqId   url    display   accepted family name   author  rank  synonymOf</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;list&gt;   </span>
-<span class="co">#&gt;  1 23746… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex   L.      Genus &lt;NULL&gt;   </span>
-<span class="co">#&gt;  2 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Webb    Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  3 99344… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Esp.Sa… Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  4 52426… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Link e… Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  5 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Welw. … Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  6 77196… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  7 52427… urn:l… /taxo… &lt;i&gt;Ulex … FALSE    Fabac… Ulex … Mabille Spec… &lt;tibble[…</span>
-<span class="co">#&gt;  8 52427… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … Clemen… Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  9 77208… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … &lt;NA&gt;    Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt; 10 99344… urn:l… /taxo… &lt;b&gt;&lt;i&gt;Ul… TRUE     Fabac… Ulex … (Planc… Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; # A tibble: 92 × 10</span>
+<span class="co">#&gt;    id         fqId   url    display accepted family name  author rank  synonymOf</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;list&gt;   </span>
+<span class="co">#&gt;  1 23746-1    urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex  L.     Genus &lt;NULL&gt;   </span>
+<span class="co">#&gt;  2 524268-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Webb   Spec… &lt;tibble …</span>
+<span class="co">#&gt;  3 993445-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Esp.S… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  4 524269-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Link … Spec… &lt;tibble …</span>
+<span class="co">#&gt;  5 524270-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Welw.… Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  6 77196491-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  7 524271-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Mabil… Spec… &lt;tibble …</span>
+<span class="co">#&gt;  8 524273-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Cleme… Spec… &lt;NULL&gt;   </span>
+<span class="co">#&gt;  9 77208445-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
+<span class="co">#&gt; 10 993446-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… (Plan… Subs… &lt;NULL&gt;   </span>
 <span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
 </div>
 <div id="getting-a-list-of-accepted-names-in-a-genus" class="section level2">
@@ -269,8 +269,8 @@
 
 <span class="va">checklist</span>
 <span class="co">#&gt; &lt;WCVP search: genus='Myrcia' filters: 'accepted, species'&gt;</span>
-<span class="co">#&gt; total results: 748</span>
-<span class="co">#&gt; returned results: 748</span>
+<span class="co">#&gt; total results: 767</span>
+<span class="co">#&gt; returned results: 767</span>
 <span class="co">#&gt; total pages: 1</span>
 <span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
@@ -312,10 +312,10 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">taxon_info</span><span class="op">)</span>
 <span class="va">tidied</span><span class="op">$</span><span class="va">accepted</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 1 x 9</span>
-<span class="co">#&gt;   id     fqId      url     display        accepted family name   author    rank </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;          &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;</span>
-<span class="co">#&gt; 1 77191… urn:lsid… /taxon… &lt;b&gt;&lt;i&gt;Myrcia … TRUE     Myrta… Myrci… (Alain) … Spec…</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 × 9</span>
+<span class="co">#&gt;   id         fqId     url     display       accepted family name  author   rank </span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;         &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;</span>
+<span class="co">#&gt; 1 77191340-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrcia… TRUE     Myrta… Myrc… (Alain)… Spec…</span></code></pre></div>
 </div>
 <div id="downloading-the-whole-wcvp" class="section level2">
 <h2 class="hasAnchor">

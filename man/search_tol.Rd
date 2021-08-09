@@ -4,13 +4,15 @@
 \alias{search_tol}
 \title{Search Kew's Tree of Life for specimens.}
 \usage{
-search_tol(query = "", limit = 50, .wait = 0.2)
+search_tol(query = "", limit = 50, page = 1, .wait = 0.2)
 }
 \arguments{
 \item{query}{The string to query the database with.}
 
 \item{limit}{An integer specifying the number of results
 to return.}
+
+\item{page}{An integer specify the page of results to request.}
 
 \item{.wait}{Time to wait before making a requests, to help
 rate limiting.}

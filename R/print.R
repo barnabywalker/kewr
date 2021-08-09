@@ -223,3 +223,32 @@ print.knms_match <- function(x, ...) {
   str(head(x$results, 1))
   invisible()
 }
+
+# tol -----
+
+#' @importFrom glue glue
+#' @importFrom utils str head
+#'
+#' @export
+print.tol_search <- function(x, ...) {
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
+
+  message <- glue("<ToL search: {query}>",
+                  "total results: {x$total}",
+                  "returned results: {length(x$results)}",
+                  "total pages: {x$pages}",
+                  "current page: {x$page}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  if (! is.null(x$results)) {
+    str(head(x$results, 1), max.level=2)
+  }
+  invisible()
+}

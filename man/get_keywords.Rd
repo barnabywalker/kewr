@@ -4,7 +4,7 @@
 \alias{get_keywords}
 \title{Get valid keywords for a resource.}
 \usage{
-get_keywords(resource = c("wcvp", "powo", "ipni"))
+get_keywords(resource = c("wcvp", "powo", "ipni", "tol"))
 }
 \arguments{
 \item{resource}{The resource being queried.}

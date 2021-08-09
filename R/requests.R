@@ -3,11 +3,17 @@
 #' @param resource The resource being queried.
 #'
 #' @return A named character vector of keywords.
+#' 
+#' @importFrom glue glue
 #'
 #' @noRd
-get_keywords_ <- function(resource=c("wcvp", "powo", "ipni")) {
+get_keywords_ <- function(resource=c("wcvp", "powo", "ipni", "tol")) {
   resource <- match.arg(resource)
 
+  if (resource %in% c("tol")) {
+    stop(glue("Keyword-based search not implemented for resource: {resource}"))
+  }
+    
   switch(
     resource,
     wcvp=c(
@@ -91,10 +97,16 @@ get_keywords_ <- function(resource=c("wcvp", "powo", "ipni")) {
 #' @param resource The resource being queried.
 #'
 #' @return A character vector of filter names.
+#' 
+#' @importFrom glue glue
 #'
 #' @noRd
-get_filters_ <- function(resource=c("wcvp", "powo", "ipni")) {
+get_filters_ <- function(resource=c("wcvp", "powo", "ipni", "tol")) {
   resource <- match.arg(resource)
+
+  if (resource %in% c("tol")) {
+    stop(glue("Filters not implemented for resource: {resource}"))
+  }
 
   switch(
     resource,
@@ -124,14 +136,15 @@ get_filters_ <- function(resource=c("wcvp", "powo", "ipni")) {
 #' @return The base URL for the requested resource.
 #'
 #' @noRd
-get_url_ <- function(resource=c("wcvp", "powo", "knms", "ipni")) {
+get_url_ <- function(resource=c("wcvp", "powo", "knms", "ipni", "tol")) {
   resource <- match.arg(resource)
 
   switch(resource,
          wcvp="https://wcvp.science.kew.org/api/v1",
          powo="http://www.plantsoftheworldonline.org/api/2",
          knms="http://namematch.science.kew.org/api/v2/powo/match",
-         ipni="https://www.ipni.org/api/1")
+         ipni="https://www.ipni.org/api/1",
+         tol="https://treeoflife.kew.org/api")
 }
 
 #' Get the package user agent.

@@ -69,6 +69,7 @@
 #' @family ToL functions
 #'  * [lookup_tol()] to lookup information about a sequenced specimen
 #'    using a valid ToL ID.
+#'  * [download_tol()] to download a file from the ToL SFTP server.
 #' 
 #' @export
 search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
@@ -132,19 +133,20 @@ search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
 #' r <- lookup_tol("1296")
 #' tidy(r)
 #'
-#' # tidy the returned list of synonyms into a tibble
+#' # extract the returned gene stats for the specimen
 #' r <- lookup_tol("1296")
 #' tidied <- tidy(r)
-#' tidyr::unnest(tidied, cols=synonyms, names_sep="_")
+#' tidied$gene_stats
 #'
-#' # expand the child entries returned for each entry
-#' r <- lookup_wcvp("30000055-2")
+#' # expand the taxonomy info
+#' r <- lookup_tol("1296")
 #' tidied <- tidy(r)
-#' tidyr::unnest(tidied, cols=children, names_sep="_")
+#' tidyr::unnest(tidied, cols=taxonomy, names_sep="_")
 #'
 #' @family ToL functions
 #' @seealso
 #'  * [search_tol()] to search ToL using taxonomic information.
+#'  * [download_tol()] to download a file from the ToL SFTP server
 #'
 #' @references
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
@@ -164,6 +166,66 @@ lookup_tol <- function(specimenid, .wait=0.1) {
     record,
     class="tol_specimen"
   )
+}
+
+#' Download the whole of the WCVP.
+#'
+#' Download the latest or a specific version of the World
+#' Checklist of Vascular Plants (WCVP).
+#'
+#' The [World Checklist of Vascular Plants (WCVP)](https://wcvp.science.kew.org/)
+#' is a global consensus view of all known vascular plant species.
+#' It has been compiled by staff at RBG Kew in consultation with plant
+#' group experts.
+#'
+#' Versioned downloads of the whole WCVP are provided on the website.
+#' This function allows the user to download the latest or a specific
+#' version of the WCVP.
+#' 
+#' @param download_link A string specifying the URL to download the file from.
+#'  You can get a download URL for a particular specimen using [lookup_tol()].
+#' @param save_dir A string specifying the folder to save the download in. If
+#'   no value is provided, \link[here]{here} will be used.
+#'
+#' @examples
+#' \dontrun{
+#'  # download a specimen fasta file
+#'  specimen_info <- lookup_tol("1296")
+#'  download_tol(specimen_info$fasta_file_url)
+#' }
+#'
+#' @family ToL functions
+#' @seealso
+#'  * [lookup_tol()] to lookup information about a sequenced specimen
+#'   using a valid ToL ID.
+#'  * [search_tol()] to search ToL using taxonomic info.
+#'
+#' @references
+#' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
+#'
+#' @importFrom here here
+#' @importFrom glue glue
+#' @importFrom stringr str_extract
+#' @importFrom utils download.file
+#'
+#' @export
+download_tol <- function(download_link, save_dir=NULL) {
+  if (is.null(save_dir)) {
+    save_dir <- here()
+  }
+
+  filename <- str_extract(download_link, "(?<=/)[^/]+$")
+  save_path <- file.path(save_dir, filename)
+
+  message <- glue("Downloading file {filename}",
+                  "to: {save_path}\n",
+                  .sep=" ", .trim=FALSE)
+
+  cat(message)
+
+  download.file(download_link, save_path)
+
+  invisible()
 }
 
 #' Make the ToL specimen lookup URL.

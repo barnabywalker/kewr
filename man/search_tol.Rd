@@ -85,4 +85,5 @@ Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R.,
 \itemize{
 \item \code{\link[=lookup_tol]{lookup_tol()}} to lookup information about a sequenced specimen
 using a valid ToL ID.
+\item \code{\link[=download_tol]{download_tol()}} to download a file from the ToL SFTP server.
 }}

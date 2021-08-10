@@ -43,15 +43,15 @@ print(r)
 r <- lookup_tol("1296")
 tidy(r)
 
-# tidy the returned list of synonyms into a tibble
+# extract the returned gene stats for the specimen
 r <- lookup_tol("1296")
 tidied <- tidy(r)
-tidyr::unnest(tidied, cols=synonyms, names_sep="_")
+tidied$gene_stats
 
-# expand the child entries returned for each entry
-r <- lookup_wcvp("30000055-2")
+# expand the taxonomy info
+r <- lookup_tol("1296")
 tidied <- tidy(r)
-tidyr::unnest(tidied, cols=children, names_sep="_")
+tidyr::unnest(tidied, cols=taxonomy, names_sep="_")
 
 }
 \references{
@@ -60,6 +60,10 @@ Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R.,
 \seealso{
 \itemize{
 \item \code{\link[=search_tol]{search_tol()}} to search ToL using taxonomic information.
+\item \code{\link[=download_tol]{download_tol()}} to download a file from the ToL SFTP server
 }
+
+Other ToL functions: 
+\code{\link{download_tol}()}
 }
 \concept{ToL functions}

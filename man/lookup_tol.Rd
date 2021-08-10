@@ -4,16 +4,18 @@
 \alias{lookup_tol}
 \title{Look up a sequenced specimen in ToL.}
 \usage{
-lookup_tol(specimenid, .wait = 0.1)
+lookup_tol(id, type = c("specimen", "gene"), .wait = 0.1)
 }
 \arguments{
-\item{specimenid}{A string containing a valid ToL specimen ID.}
+\item{id}{A string containing a valid ToL ID.}
+
+\item{type}{The type of record to lookup, either \code{specimen} or \code{gene}.}
 
 \item{.wait}{Time to wait before making a request, to help
 rate limiting.}
 }
 \value{
-A \code{tol_specimen} object, which is a simple structure with fields
+A \verb{tol_\{type\}} object, which is a simple structure with fields
 for each of the fields returned by the lookup API,
 as well as the the \link[httr:response]{httr response object}.
 }
@@ -27,7 +29,7 @@ of specimens sequenced as part of Kew's efforts to build
 a comprehensive evolutionary tree of life for flowering plants.
 
 The specimen lookup API allows users to retrieve taxonomic and sequencing
-information for a specific sequenced specimen using the unique ToL ID.
+information for a specific sequenced specimen or gene using the unique ToL ID.
 If this is not known, it can be found out using the \link[=search_tol]{ToL search API}.
 }
 \examples{
@@ -52,6 +54,17 @@ tidied$gene_stats
 r <- lookup_tol("1296")
 tidied <- tidy(r)
 tidyr::unnest(tidied, cols=taxonomy, names_sep="_")
+
+# retrieve information for a particular gene
+lookup_tol("51", type="gene")
+
+# print a summary of the returned information
+r <- lookup_tol("51", type="gene")
+print(r)
+
+# tidy into a tibble
+r <- lookup_tol("51", type="gene")
+tidy(r)
 
 }
 \references{

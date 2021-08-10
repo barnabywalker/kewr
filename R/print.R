@@ -260,6 +260,28 @@ print.tol_specimen <- function(x, ...) {
   invisible()
 }
 
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_gene <- function(x, ...) {
+
+  raw_reads <- x$raw_reads[[1]]
+  taxonomy <- x$taxonomy
+
+  message <- glue("<ToL gene id: {x$queryId}>",
+                  "Exemplar name: {x$exemplar_name}",
+                  "Exemplar source species: {x$exemplar_species}",
+                  "No. species: {x$species_count}",
+                  "No. genera: {x$genera_count}",
+                  "Avg. recovered length: {x$average_contig_length}",
+                  "Avg. % recovered: {x$average_contig_length_percent}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
 # knms ----
 
 #' @importFrom glue glue

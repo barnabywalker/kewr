@@ -74,6 +74,13 @@ tidy.tol_specimen <- function(x, ...) {
   parse_nested_list_(x)
 }
 
+#' @export
+tidy.tol_gene <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list_(x)
+}
+
 # knms ----
 
 #' @importFrom purrr map_lgl map_dfr pluck

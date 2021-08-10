@@ -13,14 +13,20 @@ test_that("search URL response is json", {
 })
 
 test_that("specimen URL response is json", {
-  url <- tol_specimen_url_("2699")
+  url <- tol_lookup_url_("2699")
   response <- httr::GET(url)
 
   expect_equal(httr::http_type(response), "application/json")
 })
 
+test_that("gene lookup returns gene URL", {
+  url <- tol_lookup_url_("51", type="gene")
+
+  expect_true(stringr::str_detect(url, "/genes/"))
+})
+
 test_that("specimen URL returns 404 for bad ID", {
-  url <- tol_specimen_url_("plant")
+  url <- tol_lookup_url_("plant")
   response <- httr::GET(url)
   expect_equal(status_code(response), 404)
 })

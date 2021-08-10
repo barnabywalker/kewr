@@ -109,14 +109,15 @@ search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
 #' a comprehensive evolutionary tree of life for flowering plants.
 #'
 #' The specimen lookup API allows users to retrieve taxonomic and sequencing
-#' information for a specific sequenced specimen using the unique ToL ID.
+#' information for a specific sequenced specimen or gene using the unique ToL ID.
 #' If this is not known, it can be found out using the [ToL search API][kewr::search_tol].
 #'
-#' @param specimenid A string containing a valid ToL specimen ID.
+#' @param id A string containing a valid ToL ID.
+#' @param type The type of record to lookup, either `specimen` or `gene`.
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
 #'
-#' @return A `tol_specimen` object, which is a simple structure with fields
+#' @return A `tol_{type}` object, which is a simple structure with fields
 #'   for each of the fields returned by the lookup API, 
 #'   as well as the the [httr response object][httr::response].
 #'
@@ -142,6 +143,17 @@ search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
 #' r <- lookup_tol("1296")
 #' tidied <- tidy(r)
 #' tidyr::unnest(tidied, cols=taxonomy, names_sep="_")
+#' 
+#' # retrieve information for a particular gene
+#' lookup_tol("51", type="gene")
+#' 
+#' # print a summary of the returned information
+#' r <- lookup_tol("51", type="gene")
+#' print(r)
+#'
+#' # tidy into a tibble
+#' r <- lookup_tol("51", type="gene")
+#' tidy(r)
 #'
 #' @family ToL functions
 #' @seealso
@@ -152,38 +164,40 @@ search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
 #'
 #' @export
-lookup_tol <- function(specimenid, .wait=0.1) {
-  url <- tol_specimen_url_(specimenid)
+lookup_tol <- function(id, type=c("specimen", "gene"), .wait=0.1) {
+  type <- match.arg(type)
+  url <- tol_lookup_url_(id, type)
 
   result <- make_request_(url, query=NULL, .wait=.wait)
 
   # this might be better if things were explicitly listed
   record <- result$content
   record$response <- result$response
-  record$queryId <- specimenid
+  record$queryId <- id
 
   structure(
     record,
-    class="tol_specimen"
+    class=paste0("tol_", type)
   )
 }
 
-#' Download the whole of the WCVP.
+#' Download a file from the ToL SFTP server.
 #'
-#' Download the latest or a specific version of the World
-#' Checklist of Vascular Plants (WCVP).
+#' Download an alignment, sequence, or tree file from the ToL
+#' SFTP server.
 #'
-#' The [World Checklist of Vascular Plants (WCVP)](https://wcvp.science.kew.org/)
-#' is a global consensus view of all known vascular plant species.
-#' It has been compiled by staff at RBG Kew in consultation with plant
-#' group experts.
+#' The [Tree of Life](https://treeoflife.kew.org/) is a database
+#' of specimens sequenced as part of Kew's efforts to build
+#' a comprehensive evolutionary tree of life for flowering plants.
 #'
-#' Versioned downloads of the whole WCVP are provided on the website.
-#' This function allows the user to download the latest or a specific
-#' version of the WCVP.
+#' Sequence, alignment, and Newick tree files are help on an SFTP server
+#' for download. The URLs to access these are stored in entries for specimens
+#' and genes in the ToL database. These can be accessed by either using [search_tol()]
+#' to get all specimens for a particular order, family, genus, or species or by
+#' looking up a specific specimen or gene using [lookup_tol()]
 #' 
 #' @param download_link A string specifying the URL to download the file from.
-#'  You can get a download URL for a particular specimen using [lookup_tol()].
+#'  You can get a download URL for a particular specimen or gene using [lookup_tol()].
 #' @param save_dir A string specifying the folder to save the download in. If
 #'   no value is provided, \link[here]{here} will be used.
 #'
@@ -192,6 +206,13 @@ lookup_tol <- function(specimenid, .wait=0.1) {
 #'  # download a specimen fasta file
 #'  specimen_info <- lookup_tol("1296")
 #'  download_tol(specimen_info$fasta_file_url)
+#' 
+#'  # download a gene alignment file
+#'  gene_info <- lookup_tol("51", type="gene")
+#'  download_tol(gene_info$alignment_file_url)
+#' 
+#'  # download the gene tree
+#'  download_tol(gene_info$tree_file_url)
 #' }
 #'
 #' @family ToL functions
@@ -228,17 +249,18 @@ download_tol <- function(download_link, save_dir=NULL) {
   invisible()
 }
 
-#' Make the ToL specimen lookup URL.
+#' Make the ToL lookup URL.
 #'
-#' @param specimenid A valid ToL ID.
+#' @param id A valid ToL ID.
 #'
 #' @noRd
 #'
 #' @importFrom glue glue
-tol_specimen_url_ <- function(specimenid) {
+tol_lookup_url_ <- function(id, type=c("specimen", "gene")) {
+  type <- match.arg(type)
   base <- get_url_("tol")
 
-  glue("{base}/specimens/{specimenid}")
+  glue("{base}/{type}s/{id}")
 }
 
 #' Make Tree of Life search URL.

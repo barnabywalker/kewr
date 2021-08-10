@@ -2,36 +2,44 @@
 % Please edit documentation in R/tol.R
 \name{download_tol}
 \alias{download_tol}
-\title{Download the whole of the WCVP.}
+\title{Download a file from the ToL SFTP server.}
 \usage{
 download_tol(download_link, save_dir = NULL)
 }
 \arguments{
 \item{download_link}{A string specifying the URL to download the file from.
-You can get a download URL for a particular specimen using \code{\link[=lookup_tol]{lookup_tol()}}.}
+You can get a download URL for a particular specimen or gene using \code{\link[=lookup_tol]{lookup_tol()}}.}
 
 \item{save_dir}{A string specifying the folder to save the download in. If
 no value is provided, \link[here]{here} will be used.}
 }
 \description{
-Download the latest or a specific version of the World
-Checklist of Vascular Plants (WCVP).
+Download an alignment, sequence, or tree file from the ToL
+SFTP server.
 }
 \details{
-The \href{https://wcvp.science.kew.org/}{World Checklist of Vascular Plants (WCVP)}
-is a global consensus view of all known vascular plant species.
-It has been compiled by staff at RBG Kew in consultation with plant
-group experts.
+The \href{https://treeoflife.kew.org/}{Tree of Life} is a database
+of specimens sequenced as part of Kew's efforts to build
+a comprehensive evolutionary tree of life for flowering plants.
 
-Versioned downloads of the whole WCVP are provided on the website.
-This function allows the user to download the latest or a specific
-version of the WCVP.
+Sequence, alignment, and Newick tree files are help on an SFTP server
+for download. The URLs to access these are stored in entries for specimens
+and genes in the ToL database. These can be accessed by either using \code{\link[=search_tol]{search_tol()}}
+to get all specimens for a particular order, family, genus, or species or by
+looking up a specific specimen or gene using \code{\link[=lookup_tol]{lookup_tol()}}
 }
 \examples{
 \dontrun{
  # download a specimen fasta file
  specimen_info <- lookup_tol("1296")
  download_tol(specimen_info$fasta_file_url)
+
+ # download a gene alignment file
+ gene_info <- lookup_tol("51", type="gene")
+ download_tol(gene_info$alignment_file_url)
+
+ # download the gene tree
+ download_tol(gene_info$tree_file_url)
 }
 
 }

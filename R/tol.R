@@ -1,4 +1,4 @@
-#' Search Kew's Tree of Life for specimens.
+#' Search Kew's Tree of Life for specimens or genes.
 #' 
 #' Query Kew's Tree of Life for specimens that have
 #' been sampled for sequencing.
@@ -13,7 +13,12 @@
 #' information, so `Myrcia` and `Myrtales` will return results, but 
 #' `Brummitt` will not.
 #' 
+#' The search API also allows users to download information about sequenced
+#' genes. There is currently no ability to search within the results for genes,
+#' but a table of all genes can be accessed using keyword argument `genes=TRUE`.
+#' 
 #' @param query The string to query the database with.
+#' @param genes Set to TRUE to download results for genes instead of specimens.
 #' @param limit An integer specifying the number of results 
 #'  to return.
 #' @param page An integer specify the page of results to request.
@@ -63,6 +68,13 @@
 #' tidied <- tidy(r)
 #' tidyr::unnest(tidied, cols=species, names_sep="_")
 #' 
+#' # search for all gene entries and print results
+#' r <- search_tol(genes=TRUE, limit=500)
+#' print(r)
+#' 
+#' # tidy the returned genes
+#' tidy(r)
+#' 
 #' @references
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
 #' 
@@ -72,8 +84,13 @@
 #'  * [download_tol()] to download a file from the ToL SFTP server.
 #' 
 #' @export
-search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
-  url <- tol_search_url_()
+search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
+  if (genes) {
+    url <- tol_search_url_(type="genes")
+    query <- "genes"
+  } else {
+    url <- tol_search_url_()
+  }
 
   original_query <- query
   query <- format_query_(query, "tol")
@@ -99,16 +116,16 @@ search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
   )
 }
 
-#' Look up a sequenced specimen in ToL.
+#' Look up a sequenced specimen or gene in ToL.
 #'
-#' Request the record for a sequenced specimen in ToL using
+#' Request the record for a sequenced specimen or gene in ToL using
 #' its ToL ID.
 #'
 #' The [Tree of Life](https://treeoflife.kew.org/) is a database
 #' of specimens sequenced as part of Kew's efforts to build
 #' a comprehensive evolutionary tree of life for flowering plants.
 #'
-#' The specimen lookup API allows users to retrieve taxonomic and sequencing
+#' The lookup API allows users to retrieve taxonomic and sequencing
 #' information for a specific sequenced specimen or gene using the unique ToL ID.
 #' If this is not known, it can be found out using the [ToL search API][kewr::search_tol].
 #'
@@ -268,8 +285,9 @@ tol_lookup_url_ <- function(id, type=c("specimen", "gene")) {
 #' @importFrom glue glue
 #' 
 #' @noRd
-tol_search_url_ <- function() {
+tol_search_url_ <- function(type=c("specimens", "genes")) {
+  type <- match.arg(type)
   base <- get_url_("tol")
 
-  glue("{base}/specimens")
+  glue("{base}/{type}")
 }

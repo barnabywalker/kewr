@@ -12,6 +12,12 @@ test_that("search URL response is json", {
   expect_equal(httr::http_type(response), "application/json")
 })
 
+test_that("search URL is for genes when asked for", {
+  url <- tol_search_url_(type="genes")
+
+  expect_true(stringr::str_detect(url, "/genes"))
+})
+
 test_that("specimen URL response is json", {
   url <- tol_lookup_url_("2699")
   response <- httr::GET(url)

@@ -2,12 +2,14 @@
 % Please edit documentation in R/tol.R
 \name{search_tol}
 \alias{search_tol}
-\title{Search Kew's Tree of Life for specimens.}
+\title{Search Kew's Tree of Life for specimens or genes.}
 \usage{
-search_tol(query = "", limit = 50, page = 1, .wait = 0.2)
+search_tol(query = "", genes = FALSE, limit = 50, page = 1, .wait = 0.2)
 }
 \arguments{
 \item{query}{The string to query the database with.}
+
+\item{genes}{Set to TRUE to download results for genes instead of specimens.}
 
 \item{limit}{An integer specifying the number of results
 to return.}
@@ -43,6 +45,10 @@ based on their taxonomic information. Filtering and keyword-search
 are not currently implemented. All searches are based on taxonomic
 information, so \code{Myrcia} and \code{Myrtales} will return results, but
 \code{Brummitt} will not.
+
+The search API also allows users to download information about sequenced
+genes. There is currently no ability to search within the results for genes,
+but a table of all genes can be accessed using keyword argument \code{genes=TRUE}.
 }
 \examples{
 # get the first 50 of all sequenced specimens
@@ -76,6 +82,13 @@ tidyr::unnest(tidied, cols=species, names_sep="_")
 r <- search_tol("Myrcia")
 tidied <- tidy(r)
 tidyr::unnest(tidied, cols=species, names_sep="_")
+
+# search for all gene entries and print results
+r <- search_tol(genes=TRUE, limit=500)
+print(r)
+
+# tidy the returned genes
+tidy(r)
 
 }
 \references{

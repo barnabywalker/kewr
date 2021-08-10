@@ -2,7 +2,7 @@
 % Please edit documentation in R/tol.R
 \name{lookup_tol}
 \alias{lookup_tol}
-\title{Look up a sequenced specimen in ToL.}
+\title{Look up a sequenced specimen or gene in ToL.}
 \usage{
 lookup_tol(id, type = c("specimen", "gene"), .wait = 0.1)
 }
@@ -20,7 +20,7 @@ for each of the fields returned by the lookup API,
 as well as the the \link[httr:response]{httr response object}.
 }
 \description{
-Request the record for a sequenced specimen in ToL using
+Request the record for a sequenced specimen or gene in ToL using
 its ToL ID.
 }
 \details{
@@ -28,7 +28,7 @@ The \href{https://treeoflife.kew.org/}{Tree of Life} is a database
 of specimens sequenced as part of Kew's efforts to build
 a comprehensive evolutionary tree of life for flowering plants.
 
-The specimen lookup API allows users to retrieve taxonomic and sequencing
+The lookup API allows users to retrieve taxonomic and sequencing
 information for a specific sequenced specimen or gene using the unique ToL ID.
 If this is not known, it can be found out using the \link[=search_tol]{ToL search API}.
 }

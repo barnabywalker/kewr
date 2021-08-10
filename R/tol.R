@@ -8,7 +8,10 @@
 #' a comprehensive evolutionary tree of life for flowering plants.
 #' 
 #' The search API allows users to query the database for specimens
-#' based on their taxonomic information.
+#' based on their taxonomic information. Filtering and keyword-search
+#' are not currently implemented. All searches are based on taxonomic 
+#' information, so `Myrcia` and `Myrtales` will return results, but 
+#' `Brummitt` will not.
 #' 
 #' @param query The string to query the database with.
 #' @param limit An integer specifying the number of results 

@@ -82,6 +82,7 @@
 #'  * [lookup_tol()] to lookup information about a sequenced specimen
 #'    using a valid ToL ID.
 #'  * [download_tol()] to download a file from the ToL SFTP server.
+#'  * [load_tol()] load a file from the ToL SFTP server.
 #' 
 #' @export
 search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
@@ -175,7 +176,8 @@ search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
 #' @family ToL functions
 #' @seealso
 #'  * [search_tol()] to search ToL using taxonomic information.
-#'  * [download_tol()] to download a file from the ToL SFTP server
+#'  * [download_tol()] to download a file from the ToL SFTP server.
+#'  * [load_tol()] load a file from the ToL SFTP server.
 #'
 #' @references
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
@@ -191,6 +193,77 @@ lookup_tol <- function(id, type=c("specimen", "gene"), .wait=0.1) {
   record <- result$content
   record$response <- result$response
   record$queryId <- id
+
+  structure(
+    record,
+    class=paste0("tol_", type)
+  )
+}
+
+#' Load the Tree of Life or another file from ToL.
+#' 
+#' Request a tree file for the whole ToL or an alignment,
+#' sequence, or gene tree for a particular specimen or gene.
+#' 
+#' The [Tree of Life](https://treeoflife.kew.org/) is a database
+#' of specimens sequenced as part of Kew's efforts to build
+#' a comprehensive evolutionary tree of life for flowering plants.
+#' 
+#' Newick tree, alignment, and sequence files are help on an SFTP server
+#' for download. The URLs to access these are stored in entries for specimens
+#' and genes in the ToL database. These can be accessed by either using [search_tol()]
+#' to get all specimens for a particular order, family, genus, or species or by
+#' looking up a specific specimen or gene using [lookup_tol()]. If no URL is specified,
+#' this will load the ToL tree.
+#' 
+#' @param url URL pointing to a file on the ToL SFTP server.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
+#' 
+#' @examples 
+#'  # load the ToL
+#'  load_tol()
+#' 
+#'  # load a specimen fasta file
+#'  specimen_info <- lookup_tol("1296")
+#'  load_tol(specimen_info$fasta_file_url)
+#' 
+#'  # load a gene alignment file
+#'  gene_info <- lookup_tol("51", type="gene")
+#'  load_tol(gene_info$alignment_file_url)
+#' 
+#'  # load the gene tree
+#'  load_tol(gene_info$tree_file_url)
+#' 
+#' @family ToL functions
+#' 
+#' @seealso
+#'  * [lookup_tol()] to lookup information about a sequenced specimen
+#'   using a valid ToL ID.
+#'  * [search_tol()] to search ToL using taxonomic info.
+#'  * [download_tol()] to save a file on the ToL SFTP server to file.
+#'
+#' @references
+#' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
+#'
+#' @importFrom glue glue
+#' @importFrom stringr str_extract
+#'
+#' @export
+load_tol <- function(url=NULL, .wait=0.1) {
+  if (is.null(url)) {
+    url <- tol_download_url_()
+  }
+
+  result <- make_request_(url, query=NULL, json=FALSE, .wait=.wait)
+
+  # this might be better if things were explicitly listed
+  record <- list(
+    content=result$content,
+    response=result$response
+  )
+
+  type <- str_extract(url, "[a-z]+$")
 
   structure(
     record,
@@ -237,6 +310,7 @@ lookup_tol <- function(id, type=c("specimen", "gene"), .wait=0.1) {
 #'  * [lookup_tol()] to lookup information about a sequenced specimen
 #'   using a valid ToL ID.
 #'  * [search_tol()] to search ToL using taxonomic info.
+#'  * [load_tol()] load a file from the ToL SFTP server.
 #'
 #' @references
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
@@ -247,9 +321,13 @@ lookup_tol <- function(id, type=c("specimen", "gene"), .wait=0.1) {
 #' @importFrom utils download.file
 #'
 #' @export
-download_tol <- function(download_link, save_dir=NULL) {
+download_tol <- function(download_link=NULL, save_dir=NULL) {
   if (is.null(save_dir)) {
     save_dir <- here()
+  }
+
+  if (is.null(download_link)) {
+    download_link <- tol_download_url_()
   }
 
   filename <- str_extract(download_link, "(?<=/)[^/]+$")
@@ -290,4 +368,15 @@ tol_search_url_ <- function(type=c("specimens", "genes")) {
   base <- get_url_("tol")
 
   glue("{base}/{type}")
+}
+
+#' Make a download URL for the Tree of Life.
+#' 
+#' @importFrom glue glue
+#' 
+#' @noRd
+tol_download_url_ <- function() {
+  base <- get_url_("tol")
+
+  glue("{base}/tree")
 }

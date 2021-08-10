@@ -73,10 +73,12 @@ Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R.,
 \seealso{
 \itemize{
 \item \code{\link[=search_tol]{search_tol()}} to search ToL using taxonomic information.
-\item \code{\link[=download_tol]{download_tol()}} to download a file from the ToL SFTP server
+\item \code{\link[=download_tol]{download_tol()}} to download a file from the ToL SFTP server.
+\item \code{\link[=load_tol]{load_tol()}} load a file from the ToL SFTP server.
 }
 
 Other ToL functions: 
-\code{\link{download_tol}()}
+\code{\link{download_tol}()},
+\code{\link{load_tol}()}
 }
 \concept{ToL functions}

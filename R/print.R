@@ -282,6 +282,36 @@ print.tol_gene <- function(x, ...) {
   invisible()
 }
 
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_tree <- function(x, ...) {
+
+  message <- glue("<ToL tree url: {x$response$url}>",
+                  "Preview:",
+                  substr(x$content, 1, 100),
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_fasta <- function(x, ...) {
+
+  message <- glue("<ToL fasta url: {x$response$url}>",
+                  "Preview:",
+                  substr(x$content, 1, 100),
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
 # knms ----
 
 #' @importFrom glue glue

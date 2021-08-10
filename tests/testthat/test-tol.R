@@ -63,3 +63,16 @@ test_that("tidy lookup results returns tibble", {
 
   expect_s3_class(tidied, "tbl_df")
 })
+
+test_that("loading fasta gives a fasta object", {
+  url <- "http://sftp.kew.org/pub/paftol/current_release/fasta/by_gene/5328.dna.fasta"
+  r <- load_tol(url)
+
+  expect_equal(class(r), "tol_fasta")
+})
+
+test_that("loading tree gives a tree object", {
+  r <- load_tol()
+
+  expect_equal(class(r), "tol_tree")
+})

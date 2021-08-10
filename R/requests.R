@@ -162,6 +162,7 @@ get_user_agent_ <- function() {
 #' @param query A list specifying a query.
 #' @param body A list specifying an optional body. If specified,
 #' the function will make a POST request to the resource.
+#' @param json Whether to expect a json response or not, default TRUE.
 #' @param .wait The time to wait before making the request,
 #'  to help with rate limiting.
 #'
@@ -172,7 +173,7 @@ get_user_agent_ <- function() {
 #'
 #' @import httr
 #' @importFrom jsonlite fromJSON
-make_request_ <- function(url, query, body=NULL, .wait=0.1) {
+make_request_ <- function(url, query, body=NULL, json=TRUE, .wait=0.1) {
   user_agent <- get_user_agent_()
 
   Sys.sleep(.wait)
@@ -194,11 +195,14 @@ make_request_ <- function(url, query, body=NULL, .wait=0.1) {
     )
   }
 
-  if (http_type(response) != "application/json") {
+  if (http_type(response) != "application/json" & json) {
     stop("API did not return json", call.=FALSE)
   }
 
-  parsed <- fromJSON(content(response, "text"), simplifyVector=FALSE)
+  parsed <- content(response, "text")
+  if (json) {
+    parsed <- fromJSON(parsed, simplifyVector=FALSE)
+  }
 
   list(response=response, content=parsed)
 }

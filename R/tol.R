@@ -67,6 +67,8 @@
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
 #' 
 #' @family ToL functions
+#'  * [lookup_tol()] to lookup information about a sequenced specimen
+#'    using a valid ToL ID.
 #' 
 #' @export
 search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
@@ -94,6 +96,87 @@ search_tol <- function(query="", limit=50, page=1, .wait=0.2) {
     ),
     class="tol_search"
   )
+}
+
+#' Look up a sequenced specimen in ToL.
+#'
+#' Request the record for a sequenced specimen in ToL using
+#' its ToL ID.
+#'
+#' The [Tree of Life](https://treeoflife.kew.org/) is a database
+#' of specimens sequenced as part of Kew's efforts to build
+#' a comprehensive evolutionary tree of life for flowering plants.
+#'
+#' The specimen lookup API allows users to retrieve taxonomic and sequencing
+#' information for a specific sequenced specimen using the unique ToL ID.
+#' If this is not known, it can be found out using the [ToL search API][kewr::search_tol].
+#'
+#' @param specimenid A string containing a valid ToL specimen ID.
+#' @param .wait Time to wait before making a request, to help
+#'  rate limiting.
+#'
+#' @return A `tol_specimen` object, which is a simple structure with fields
+#'   for each of the fields returned by the lookup API, 
+#'   as well as the the [httr response object][httr::response].
+#'
+#' @examples
+#'
+#' # retrieve information for a particular specimen
+#' lookup_tol("1296")
+#'
+#' # print a summary of the returned information
+#' r <- lookup_tol("1296")
+#' print(r)
+#'
+#' # tidy into a tibble
+#' r <- lookup_tol("1296")
+#' tidy(r)
+#'
+#' # tidy the returned list of synonyms into a tibble
+#' r <- lookup_tol("1296")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=synonyms, names_sep="_")
+#'
+#' # expand the child entries returned for each entry
+#' r <- lookup_wcvp("30000055-2")
+#' tidied <- tidy(r)
+#' tidyr::unnest(tidied, cols=children, names_sep="_")
+#'
+#' @family ToL functions
+#' @seealso
+#'  * [search_tol()] to search ToL using taxonomic information.
+#'
+#' @references
+#' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
+#'
+#' @export
+lookup_tol <- function(specimenid, .wait=0.1) {
+  url <- tol_specimen_url_(specimenid)
+
+  result <- make_request_(url, query=NULL, .wait=.wait)
+
+  # this might be better if things were explicitly listed
+  record <- result$content
+  record$response <- result$response
+  record$queryId <- specimenid
+
+  structure(
+    record,
+    class="tol_specimen"
+  )
+}
+
+#' Make the ToL specimen lookup URL.
+#'
+#' @param specimenid A valid ToL ID.
+#'
+#' @noRd
+#'
+#' @importFrom glue glue
+tol_specimen_url_ <- function(specimenid) {
+  base <- get_url_("tol")
+
+  glue("{base}/specimens/{specimenid}")
 }
 
 #' Make Tree of Life search URL.

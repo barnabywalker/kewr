@@ -67,6 +67,12 @@ tidy.tol_search <- function(x, ...) {
   map_dfr(x$results, parse_nested_list_)
 }
 
+#' @export
+tidy.tol_specimen <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list_(x)
+}
 
 # knms ----
 

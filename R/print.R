@@ -207,23 +207,6 @@ print.ipni_publication <- function(x, ...) {
   invisible()
 }
 
-# knms ----
-
-#' @importFrom glue glue
-#' @export
-print.knms_match <- function(x, ...) {
-  message <- glue("<KNMS match: {length(x$submitted)} names submitted>",
-                  "Matches returned: {x$matched}",
-                  "Multiple matches: {x$multiple_matches}",
-                  "Unmatched names: {x$unmatched}",
-                  "",
-                  .sep="\n", .trim=FALSE)
-
-  cat(message)
-  str(head(x$results, 1))
-  invisible()
-}
-
 # tol -----
 
 #' @importFrom glue glue
@@ -250,5 +233,46 @@ print.tol_search <- function(x, ...) {
   if (! is.null(x$results)) {
     str(head(x$results, 1), max.level=2)
   }
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_specimen <- function(x, ...) {
+
+  raw_reads <- x$raw_reads[[1]]
+  taxonomy <- x$taxonomy
+
+  message <- glue("<ToL specimen id: {x$queryId}>",
+                  "Species: {taxonomy$species}",
+                  "Family: {taxonomy$family}",
+                  "Order: {taxonomy$order}",
+                  "Collector: {x$collector}",
+                  "Project: {x$project$data_source$name}",
+                  "No. of reads: {format(raw_reads$reads_count, big.mark=',')}",
+                  "Sequencing platform: {raw_reads$sequence_platform}",
+                  "Suspicious placement: {x$is_suspicious_placement}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+# knms ----
+
+#' @importFrom glue glue
+#' @export
+print.knms_match <- function(x, ...) {
+  message <- glue("<KNMS match: {length(x$submitted)} names submitted>",
+                  "Matches returned: {x$matched}",
+                  "Multiple matches: {x$multiple_matches}",
+                  "Unmatched names: {x$unmatched}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  str(head(x$results, 1))
   invisible()
 }

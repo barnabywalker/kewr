@@ -39,7 +39,10 @@ of specimens sequenced as part of Kew's efforts to build
 a comprehensive evolutionary tree of life for flowering plants.
 
 The search API allows users to query the database for specimens
-based on their taxonomic information.
+based on their taxonomic information. Filtering and keyword-search
+are not currently implemented. All searches are based on taxonomic
+information, so \code{Myrcia} and \code{Myrtales} will return results, but
+\code{Brummitt} will not.
 }
 \examples{
 # get the first 50 of all sequenced specimens
@@ -78,4 +81,8 @@ tidyr::unnest(tidied, cols=species, names_sep="_")
 \references{
 Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
 }
-\concept{ToL functions}
+\concept{ToL functions
+\itemize{
+\item \code{\link[=lookup_tol]{lookup_tol()}} to lookup information about a sequenced specimen
+using a valid ToL ID.
+}}

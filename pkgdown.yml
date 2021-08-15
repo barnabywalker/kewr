@@ -5,9 +5,11 @@ articles:
   IPNI: IPNI.html
   KNMS: KNMS.html
   POWO: POWO.html
+  ToL: ToL.html
   WCVP: WCVP.html
   articles/building-checklist: building-checklist.html
+  articles/conservation-status-treeoflife: conservation-status-treeoflife.html
   articles/mapping-assessed-species: mapping-assessed-species.html
   articles/retrieve-all-query-results: retrieve-all-query-results.html
-last_built: 2021-08-07T10:59Z
+last_built: 2021-08-15T15:40Z
 

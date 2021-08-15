@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download the whole of the WCVP. — download_wcvp • kewr</title>
+<title>Download a file from the ToL SFTP server. — download_tol • kewr</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Download the whole of the WCVP. — download_wcvp" />
-<meta property="og:description" content="Download the latest or a specific version of the World
-Checklist of Vascular Plants (WCVP)." />
+<meta property="og:title" content="Download a file from the ToL SFTP server. — download_tol" />
+<meta property="og:description" content="Download an alignment, sequence, or tree file from the ToL
+SFTP server." />
 
 
 
@@ -145,65 +145,72 @@ Checklist of Vascular Plants (WCVP)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download the whole of the WCVP.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/barnabywalker/kewr/blob/master/R/wcvp.R'><code>R/wcvp.R</code></a></small>
-    <div class="hidden name"><code>download_wcvp.Rd</code></div>
+    <h1>Download a file from the ToL SFTP server.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/barnabywalker/kewr/blob/master/R/tol.R'><code>R/tol.R</code></a></small>
+    <div class="hidden name"><code>download_tol.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Download the latest or a specific version of the World
-Checklist of Vascular Plants (WCVP).</p>
+    <p>Download an alignment, sequence, or tree file from the ToL
+SFTP server.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>download_wcvp</span><span class='op'>(</span>save_dir <span class='op'>=</span> <span class='cn'>NULL</span>, version <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>download_tol</span><span class='op'>(</span>download_link <span class='op'>=</span> <span class='cn'>NULL</span>, save_dir <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>download_link</th>
+      <td><p>A string specifying the URL to download the file from.
+You can get a download URL for a particular specimen or gene using <code><a href='lookup_tol.html'>lookup_tol()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>save_dir</th>
       <td><p>A string specifying the folder to save the download in. If
 no value is provided, <a href='https://here.r-lib.org//reference/here.html'>here</a> will be used.</p></td>
-    </tr>
-    <tr>
-      <th>version</th>
-      <td><p>An integer version number to download. The latest
-version will be downloaded by default.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <a href='https://wcvp.science.kew.org/'>World Checklist of Vascular Plants (WCVP)</a>
-is a global consensus view of all known vascular plant species.
-It has been compiled by staff at RBG Kew in consultation with plant
-group experts.</p>
-<p>Versioned downloads of the whole WCVP are provided on the website.
-This function allows the user to download the latest or a specific
-version of the WCVP.</p>
+    <p>The <a href='https://treeoflife.kew.org/'>Tree of Life</a> is a database
+of specimens sequenced as part of Kew's efforts to build
+a comprehensive evolutionary tree of life for flowering plants.</p>
+<p>Sequence, alignment, and Newick tree files are help on an SFTP server
+for download. The URLs to access these are stored in entries for specimens
+and genes in the ToL database. These can be accessed by either using <code><a href='search_tol.html'>search_tol()</a></code>
+to get all specimens for a particular order, family, genus, or species or by
+looking up a specific specimen or gene using <code><a href='lookup_tol.html'>lookup_tol()</a></code></p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>WCVP (2020). World Checklist of Vascular Plants, version 2.0. Facilitated by the Royal Botanic Gardens, Kew. Published on the Internet; http://wcvp.science.kew.org/</p>
+    <p>Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. &amp; Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='lookup_wcvp.html'>lookup_wcvp()</a></code> to lookup information about a taxon name
-using a valid IPNI ID.</p></li>
-<li><p><code><a href='search_wcvp.html'>search_wcvp()</a></code> to search WCVP using a taxon name.</p></li>
+<li><p><code><a href='lookup_tol.html'>lookup_tol()</a></code> to lookup information about a sequenced specimen
+using a valid ToL ID.</p></li>
+<li><p><code><a href='search_tol.html'>search_tol()</a></code> to search ToL using taxonomic info.</p></li>
+<li><p><code><a href='load_tol.html'>load_tol()</a></code> load a file from the ToL SFTP server.</p></li>
 </ul>
 
-<p>Other WCVP functions: 
-<code><a href='lookup_wcvp.html'>lookup_wcvp</a>()</code>,
-<code><a href='search_wcvp.html'>search_wcvp</a>()</code></p></div>
+<p>Other ToL functions: 
+<code><a href='load_tol.html'>load_tol</a>()</code>,
+<code><a href='lookup_tol.html'>lookup_tol</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='co'># download the latest version</span>
- <span class='fu'>download_wcvp</span><span class='op'>(</span><span class='op'>)</span>
+ <span class='co'># download a specimen fasta file</span>
+ <span class='va'>specimen_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lookup_tol.html'>lookup_tol</a></span><span class='op'>(</span><span class='st'>"1296"</span><span class='op'>)</span>
+ <span class='fu'>download_tol</span><span class='op'>(</span><span class='va'>specimen_info</span><span class='op'>$</span><span class='va'>fasta_file_url</span><span class='op'>)</span>
 
- <span class='co'># download version 1</span>
- <span class='fu'>download_wcvp</span><span class='op'>(</span>version<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+ <span class='co'># download a gene alignment file</span>
+ <span class='va'>gene_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lookup_tol.html'>lookup_tol</a></span><span class='op'>(</span><span class='st'>"51"</span>, type<span class='op'>=</span><span class='st'>"gene"</span><span class='op'>)</span>
+ <span class='fu'>download_tol</span><span class='op'>(</span><span class='va'>gene_info</span><span class='op'>$</span><span class='va'>alignment_file_url</span><span class='op'>)</span>
+
+ <span class='co'># download the gene tree</span>
+ <span class='fu'>download_tol</span><span class='op'>(</span><span class='va'>gene_info</span><span class='op'>$</span><span class='va'>tree_file_url</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 </div></pre>

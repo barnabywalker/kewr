@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -104,10 +104,16 @@
       <a href="../articles/POWO.html">POWO</a>
     </li>
     <li>
+      <a href="../articles/ToL.html">ToL</a>
+    </li>
+    <li>
       <a href="../articles/WCVP.html">WCVP</a>
     </li>
     <li>
       <a href="../articles/articles/building-checklist.html">Building a species checklist</a>
+    </li>
+    <li>
+      <a href="../articles/articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
     </li>
     <li>
       <a href="../articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
@@ -156,6 +162,9 @@
 <span class='fu'>request_next</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ipni_search</span>
+<span class='fu'>request_next</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='co'># S3 method for tol_search</span>
 <span class='fu'>request_next</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,6 +187,7 @@ the same type.</p>
 <li><p><code>wcvp_search</code>: Request the next page of WCVP search results.</p></li>
 <li><p><code>powo_search</code>: Request the next page of POWO search results.</p></li>
 <li><p><code>ipni_search</code>: Request the next page of IPNI search results.</p></li>
+<li><p><code>tol_search</code>: Request the next page of ToL search results.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -258,6 +268,35 @@ the same type.</p>
 #&gt;   ..$ hasTypeData          : logi FALSE
 #&gt;   ..$ hasOriginalData      : logi FALSE
 #&gt;   ..$ hasLinks             : logi FALSE</div><div class='input'>
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_tol.html'>search_tol</a></span><span class='op'>(</span><span class='st'>"Poa"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'><span class='fu'>request_next</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; &lt;ToL search: 'Poa'&gt;
+#&gt; total results: 182
+#&gt; returned results: 50
+#&gt; total pages: 4
+#&gt; current page: 2
+#&gt; List of 1
+#&gt;  $ :List of 20
+#&gt;   ..$ age                    : NULL
+#&gt;   ..$ collector              : chr "Bauters"
+#&gt;   ..$ collector_no           : NULL
+#&gt;   ..$ country                : NULL
+#&gt;   ..$ fasta_file_url         : chr "http://sftp.kew.org/pub/paftol/current_release/fasta/by_recovery/INSDC.ERR5033324.Cyperus_pectinatus.a353.fasta"
+#&gt;   ..$ gene_stats             :List of 2
+#&gt;   ..$ genus                  :List of 3
+#&gt;   ..$ herbcat_url            : NULL
+#&gt;   ..$ id                     : int 1111
+#&gt;   ..$ is_suspicious_placement: logi FALSE
+#&gt;   ..$ material_source        :List of 2
+#&gt;   ..$ museum_barcode         : NULL
+#&gt;   ..$ project                :List of 2
+#&gt;   ..$ raw_reads              :List of 1
+#&gt;   ..$ sequence_id            : int 2953
+#&gt;   ..$ species                :List of 2
+#&gt;   ..$ specimen_reference     : chr "KB 2015-192 (GENT)"
+#&gt;   ..$ specimen_source        : chr "Ghent University"
+#&gt;   ..$ taxonomy               :List of 4
+#&gt;   ..$ voucher_no             : chr "KB 2015-192"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

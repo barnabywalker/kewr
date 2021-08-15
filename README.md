@@ -18,11 +18,12 @@ provide a consistent interface their public APIs.
 
 This package should cover:
 
-  - [x] [World Checklist of Vascular
+-   [x] [World Checklist of Vascular
     Plants](https://wcvp.science.kew.org/)
-  - [x] [Plants of the World Online](http://powo.science.kew.org/)
-  - [x] [International Plant Names Index](https://www.ipni.org/)
-  - [x] [Kew Names Matching Service](http://namematch.science.kew.org/)
+-   [x] [Plants of the World Online](http://powo.science.kew.org/)
+-   [x] [International Plant Names Index](https://www.ipni.org/)
+-   [x] [Kew Names Matching Service](http://namematch.science.kew.org/)
+-   [x] [Kew’s Tree of Life](https://treeoflife.kew.org)
 
 New sources will be added as they come up.
 

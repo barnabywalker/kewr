@@ -5,6 +5,7 @@
 \alias{request_next.wcvp_search}
 \alias{request_next.powo_search}
 \alias{request_next.ipni_search}
+\alias{request_next.tol_search}
 \title{Request the next page of search results for a kewr results object.}
 \usage{
 request_next(object)
@@ -14,6 +15,8 @@ request_next(object)
 \method{request_next}{powo_search}(object)
 
 \method{request_next}{ipni_search}(object)
+
+\method{request_next}{tol_search}(object)
 }
 \arguments{
 \item{object}{A kewr search results object.}
@@ -32,6 +35,8 @@ Request the next page of search results for a kewr results object.
 \item \code{powo_search}: Request the next page of POWO search results.
 
 \item \code{ipni_search}: Request the next page of IPNI search results.
+
+\item \code{tol_search}: Request the next page of ToL search results.
 }}
 
 \examples{
@@ -45,6 +50,9 @@ request_next(r)
 }
 
 r <- search_ipni("Poa")
+request_next(r)
+
+r <- search_tol("Poa")
 request_next(r)
 
 }

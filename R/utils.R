@@ -10,7 +10,7 @@
 #' get_filters("ipni")
 #'
 #' @export
-get_filters <- function(resource=c("wcvp", "powo", "ipni")) {
+get_filters <- function(resource=c("wcvp", "powo", "ipni", "tol")) {
   resource <- match.arg(resource)
 
   filters <- get_filters_(resource)
@@ -29,7 +29,7 @@ get_filters <- function(resource=c("wcvp", "powo", "ipni")) {
 #' get_keywords("ipni")
 #'
 #' @export
-get_keywords <- function(resource=c("wcvp", "powo", "ipni")) {
+get_keywords <- function(resource=c("wcvp", "powo", "ipni", "tol")) {
   resource <- match.arg(resource)
 
   keywords <- get_keywords_(resource)

@@ -4,7 +4,7 @@
 \alias{get_filters}
 \title{Get valid filters for a resource.}
 \usage{
-get_filters(resource = c("wcvp", "powo", "ipni"))
+get_filters(resource = c("wcvp", "powo", "ipni", "tol"))
 }
 \arguments{
 \item{resource}{The resource being queried.}

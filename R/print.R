@@ -207,6 +207,111 @@ print.ipni_publication <- function(x, ...) {
   invisible()
 }
 
+# tol -----
+
+#' @importFrom glue glue
+#' @importFrom utils str head
+#'
+#' @export
+print.tol_search <- function(x, ...) {
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
+
+  message <- glue("<ToL search: {query}>",
+                  "total results: {x$total}",
+                  "returned results: {length(x$results)}",
+                  "total pages: {x$pages}",
+                  "current page: {x$page}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  if (! is.null(x$results)) {
+    str(head(x$results, 1), max.level=2)
+  }
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_specimen <- function(x, ...) {
+
+  raw_reads <- x$raw_reads[[1]]
+  taxonomy <- x$taxonomy
+
+  message <- glue("<ToL specimen id: {x$queryId}>",
+                  "Species: {taxonomy$species}",
+                  "Family: {taxonomy$family}",
+                  "Order: {taxonomy$order}",
+                  "Collector: {x$collector}",
+                  "Project: {x$project$data_source$name}",
+                  "No. of reads: {format(raw_reads$reads_count, big.mark=',')}",
+                  "Sequencing platform: {raw_reads$sequence_platform}",
+                  "Suspicious placement: {x$is_suspicious_placement}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_gene <- function(x, ...) {
+
+  raw_reads <- x$raw_reads[[1]]
+  taxonomy <- x$taxonomy
+
+  message <- glue("<ToL gene id: {x$queryId}>",
+                  "Exemplar name: {x$exemplar_name}",
+                  "Exemplar source species: {x$exemplar_species}",
+                  "No. species: {x$species_count}",
+                  "No. genera: {x$genera_count}",
+                  "Avg. recovered length: {x$average_contig_length}",
+                  "Avg. % recovered: {x$average_contig_length_percent}",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_tree <- function(x, ...) {
+
+  message <- glue("<ToL tree url: {x$response$url}>",
+                  "Preview:",
+                  substr(x$content, 1, 100),
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
+#' @importFrom glue glue
+#' @importFrom utils str
+#' @export
+print.tol_fasta <- function(x, ...) {
+
+  message <- glue("<ToL fasta url: {x$response$url}>",
+                  "Preview:",
+                  substr(x$content, 1, 100),
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  invisible()
+}
+
 # knms ----
 
 #' @importFrom glue glue

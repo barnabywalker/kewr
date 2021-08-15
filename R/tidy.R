@@ -59,6 +59,28 @@ tidy.ipni_publication <- function(x, ...) {
   parse_nested_list_(x)
 }
 
+# tol ----
+#' @importFrom purrr map_dfr
+#'
+#' @export
+tidy.tol_search <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list_)
+}
+
+#' @export
+tidy.tol_specimen <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list_(x)
+}
+
+#' @export
+tidy.tol_gene <- function(x, ...) {
+  x <- x[! names(x) %in% c("response", "queryId")]
+
+  parse_nested_list_(x)
+}
+
 # knms ----
 
 #' @importFrom purrr map_lgl map_dfr pluck
@@ -92,7 +114,7 @@ parse_nested_list_ <- function(l) {
   }
 
   null_cols <- map_lgl(l, is.null)
-  l[null_cols] <- NA_character_
+  l[null_cols] <- NA
 
   list_cols <- map_lgl(l, is.list)
   l[list_cols] <- map(l[list_cols], ~list(parse_nested_list_(.x)))

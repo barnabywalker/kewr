@@ -60,3 +60,10 @@ test_that("results change for IPNI", {
 
   expect_false(page1$results[[1]]$id == page2$results[[1]]$id)
 })
+
+test_that("results change for ToL", {
+  page1 <- search_tol()
+  page2 <- request_next(page1)
+
+  expect_false(page1$results[[1]]$id == page2$results[[1]]$id)
+})

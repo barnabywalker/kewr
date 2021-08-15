@@ -74,6 +74,25 @@ request_next.ipni_search <- function(object) {
   )
 }
 
+#' @describeIn request_next Request the next page of ToL search results.
+#'
+#' @examples
+#' r <- search_tol("Poa")
+#' request_next(r)
+#'
+#' @export
+request_next.tol_search <- function(object) {
+  .wait <- calculate_wait_(object)
+  current_page <- object$page
+
+  search_tol(
+    query=object$query,
+    limit=object$limit,
+    page=current_page + 1,
+    .wait=.wait
+  )
+}
+
 calculate_wait_ <- function(object) {
   response_time <- object$response$times["total"]
 

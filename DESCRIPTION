@@ -19,7 +19,7 @@ Suggests:
     rmarkdown,
     ggplot2,
     progress
-URL: https://barnabywalker.github.io/kewr/, https://github.com/barnabywalker/kewr
+URL: https://barnabywalker.github.io/kewr/
 BugReports: https://github.com/barnabywalker/kewr/issues
 Imports: 
     httr,

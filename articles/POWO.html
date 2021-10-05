@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -291,22 +291,33 @@
 <span class="co">#&gt; &lt;POWO taxon id: 119003-2&gt;</span>
 <span class="co">#&gt; Name: Helianthus annuus</span>
 <span class="co">#&gt; Authors: L.</span>
-<span class="co">#&gt; Has distribution: TRUE</span></code></pre></div>
-<p>The information returned is limited to the taxon name, authority, and distribution if available:</p>
+<span class="co">#&gt; Status: Accepted</span>
+<span class="co">#&gt; Rank: SPECIES</span>
+<span class="co">#&gt; Accepted taxon ID: 119003-2</span>
+<span class="co">#&gt; Synonyms: 52</span>
+<span class="co">#&gt; Includes distribution: FALSE</span></code></pre></div>
+<p>Optionally, you can choose to request the distribution information for the taxon as well.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">distributionEnvelope</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">distributions</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 × 8</span>
-<span class="co">#&gt;   name    establishment featureId tdwgCode tdwgLevel scientificName author fqId </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1 Ohio    Introduced    250       OHI              3 Helianthus an… L.     1190…</span>
-<span class="co">#&gt; 2 Khabar… Introduced    157       KHA              3 Helianthus an… L.     1190…</span>
-<span class="co">#&gt; 3 Michig… Introduced    188       MIC              3 Helianthus an… L.     1190…</span>
-<span class="co">#&gt; 4 Amur    Introduced    12        AMU              3 Helianthus an… L.     1190…</span>
-<span class="co">#&gt; 5 Virgin… Introduced    349       VRG              3 Helianthus an… L.     1190…</span>
-<span class="co">#&gt; 6 West V… Introduced    360       WVA              3 Helianthus an… L.     1190…</span></code></pre></div>
+<code class="sourceCode R"><span class="va">record</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="va">ipni_id</span>, distribution<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span>
+
+<span class="va">tidied</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">introduced</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">natives</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 8 × 6</span>
+<span class="co">#&gt;   fqId                    establishment featureId tdwgCode tdwgLevel name       </span>
+<span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;      </span>
+<span class="co">#&gt; 1 urn:lsid:ipni.org:name… Native        16        ARI              3 Arizona    </span>
+<span class="co">#&gt; 2 urn:lsid:ipni.org:name… Native        28        BAN              3 Bangladesh </span>
+<span class="co">#&gt; 3 urn:lsid:ipni.org:name… Native        52        CAL              3 California </span>
+<span class="co">#&gt; 4 urn:lsid:ipni.org:name… Native        206       MXC              3 Mexico Cen…</span>
+<span class="co">#&gt; 5 urn:lsid:ipni.org:name… Native        207       MXE              3 Mexico Nor…</span>
+<span class="co">#&gt; 6 urn:lsid:ipni.org:name… Native        210       MXN              3 Mexico Nor…</span>
+<span class="co">#&gt; 7 urn:lsid:ipni.org:name… Native        211       MXS              3 Mexico Sou…</span>
+<span class="co">#&gt; 8 urn:lsid:ipni.org:name… Native        224       NEV              3 Nevada</span></code></pre></div>
 </div>
   </div>
 

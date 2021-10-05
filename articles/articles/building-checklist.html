@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@
 <span class="va">fcn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">pb</span><span class="op">$</span><span class="fu">tick</span><span class="op">(</span><span class="op">)</span>
   
-  <span class="fu"><a href="../../reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
+  <span class="fu"><a href="../../reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="va">id</span>, distribution<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="va">iceland_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">ids</span>, <span class="va">fcn</span><span class="op">)</span></code></pre></div>
@@ -184,20 +184,26 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iceland_checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">iceland_records</span>, <span class="va">tidy</span><span class="op">)</span>
 <span class="va">iceland_checklist</span>
-<span class="co">#&gt; # A tibble: 873 × 5</span>
-<span class="co">#&gt;    distributions    distributionEnvelope scientificName     author       fqId   </span>
-<span class="co">#&gt;    &lt;list&gt;           &lt;list&gt;               &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;  </span>
-<span class="co">#&gt;  1 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Antennaria bocher… "A.E.Porsil… 14618-2</span>
-<span class="co">#&gt;  2 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium acidoph… "Omang"      214306…</span>
-<span class="co">#&gt;  3 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium acidoph… "Ósk."       214307…</span>
-<span class="co">#&gt;  4 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium acidoto… "(Dahlst.) … 214309…</span>
-<span class="co">#&gt;  5 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium aeoloce… "Omang"      214468…</span>
-<span class="co">#&gt;  6 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium agastop… "Ósk."       214504…</span>
-<span class="co">#&gt;  7 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium altipet… "Omang"      214635…</span>
-<span class="co">#&gt;  8 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium amphich… "Ósk."       214701…</span>
-<span class="co">#&gt;  9 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium anelctum "Omang"      214769…</span>
-<span class="co">#&gt; 10 &lt;tibble [1 × 5]&gt; &lt;tibble [5 × 3]&gt;     Hieracium angusti… ""           771816…</span>
-<span class="co">#&gt; # … with 863 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 873 × 28</span>
+<span class="co">#&gt;    modified   bibliographicCitation  genus taxonomicStatus kingdom phylum family</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                  &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; </span>
+<span class="co">#&gt;  1 2021-09-2… IPNI 2021. Published … Ante… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  2 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  3 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  4 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  5 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  6 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  7 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  8 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt;  9 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt; 10 2021-09-2… IPNI 2021. Published … Hier… Accepted        Plantae Magno… Aster…</span>
+<span class="co">#&gt; # … with 863 more rows, and 21 more variables: nomenclaturalCode &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, namePublishedInYear &lt;int&gt;, taxonRemarks &lt;chr&gt;,</span>
+<span class="co">#&gt; #   nomenclaturalStatus &lt;chr&gt;, synonym &lt;lgl&gt;, plantae &lt;lgl&gt;, fungi &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   fqId &lt;chr&gt;, name &lt;chr&gt;, authors &lt;chr&gt;, species &lt;chr&gt;, rank &lt;chr&gt;,</span>
+<span class="co">#&gt; #   reference &lt;chr&gt;, classification &lt;list&gt;, distribution &lt;list&gt;,</span>
+<span class="co">#&gt; #   distributionEnvelope &lt;list&gt;, synonyms &lt;list&gt;, basionym &lt;list&gt;,</span>
+<span class="co">#&gt; #   childNameUsages &lt;list&gt;, basionymOf &lt;list&gt;</span></code></pre></div>
 </div>
 <div id="narrow-the-checklist-to-native-species" class="section level2">
 <h2 class="hasAnchor">
@@ -206,7 +212,7 @@
 <p>I’ve done this below in a single, chained command by using the pipe (<code><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></code>) operator from <em>dplyr</em>. I’ve also taken advantage of the <code>rowwise</code> feature in the newer versions of <em>dplyr</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">check_native</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>, <span class="va">country</span><span class="op">=</span><span class="st">"Iceland"</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">native_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dist</span>, <span class="va">establishment</span> <span class="op">==</span> <span class="st">"Native"</span><span class="op">)</span>
+  <span class="va">native_dist</span> <span class="op">&lt;-</span> <span class="va">dist</span><span class="op">$</span><span class="va">natives</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
   
   <span class="va">country</span> <span class="op">%in%</span> <span class="va">native_dist</span><span class="op">$</span><span class="va">name</span>
 <span class="op">}</span>
@@ -214,30 +220,31 @@
 <span class="va">iceland_checklist</span> <span class="op">&lt;-</span>
   <span class="va">iceland_checklist</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>is_native<span class="op">=</span><span class="fu">check_native</span><span class="op">(</span><span class="va">distributions</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>is_native<span class="op">=</span><span class="fu">check_native</span><span class="op">(</span><span class="va">distribution</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">is_native</span><span class="op">)</span></code></pre></div>
 <p>Now all we have to do is tidy up our data frame by removing any columns we don’t want anymore.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iceland_checklist</span> <span class="op">&lt;-</span>
   <span class="va">iceland_checklist</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">scientificName</span>, <span class="va">author</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">name</span>, <span class="va">authors</span>, <span class="va">taxonomicStatus</span>, <span class="va">plantae</span>, <span class="va">fungi</span>,
+         <span class="va">kingdom</span>, <span class="va">phylum</span>, <span class="va">family</span>, <span class="va">genus</span>, <span class="va">species</span><span class="op">)</span>
 
 <span class="va">iceland_checklist</span>
-<span class="co">#&gt; # A tibble: 779 × 3</span>
-<span class="co">#&gt;    fqId       scientificName          author             </span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;chr&gt;              </span>
-<span class="co">#&gt;  1 14618-2    Antennaria bocheriana   "A.E.Porsild"      </span>
-<span class="co">#&gt;  2 214306-1   Hieracium acidophorum   "Omang"            </span>
-<span class="co">#&gt;  3 214307-1   Hieracium acidophyllum  "Ósk."             </span>
-<span class="co">#&gt;  4 214309-1   Hieracium acidotoides   "(Dahlst.) Dahlst."</span>
-<span class="co">#&gt;  5 214468-1   Hieracium aeolocephalum "Omang"            </span>
-<span class="co">#&gt;  6 214504-1   Hieracium agastophyes   "Ósk."             </span>
-<span class="co">#&gt;  7 214635-1   Hieracium altipetens    "Omang"            </span>
-<span class="co">#&gt;  8 214701-1   Hieracium amphichnoum   "Ósk."             </span>
-<span class="co">#&gt;  9 214769-1   Hieracium anelctum      "Omang"            </span>
-<span class="co">#&gt; 10 77181667-1 Hieracium angusticranum ""                 </span>
-<span class="co">#&gt; # … with 769 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 779 × 11</span>
+<span class="co">#&gt;    fqId  name  authors taxonomicStatus plantae fungi kingdom phylum family genus</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;lgl&gt;   &lt;lgl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt;  1 urn:… Ante… A.E.Po… Accepted        TRUE    FALSE Plantae Magno… Aster… Ante…</span>
+<span class="co">#&gt;  2 urn:… Hier… Omang   Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  3 urn:… Hier… Ósk.    Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  4 urn:… Hier… (Dahls… Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  5 urn:… Hier… Omang   Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  6 urn:… Hier… Ósk.    Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  7 urn:… Hier… Omang   Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  8 urn:… Hier… Ósk.    Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt;  9 urn:… Hier… Omang   Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt; 10 urn:… Hier… &lt;NA&gt;    Accepted        TRUE    FALSE Plantae Magno… Aster… Hier…</span>
+<span class="co">#&gt; # … with 769 more rows, and 1 more variable: species &lt;chr&gt;</span></code></pre></div>
 </div>
 <div id="build-a-checklist-of-endemic-species" class="section level2">
 <h2 class="hasAnchor">
@@ -245,7 +252,7 @@
 <p>We can use our results from before to narrow the list down further to just species that are endemic to Iceland.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">check_endemic</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>, <span class="va">country</span><span class="op">=</span><span class="st">"Iceland"</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">native_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dist</span>, <span class="va">establishment</span> <span class="op">==</span> <span class="st">"Native"</span><span class="op">)</span>
+  <span class="va">native_dist</span> <span class="op">&lt;-</span> <span class="va">dist</span><span class="op">$</span><span class="va">natives</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
   
   <span class="va">native</span> <span class="op">&lt;-</span> <span class="va">country</span> <span class="op">%in%</span> <span class="va">native_dist</span><span class="op">$</span><span class="va">name</span>
   <span class="va">endemic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">native_dist</span><span class="op">$</span><span class="va">name</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span>
@@ -258,10 +265,11 @@
 <span class="va">iceland_endemics</span> <span class="op">&lt;-</span>
   <span class="va">iceland_endemics</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>is_endemic<span class="op">=</span><span class="fu">check_endemic</span><span class="op">(</span><span class="va">distributions</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>is_endemic<span class="op">=</span><span class="fu">check_endemic</span><span class="op">(</span><span class="va">distribution</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">is_endemic</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">scientificName</span>, <span class="va">author</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">name</span>, <span class="va">authors</span>, <span class="va">taxonomicStatus</span>, <span class="va">plantae</span>, <span class="va">fungi</span>,
+         <span class="va">kingdom</span>, <span class="va">phylum</span>, <span class="va">family</span>, <span class="va">genus</span>, <span class="va">species</span><span class="op">)</span></code></pre></div>
 <p>How do the number of species in each list compare?</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"native species: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iceland_checklist</span><span class="op">)</span><span class="op">)</span>

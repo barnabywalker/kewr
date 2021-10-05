@@ -24,7 +24,7 @@
 #' @param filters Filter to apply to search results.
 #' @param cursor A cursor returned by a previous search.
 #'  If used, the query and filter must be exactly the same.
-#' @param limit The maximum number of records to return.
+#' @param limit The maximum number of records to return. This has a maximum of 1000.
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
 #'

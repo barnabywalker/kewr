@@ -15,7 +15,7 @@ must be formatted as a list.}
 \item{cursor}{A cursor returned by a previous search.
 If used, the query and filter must be exactly the same.}
 
-\item{limit}{The maximum number of records to return.}
+\item{limit}{The maximum number of records to return. This has a maximum of 1000.}
 
 \item{.wait}{Time to wait before making a request, to help
 rate limiting.}

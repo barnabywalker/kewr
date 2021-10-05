@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 2929</span>
+<span class="co">#&gt; total results: 2932</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; total pages: 59</span>
 <span class="co">#&gt; current page: 59</span>
@@ -215,17 +215,17 @@
 <div id="pagination" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pagination" class="anchor"></a>Pagination</h2>
-<p>Looking at the search above, we can see that there were a total of 2929 records found but only the first 50 were returned. There are two possible ways to get the rest of the search results.</p>
+<p>Looking at the search above, we can see that there were a total of 2932 records found but only the first 50 were returned. There are two possible ways to get the rest of the search results.</p>
 <p>The first is to increase the record limit to ensure we get everything:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span>, limit<span class="op">=</span><span class="fl">3000</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span>, limit<span class="op">=</span><span class="fl">1000</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 2929</span>
-<span class="co">#&gt; returned results: 2929</span>
-<span class="co">#&gt; total pages: 1</span>
-<span class="co">#&gt; current page: 1</span>
+<span class="co">#&gt; total results: 2932</span>
+<span class="co">#&gt; returned results: 1000</span>
+<span class="co">#&gt; total pages: 3</span>
+<span class="co">#&gt; current page: 3</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 13</span>
 <span class="co">#&gt;   ..$ abbreviation   : chr "Poa France Belgique Suisse"</span>
@@ -241,7 +241,7 @@
 <span class="co">#&gt;   ..$ hasBhlLinks    : logi FALSE</span>
 <span class="co">#&gt;   ..$ hasBhlTitleLink: logi FALSE</span>
 <span class="co">#&gt;   ..$ hasBhlPageLink : logi FALSE</span></code></pre></div>
-<p>But this might not always be ideal. For instance, if we don’t know how many records a search will return, or if the search will return a large number of records.</p>
+<p>However, IPNI caps the limit at a maximum of 1000 records. Also, we often don’t know how many records a search will return, or whether it will return a large number of records.</p>
 <p>In those cases, we can ask IPNI for the next page of results.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query</span> <span class="op">&lt;-</span> <span class="st">"Poa"</span>
@@ -404,7 +404,7 @@
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: title='Bulletin', filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 916</span>
+<span class="co">#&gt; total results: 920</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; total pages: 19</span>
 <span class="co">#&gt; current page: 19</span>

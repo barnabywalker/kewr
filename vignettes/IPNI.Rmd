@@ -55,11 +55,10 @@ Looking at the search above, we can see that there were a total of `r results$to
 The first is to increase the record limit to ensure we get everything:
 
 ```{r}
-results <- search_ipni("Poa", limit=3000)
+results <- search_ipni("Poa", limit=1000)
 results
 ```
-
-But this might not always be ideal. For instance, if we don't know how many records a search will return, or if the search will return a large number of records.
+However, IPNI caps the limit at a maximum of 1000 records. Also, we often don't know how many records a search will return, or whether it will return a large number of records.
 
 In those cases, we can ask IPNI for the next page of results.
 

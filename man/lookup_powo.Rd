@@ -9,8 +9,6 @@ lookup_powo(taxonid, distribution = FALSE, .wait = 0.2)
 \arguments{
 \item{taxonid}{A string containing a valid IPNI ID.}
 
-\item{distribution}{Include distribution in results (default \code{FALSE}).}
-
 \item{.wait}{Time to wait before making a request, to help
 rate limiting.}
 }
@@ -27,7 +25,7 @@ using the IPNI ID.
 is a database of information on the world's flora. It curates information from
 published floras and other sources of floristic information.
 
-The taxon lookup API allows users to retrieve information about
+The taxon lookup API allows users to retrieve distribution information about
 a specific taxon name using the unique IPNI ID. If this is not known,
 it can be found out using the \link[=search_powo]{POWO search API}.
 }
@@ -42,16 +40,6 @@ print(r)
 # tidy returned record into a tibble
 r <- lookup_powo("271445-2")
 tidy(r)
-
-# tidy the returned list of synonyms into a tibble
-r <- lookup_wcvp("60447743-2")
-tidied <- tidy(r)
-tidyr::unnest(tidied, cols=synonyms, names_sep="_")
-
-# tidy the returned list of children into a tibble
-r <- lookup_wcvp("30000055-2")
-tidied <- tidy(r)
-tidyr::unnest(tidied, cols=children, names_sep="_")
 
 }
 \seealso{

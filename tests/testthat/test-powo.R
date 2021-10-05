@@ -110,14 +110,6 @@ test_that("image filter only returns things with images", {
   expect_true(all_images)
 })
 
-test_that("lookup with distribution returns distribution field", {
-  taxonid <- "320035-2"
-
-  results <- lookup_powo(taxonid, distribution=TRUE, .wait=0.15)
-
-  expect_true("distribution" %in% names(results))
-})
-
 test_that("tidy search results returns tibble", {
   results <- search_powo("Poa annua", filters=c("species"), .wait=0.15)
   tidied <- tidy(results)

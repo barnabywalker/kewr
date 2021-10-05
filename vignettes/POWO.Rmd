@@ -104,16 +104,11 @@ record <- lookup_powo(ipni_id)
 record
 ```
 
-Optionally, you can choose to request the distribution information for the taxon as well.
+The information returned is limited to the taxon name, authority, and distribution if available:
 
 ```{r}
-record <- lookup_powo(ipni_id, distribution=TRUE)
-
-tidied <- tidy(record)
-
-tidied %>%
-  select(fqId, distribution) %>%
-  unnest(cols=distribution) %>%
-  select(-introduced) %>%
-  unnest(cols=natives)
+tidy(record) %>%
+  select(-distributionEnvelope) %>%
+  unnest(cols=c(distributions)) %>%
+  head()
 ```

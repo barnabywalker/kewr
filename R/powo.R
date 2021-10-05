@@ -10,8 +10,8 @@
 #' geographic terms, and floristic characters. These can be queried using
 #' keyword arguments. Use the `get_keywords` function for a list of all implemented keywords.
 #'
-#' The API returns taxonomic information as well as species descriptions and
-#' image locations if available. These results can be limited, for example to accepted species,
+#' The API returns limited taxonomic information as well as species descriptions and
+#' image locations if available. These results can be narrowed, for example to accepted species,
 #' using filters. Use the `get_filters` function to get a list of all implemented filters.
 #'
 #' Distributions in POWO are categorised using the [World Geographical Scheme for
@@ -111,12 +111,11 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50, .wait=0.2) {
 #' is a database of information on the world's flora. It curates information from
 #' published floras and other sources of floristic information.
 #'
-#' The taxon lookup API allows users to retrieve information about
+#' The taxon lookup API allows users to retrieve distribution information about
 #' a specific taxon name using the unique IPNI ID. If this is not known,
 #' it can be found out using the [POWO search API][kewr::search_powo].
 #'
 #' @param taxonid A string containing a valid IPNI ID.
-#' @param distribution Include distribution in results (default `FALSE`).
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
 #'
@@ -134,16 +133,6 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50, .wait=0.2) {
 #' # tidy returned record into a tibble
 #' r <- lookup_powo("271445-2")
 #' tidy(r)
-#'
-#' # tidy the returned list of synonyms into a tibble
-#' r <- lookup_wcvp("60447743-2")
-#' tidied <- tidy(r)
-#' tidyr::unnest(tidied, cols=synonyms, names_sep="_")
-#'
-#' # tidy the returned list of children into a tibble
-#' r <- lookup_wcvp("30000055-2")
-#' tidied <- tidy(r)
-#' tidyr::unnest(tidied, cols=children, names_sep="_")
 #'
 #' @family POWO functions
 #' @seealso

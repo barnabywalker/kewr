@@ -11,8 +11,8 @@
 #' keyword arguments. Use the `get_keywords` function for a list of all implemented keywords.
 #'
 #' The API returns limited taxonomic information as well as species descriptions and
-#' image locations if available. These results can be narrowed, for example to accepted species,
-#' using filters. Use the `get_filters` function to get a list of all implemented filters.
+#' image locations if available. These results can be narrowed using filters, for example to accepted species.
+#' Use the `get_filters` function to get a list of all implemented filters.
 #'
 #' Distributions in POWO are categorised using the [World Geographical Scheme for
 #' Recording Plant Distributions (WGSRP)](https://www.tdwg.org/standards/wgsrpd/).
@@ -153,6 +153,7 @@ lookup_powo <- function(taxonid, distribution=FALSE, .wait=0.2) {
   record <- result$content
   record$response <- result$response
   record$queryId <- taxonid
+  record$fqId <- taxonid
 
   structure(
     record,

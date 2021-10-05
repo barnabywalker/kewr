@@ -139,7 +139,7 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50, .wait=0.2) {
 #'  * [search_powo()] to search POWO using a taxon name.
 #'
 #' @export
-lookup_powo <- function(taxonid, distribution=FALSE, .wait=0.2) {
+lookup_powo <- function(taxonid, .wait=0.2) {
   url <- powo_taxon_url_(taxonid)
 
   query <- NULL

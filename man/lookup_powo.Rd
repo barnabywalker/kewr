@@ -4,7 +4,7 @@
 \alias{lookup_powo}
 \title{Look up a taxon in POWO.}
 \usage{
-lookup_powo(taxonid, distribution = FALSE, .wait = 0.2)
+lookup_powo(taxonid, .wait = 0.2)
 }
 \arguments{
 \item{taxonid}{A string containing a valid IPNI ID.}

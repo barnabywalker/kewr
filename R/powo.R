@@ -143,9 +143,6 @@ lookup_powo <- function(taxonid, .wait=0.2) {
   url <- powo_taxon_url_(taxonid)
 
   query <- NULL
-  if (distribution) {
-    query <- list(fields="distribution")
-  }
 
   result <- make_request_(url, query=query, .wait=.wait)
 

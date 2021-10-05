@@ -75,7 +75,7 @@ pb <- progress_bar$new(
 fcn <- function(id) {
   pb$tick()
   
-  lookup_powo(id, distribution=TRUE)
+  lookup_powo(id)
 }
 
 iceland_records <- map(ids, fcn)
@@ -96,7 +96,7 @@ I've done this below in a single, chained command by using the pipe (`%>%`) oper
 
 ```{r filter-native}
 check_native <- function(dist, country="Iceland") {
-  native_dist <- dist$natives[[1]]
+  native_dist <- filter(dist, establishment == "Native")
   
   country %in% native_dist$name
 }
@@ -104,7 +104,7 @@ check_native <- function(dist, country="Iceland") {
 iceland_checklist <-
   iceland_checklist %>%
   rowwise() %>%
-  mutate(is_native=check_native(distribution)) %>%
+  mutate(is_native=check_native(distributions)) %>%
   ungroup() %>%
   filter(is_native)
 ```
@@ -114,8 +114,7 @@ Now all we have to do is tidy up our data frame by removing any columns we don't
 ```{r tidy-native-checklist}
 iceland_checklist <-
   iceland_checklist %>%
-  select(fqId, name, authors, taxonomicStatus, plantae, fungi,
-         kingdom, phylum, family, genus, species)
+  select(fqId, scientificName, author)
 
 iceland_checklist
 ```
@@ -126,7 +125,7 @@ We can use our results from before to narrow the list down further to just speci
 
 ```{r filter-endemic}
 check_endemic <- function(dist, country="Iceland") {
-  native_dist <- dist$natives[[1]]
+  native_dist <- filter(dist, establishment == "Native")
   
   native <- country %in% native_dist$name
   endemic <- length(native_dist$name) == 1
@@ -139,11 +138,10 @@ iceland_endemics <- map_dfr(iceland_records, tidy)
 iceland_endemics <-
   iceland_endemics %>%
   rowwise() %>%
-  mutate(is_endemic=check_endemic(distribution)) %>%
+  mutate(is_endemic=check_endemic(distributions)) %>%
   ungroup() %>%
   filter(is_endemic) %>%
-  select(fqId, name, authors, taxonomicStatus, plantae, fungi,
-         kingdom, phylum, family, genus, species)
+  select(fqId, scientificName, author)
 ```
 
 How do the number of species in each list compare?

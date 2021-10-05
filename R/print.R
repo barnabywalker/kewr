@@ -94,25 +94,11 @@ print.powo_search <- function(x, ...) {
 #'
 #' @export
 print.powo_taxon <- function(x, ...) {
-  if ("accepted" %in% names(x)) {
-    accepted_id <- str_extract(x$accepted$fqId,
-                               "(?<=names\\:)[0-9\\-]+$")
-  } else if (x$taxonomicStatus == "Accepted") {
-    accepted_id <- x$queryId
-  } else {
-    accepted_id <- "UNDEFINED"
-  }
-
-  has_distribution <- "distribution" %in% names(x)
-
+  has_dist <- length(x$distributions) > 0
   message <- glue("<POWO taxon id: {x$queryId}>",
-                  "Name: {x$name}",
-                  "Authors: {x$authors}",
-                  "Status: {x$taxonomicStatus}",
-                  "Rank: {x$rank}",
-                  "Accepted taxon ID: {accepted_id}",
-                  "Synonyms: {length(x$synonyms)}",
-                  "Includes distribution: {has_distribution}",
+                  "Name: {x$scientificName}",
+                  "Authors: {x$author}",
+                  "Has distribution: {has_dist}",
                   "",
                   .sep="\n", .trim=FALSE)
 

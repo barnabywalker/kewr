@@ -46,9 +46,9 @@ The search API allows users to query the database using plant names,
 geographic terms, and floristic characters. These can be queried using
 keyword arguments. Use the \code{get_keywords} function for a list of all implemented keywords.
 
-The API returns taxonomic information as well as species descriptions and
-image locations if available. These results can be limited, for example to accepted species,
-using filters. Use the \code{get_filters} function to get a list of all implemented filters.
+The API returns limited taxonomic information as well as species descriptions and
+image locations if available. These results can be narrowed using filters, for example to accepted species.
+Use the \code{get_filters} function to get a list of all implemented filters.
 
 Distributions in POWO are categorised using the \href{https://www.tdwg.org/standards/wgsrpd/}{World Geographical Scheme for Recording Plant Distributions (WGSRP)}.
 Users can query POWO using distributions listed under WGSRPD levels 1 (continents),

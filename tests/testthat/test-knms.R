@@ -19,10 +19,10 @@ test_that("POST request to KNMS returns a json", {
   expect_equal(httr::http_type(response), "application/json")
 })
 
-test_that("Raises error if names aren't right", {
-  names <- c(10, 20, 300, 500)
+test_that("Raises error if missing value in names to match", {
+  names <- c("Poa annua", NA_character_, NA_character_, "Myrcia almasensis")
 
-  expect_error(match_knms(names))
+  expect_error(match_knms(names), regexp="NA is present")
 })
 
 test_that("Line parsing returns a tibble", {

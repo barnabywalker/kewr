@@ -328,3 +328,17 @@ print.knms_match <- function(x, ...) {
   str(head(x$results, 1))
   invisible()
 }
+
+# krs ----
+
+#' @importFrom glue glue
+#' @export
+print.krs_match <- function(x, ...) {
+  message <- glue("<KRS match: {length(x$results)} names matched to '{x$query}'>",
+                  "",
+                  .sep="\n", .trim=FALSE)
+
+  cat(message)
+  str(head(x$results, 1))
+  invisible()
+}

@@ -20,6 +20,7 @@
 #' [the website provides an interface for submitting a CSV file](http://namematch.science.kew.org/csv).
 #'
 #' @param names A list or character vector of taxon names for matching.
+#'   Must not contain missing values.
 #'
 #' @return A `knms_match` object - a simple structure containing the match
 #'   results and some statistics about the number of matches.
@@ -38,8 +39,19 @@
 #' matches <- match_knms(names)
 #' tidy(matches)
 #'
+#' @importFrom glue glue
+#'
 #' @export
 match_knms <- function(names) {
+  if (any(is.na(names))) {
+    na_idx <- which(is.na(names))
+    message <- glue("KNMS cannot match if NA is present.",
+                    "You have NAs at positions {paste0(na_idx, collapse=', ')}",
+                    "",
+                    .sep="\n", .trim=FALSE)
+    stop(message)
+  }
+
   url <- knms_url_()
 
   body <- format_body_(names)

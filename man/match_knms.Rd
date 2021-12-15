@@ -7,7 +7,8 @@
 match_knms(names)
 }
 \arguments{
-\item{names}{A list or character vector of taxon names for matching.}
+\item{names}{A list or character vector of taxon names for matching.
+Must not contain missing values.}
 }
 \value{
 A \code{knms_match} object - a simple structure containing the match

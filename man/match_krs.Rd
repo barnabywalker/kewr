@@ -7,7 +7,8 @@
 match_krs(query, .wait = 0.2)
 }
 \arguments{
-\item{query}{The name to match using the reconciliation service.}
+\item{query}{The name to match using the reconciliation service. Use a named list to
+match parts of a name.}
 
 \item{.wait}{Time to wait before making a request, to help
 rate limiting.}
@@ -28,8 +29,15 @@ The \href{http://data1.kew.org/reconciliation/about/IpniName}{Kew Reconciliation
 allows name matching against IPNI using an Open Refine reconcilliation API.
 }
 \examples{
-# Match a single name.
+# Match a name.
 match_krs("Solanum sanchez-vegae")
+
+# Match a name using name parts
+match_krs(list(genus="Solanum", species="sanchez-vegae", author="Knapp"))
+
+# Format a returned match as a dataframe
+match <- match_krs(list(genus="Solanum", species="sanchez-vegae", author="Knapp"))
+tidy(match)
 
 }
 \seealso{

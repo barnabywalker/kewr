@@ -5,7 +5,8 @@
 #' The [Kew Reconciliation Service (KRS)](http://data1.kew.org/reconciliation/about/IpniName)
 #' allows name matching against IPNI using an Open Refine reconcilliation API.
 #'
-#' @param query The name to match using the reconciliation service.
+#' @param query The name to match using the reconciliation service. Use a named list to
+#'  match parts of a name.
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
 #'
@@ -17,8 +18,15 @@
 #'  * `response`: the [httr response object][httr::response].
 #'
 #' @examples
-#' # Match a single name.
+#' # Match a name.
 #' match_krs("Solanum sanchez-vegae")
+#'
+#' # Match a name using name parts
+#' match_krs(list(genus="Solanum", species="sanchez-vegae", author="Knapp"))
+#'
+#' # Format a returned match as a dataframe
+#' match <- match_krs(list(genus="Solanum", species="sanchez-vegae", author="Knapp"))
+#' tidy(match)
 #'
 #' @seealso
 #'  * [match_knms()] to use simple matching for a vector of names.
@@ -32,22 +40,13 @@ match_krs <- function(query, .wait=0.2) {
   # keeping a copy of this to return in the result object
   original_query <- query
 
-  if (! is.list(query)) {
-    # different from all the other services, so do a little formatting here
-    query <- list(query=query)
-  }
-
-  query <- format_query_(query, "krs")
-
-  # all queries are submitted as a JSON specification
-  query <- toJSON(query, auto_unbox=TRUE)
-
-  query <- list(query=query)
+  query <- format_refine_query_(query, "krs")
 
   results <- make_request_(url, query, .wait=.wait)
 
   structure(
     list(
+      matches=length(results$content$result),
       results=results$content$result,
       query=original_query,
       response=results$response

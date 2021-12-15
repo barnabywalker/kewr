@@ -31,8 +31,7 @@ format_filters_ <- function(filters, resource) {
 
 #' Format queries for search APIs.
 #'
-#' Checks if query is a keyword or string query,
-#' and makes sure any keywords a valid.
+#' Checks if query is valid and then formats it correctly.
 #'
 #' @param query A string or list specifying the query.
 #' @param resource A string specifying the resource being queried.
@@ -73,9 +72,47 @@ format_query_ <- function(query, resource) {
   if(is.list(query)) {
     names(query) <- keyword_map[keywords]
     query
+  } else if(resource == "krs") {
+    list(query=query)
   } else {
     list(q=query)
   }
+}
+
+#' Format query for an Open Refine API.
+#'
+#' Checks if query is valid, formats the keywords correctly, and makes it
+#' a JSON string.
+#'
+#' @param query A string or list specifying the query.
+#' @param resource A string specifying the resource being queried.
+#'
+#' @importFrom glue glue
+#' @importFrom jsonlite toJSON
+#' @importFrom purrr map2
+#'
+#' @noRd
+format_refine_query_ <- function(query, resource) {
+  query <- format_query_(query, resource)
+
+  properties <- query[names(query) != "query"]
+  properties <- map2(names(properties), properties, format_refine_property_)
+
+  q <- query$query
+  query <- list(properties=properties)
+  if(!is.null(q)) {
+    query$query <- q
+  }
+
+  query <- toJSON(query, auto_unbox=TRUE)
+  list(query=query)
+}
+
+#' Format an Open Refine property for an API request.
+#'
+#' @noRd
+format_refine_property_ <- function(name, value) {
+  list(p=name, pid=name, v=value)
 }
 
 

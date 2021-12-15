@@ -89,7 +89,15 @@ get_keywords_ <- function(resource=c("wcvp", "powo", "ipni", "tol", "krs")) {
       tl2_author="tl2 author",
       tl2_number="tl2 number"
     ),
-    krs=c(query="query")
+    krs=c(
+      query="query",
+      genus="epithet_1",
+      species="epithet_2",
+      infra="epithet_3",
+      author="publishing_author",
+      full_name="full_name",
+      basionym_author="basionym_author"
+    )
   )
 }
 

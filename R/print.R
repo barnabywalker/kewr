@@ -334,7 +334,14 @@ print.knms_match <- function(x, ...) {
 #' @importFrom glue glue
 #' @export
 print.krs_match <- function(x, ...) {
-  message <- glue("<KRS match: {length(x$results)} names matched to '{x$query}'>",
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
+
+  message <- glue("<KRS match: {length(x$results)} names matched to {query}>",
                   "",
                   .sep="\n", .trim=FALSE)
 

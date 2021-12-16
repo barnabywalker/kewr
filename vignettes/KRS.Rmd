@@ -1,0 +1,134 @@
+---
+title: "KRS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{KRS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The [Kew Reconciliation Service (KRS)](http://data1.kew.org/reconciliation/about/IpniName) allows a user submit a taxon for matching against [IPNI](https://ipni.org/). 
+
+The reconciliation service is an Open Refine style API that allows matching of a single name against IPNI. The matching is done by a series of transformations configured to botanical names
+in IPNI. These transformations are detailed [here](https://github.com/RBGKew/String-Transformers#string-transformers), I think.
+
+It appears that KRS is the service that sits behind [KNMS](KNMS.html). KNMS allows matching of
+batches of names in one request but does not allow matching to different parts of a name. If you have a set of names to match and just want to do simple matching, I'd use KNMS. But if you want
+to specify which parts of the names to match on, I'd use KRS.
+
+
+```{r setup}
+library(kewr)
+library(dplyr)
+library(tidyr)
+```
+
+## Matching names
+
+To use KRS, you can just submit a single name for matching.
+
+```{r}
+match <- match_krs("Solanum sanchez-vegae S.Knapp")
+match
+```
+
+This also works without the author string included:
+
+```{r}
+match <- match_krs("Solanum sanchez-vegae")
+match
+```
+
+The match results can be converted to a table for easier inspection.
+
+```{r}
+tidy(match)
+```
+
+## Matching parts of a name
+
+The reconciliation service provides a specification for matching to different parts
+of a botanical name. This is described in detail [here](http://data1.kew.org/reconciliation/about/IpniName).
+
+For example, if we want to match to the genus name *Myrcia*, we could submit a
+simple request like before.
+
+```{r}
+match <- match_krs("Myrcia")
+match
+```
+
+But this has returned more than one result. We can be more specific by matching 
+to the genus and the author.
+
+```{r}
+match <- match_krs(list(genus="Myrcia", author="DC"))
+match
+```
+
+Which has narrowed it down more.
+
+We can specify a match for every part of a name like this.
+
+```{r}
+match <- match_krs(list(genus="Myrcia", species="magnolifolia", infra="latifolia",
+                        author="Berg"))
+match
+```
+
+This match has worked even though there's a minor misspelling of the specific epithet
+and the author string. Matching to the taxon name works by a set of pre-configured
+string transformations that catch some common mistakes in botanical names. The
+matching to author strings is also slightly fuzzy.
+
+This matching also handles different taxonomic ranks using ordered epithets, where
+the highest rank is specified as `epithet_1` down to `epithet_3`.
+
+```{r}
+match <- match_krs(list(epithet_1="Solanaceae"))
+match
+```
+
+This also works for infrageneric names.
+
+```{r}
+match <- match_krs(list(epithet_1="Acacia", epithet_2="Aculeiferum", author="Vassal"))
+match
+```
+
+It should be noted that these last two examples give a score lower than 100,
+because they return more than one match.
+
+## Matching more than one name
+
+If you want to do simple matching to more than one name, it might be easier to use
+KNMS.
+
+If you want to match the individual parts of multiple names, you can apply the
+matching function to the rows of a data frame, using `dplyr::rowwise`.
+
+```{r}
+names <- tibble(
+  genus=c("Poa", "Myrcia", "Solanum"),
+  species=c("annua", "almasensis", "sanchez-vegae"),
+  author=c("L.", "NicLugh.", "S.Knapp")
+)
+
+
+matches <-
+  names %>%
+  rowwise() %>%
+  mutate(match=list(match_krs(list(genus=genus, species=species, author=author)))) %>%
+  mutate(match=list(tidy(match))) %>%
+  unnest(cols=c(match))
+
+matches
+```
+

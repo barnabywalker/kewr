@@ -31,7 +31,7 @@ test_that("taxon URL returns 404 for bad ID", {
   Sys.sleep(0.1)
   response <- httr::GET(url)
 
-  expect_equal(status_code(response), 404)
+  expect_equal(status_code(response), 400)
 })
 
 test_that("raises error for unimplemented keyword", {

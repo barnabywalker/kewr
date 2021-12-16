@@ -19,7 +19,7 @@ Given the result of a query to a Kew data resource, get the appropriate
 citation.
 }
 \examples{
-r <- search_powo(list(character="poison"))
+r <- search_powo(list(characteristic="poison"))
 kew_citation(r)
 
 r <- lookup_powo("320035-2")

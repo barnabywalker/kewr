@@ -170,11 +170,13 @@ get_user_agent_ <- function() {
 #'
 #' @param url The URL for the resource API.
 #' @param query A list specifying a query.
-#' @param body A list specifying an optional body. If specified,
-#' the function will make a POST request to the resource.
+#' @param body A list specifying an optional body.
 #' @param json Whether to expect a json response or not, default TRUE.
+#' @param method The request method to make, e.g. 'GET' or 'POST'.
 #' @param .wait The time to wait before making the request,
 #'  to help with rate limiting.
+#' @param .retries The max number of times to try a request before throwing
+#'  an error.
 #'
 #' @return A list containing the returned response object and
 #'   the response content parsed into a list.
@@ -183,16 +185,13 @@ get_user_agent_ <- function() {
 #'
 #' @import httr
 #' @importFrom jsonlite fromJSON
-make_request_ <- function(url, query, body=NULL, json=TRUE, .wait=0.1) {
+make_request_ <- function(url, query=NULL, body=FALSE, json=TRUE, method="GET", .wait=0.1, .retries=1) {
   user_agent <- get_user_agent_()
 
   Sys.sleep(.wait)
 
-  if (! is.null(body)) {
-    response <- POST(url, user_agent, body=body, encode="json")
-  } else {
-    response <- GET(url, user_agent, query=query)
-  }
+  response <- RETRY(method, url, user_agent, query=query, body=body,
+                    .times=.retries, encode="json", quiet=TRUE)
 
   if (http_error(response)) {
     status <- http_status(response)

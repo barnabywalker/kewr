@@ -4,7 +4,7 @@
 \alias{match_krs}
 \title{Match a name using KRS.}
 \usage{
-match_krs(query, .wait = 0.2)
+match_krs(query, .wait = 0.2, .retries = 3)
 }
 \arguments{
 \item{query}{The name to match using the reconciliation service. Use a named list to
@@ -12,6 +12,10 @@ match parts of a name.}
 
 \item{.wait}{Time to wait before making a request, to help
 rate limiting.}
+
+\item{.retries}{The max number of times to retry the request to KRS. KRS seems
+to fail every other request, so adding a small number of retries helps prevent
+unnecessary failure.}
 }
 \value{
 Returns an object of class \code{krs_match} that is a simple

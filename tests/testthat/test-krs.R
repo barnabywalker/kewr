@@ -1,6 +1,6 @@
 test_that("match URL returns status 200", {
   url <- krs_url_()
-  response <- httr::GET(url)
+  response <- httr::RETRY("GET", url, times=3)
 
   expect_equal(httr::status_code(response), 200)
 })

@@ -9,6 +9,9 @@
 #'  match parts of a name.
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
+#' @param .retries The max number of times to retry the request to KRS. KRS seems
+#'  to fail every other request, so adding a small number of retries helps prevent
+#'  unnecessary failure.
 #'
 #' @return
 #' Returns an object of class `krs_match` that is a simple
@@ -34,7 +37,7 @@
 #' @importFrom jsonlite toJSON
 #'
 #' @export
-match_krs <- function(query, .wait=0.2) {
+match_krs <- function(query, .wait=0.2, .retries=3) {
   url <- krs_url_()
 
   # keeping a copy of this to return in the result object
@@ -42,7 +45,7 @@ match_krs <- function(query, .wait=0.2) {
 
   query <- format_refine_query_(query, "krs")
 
-  results <- make_request_(url, query, .wait=.wait)
+  results <- make_request_(url, query, .wait=.wait, .retries=.retries)
 
   structure(
     list(

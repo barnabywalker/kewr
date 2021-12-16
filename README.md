@@ -24,6 +24,8 @@ This package should cover:
 -   [x] [International Plant Names Index](https://www.ipni.org/)
 -   [x] [Kew Names Matching Service](http://namematch.science.kew.org/)
 -   [x] [Kew’s Tree of Life](https://treeoflife.kew.org)
+-   [x] [Kew Reconciliation
+    Service](http://data1.kew.org/reconciliation/about/IpniName)
 
 New sources will be added as they come up.
 
@@ -42,9 +44,9 @@ devtools::install_github("barnabywalker/kewr")
 Functions in this package all start with a prefix specifying what action
 you want to perform and a suffix referring to the resource.
 
-Three of the resources (POWO, WCVP, and IPNI) are databases storing
-flora, taxonomic, or nomenclatural information. These three resources
-all have a `search_*` and `lookup_*`.
+Four of the resources (POWO, WCVP, IPNI, and ToL) are databases storing
+flora, taxonomic, nomenclatural, or genetic information. These three
+resources all have a `search_*` and `lookup_*`.
 
 ### Retrieving records
 
@@ -65,17 +67,26 @@ lookup_ipni("20885-1", type="author")
 lookup_ipni("987-2", type="publication")
 ```
 
+The ToL uses its own ID system. These IDs can be found by first
+searching the database.
+
+``` r
+lookup_tol("2717")
+```
+
 ### Searching databases
 
-All three of these databases can be searched as well:
+All four of these databases can be searched as well:
 
 ``` r
 search_powo("Poa annua")
 search_wcvp("Poa annua")
 search_ipni("Poa annua")
+search_tol("Poa annua")
 ```
 
-And all use filters and keywords for more advanced searches:
+And all, except the ToL, use filters and keywords for more advanced
+searches:
 
 ``` r
 search_powo(list(genus="Poa", distribution="Madagascar"), 
@@ -92,6 +103,7 @@ keyword:
 search_powo(list(genus="Poa"), limit=20)
 search_wcvp(list(genus="Poa"), limit=20)
 search_ipni(list(genus="Poa"), limit=20)
+search_tol("Poa", limit=20)
 ```
 
 The next page for a set of search results can be requested using the
@@ -100,6 +112,40 @@ The next page for a set of search results can be requested using the
 ``` r
 results <- search_powo(list(genus="Poa"))
 request_next(results)
+```
+
+### Loading data from ToL
+
+Tree and gene data can be loaded directly from ToL into R.
+
+For instance, you can load the whole Tree of Life.
+
+``` r
+load_tol()
+```
+
+Or a gene tree for a particular gene.
+
+``` r
+gene_info <- lookup_tol("51", type="gene")
+load_tol(gene_info$tree_file_url)
+```
+
+Or a FASTA file for a specimen.
+
+``` r
+specimen_info <- lookup_tol("1296")
+load_tol(specimen_info$fasta_file_url)
+```
+
+### Downloading from the ToL
+
+The corresponding files can also be downloaded for use later or in other
+programmes.
+
+``` r
+specimen_info <- lookup_tol("1296")
+download_tol(specimen_info$fasta_file_url)
 ```
 
 ### Downloading the WCVP
@@ -117,6 +163,19 @@ POWO/WCVP:
 
 ``` r
 match_knms(c("Poa annua", "Magnolia grandifolia", "Bulbophyllum sp."))
+```
+
+Single names can also be matched to IPNI using the KRS resources.
+
+``` r
+match_krs("Poa annua")
+```
+
+KRS is slower for matching many names, as a request needs to be made for
+each one. But it has the advantage of allowing more complex matching:
+
+``` r
+match_krs(list(genus="Solanum", species="sanchez-vegae", author="S.Knapp"))
 ```
 
 ### Tidying results

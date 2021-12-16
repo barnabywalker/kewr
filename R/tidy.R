@@ -97,6 +97,15 @@ tidy.knms_match <- function(x, ...) {
   tidied
 }
 
+# krs ----
+
+#' @importFrom purrr map_dfr
+#'
+#' @export
+tidy.krs_match <- function(x, ...) {
+  map_dfr(x$results, parse_nested_list_)
+}
+
 # utils ----
 
 #' Simple utility to wrap nested lists into a tibble.

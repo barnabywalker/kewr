@@ -56,7 +56,7 @@ match_knms <- function(names) {
 
   body <- format_body_(names)
 
-  results <- make_request_(url, body=body)
+  results <- make_request_(url, body=body, method="POST")
 
   structure(
     list(

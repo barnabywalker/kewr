@@ -133,3 +133,17 @@ a `tibble`:
 results <- search_powo("Poa annua")
 tidy(results)
 ```
+
+## Citing
+
+You can get information about how to cite `kewr` by using:
+
+``` r
+citation("kewr")
+```
+
+You can also get the citation to use for each data service using the
+different results objects:
+
+    r <- search_wcvp("Poa")
+    kew_citation(r)

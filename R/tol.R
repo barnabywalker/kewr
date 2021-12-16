@@ -1,54 +1,54 @@
 #' Search Kew's Tree of Life for specimens or genes.
-#' 
+#'
 #' Query Kew's Tree of Life for specimens that have
 #' been sampled for sequencing.
-#' 
+#'
 #' The [Tree of Life](https://treeoflife.kew.org/) is a database
 #' of specimens sequenced as part of Kew's efforts to build
 #' a comprehensive evolutionary tree of life for flowering plants.
-#' 
+#'
 #' The search API allows users to query the database for specimens
 #' based on their taxonomic information. Filtering and keyword-search
-#' are not currently implemented. All searches are based on taxonomic 
-#' information, so `Myrcia` and `Myrtales` will return results, but 
+#' are not currently implemented. All searches are based on taxonomic
+#' information, so `Myrcia` and `Myrtales` will return results, but
 #' `Brummitt` will not.
-#' 
+#'
 #' The search API also allows users to download information about sequenced
 #' genes. There is currently no ability to search within the results for genes,
 #' but a table of all genes can be accessed using keyword argument `genes=TRUE`.
-#' 
+#'
 #' @param query The string to query the database with.
 #' @param genes Set to TRUE to download results for genes instead of specimens.
-#' @param limit An integer specifying the number of results 
+#' @param limit An integer specifying the number of results
 #'  to return.
 #' @param page An integer specify the page of results to request.
 #' @param .wait Time to wait before making a requests, to help
 #'  rate limiting.
-#' 
+#'
 #' @return Returns an object of class `tol_search` that is a simple
 #'  structure with slots for:
-#'  
+#'
 #'  * `total`: the total number of results held in ToL for the query.
 #'  * `page`: the page of results requested.
 #'  * `limit`: the maximum number of results requested from the API.
 #'  * `results`: the query results parsed into a list.
 #'  * `query`: the query string submitted to the API.
 #'  * `response`: the [httr response object][httr::response].
-#' 
+#'
 #' @examples
 #' # get the first 50 of all sequenced specimens
 #' search_tol(limit=50)
-#' 
+#'
 #' # search for all sequenced Myrcia specimens
 #' search_tol("Myrcia")
-#' 
+#'
 #' # get all sequenced specimens
 #' search_tol(limit=5000)
-#' 
+#'
 #' # search for a species name and print the results
 #' r <- search_tol("Myrcia guianensis")
 #' print(r)
-#' 
+#'
 #' # simplify search results to a `tibble`
 #' r <- search_tol("Myrcia")
 #' tidy(r)
@@ -57,33 +57,33 @@
 #' r <- search_tol("Myrcia")
 #' tidied <- tidy(r)
 #' tidyr::unnest(tidied, cols=gene_stats)
-#' 
+#'
 #' # species names are nested in the results
 #' r <- search_tol("Myrcia")
 #' tidied <- tidy(r)
 #' tidyr::unnest(tidied, cols=species, names_sep="_")
-#' 
+#'
 #' # as is higher taxonomy
 #' r <- search_tol("Myrcia")
 #' tidied <- tidy(r)
 #' tidyr::unnest(tidied, cols=species, names_sep="_")
-#' 
+#'
 #' # search for all gene entries and print results
 #' r <- search_tol(genes=TRUE, limit=500)
 #' print(r)
-#' 
+#'
 #' # tidy the returned genes
 #' tidy(r)
-#' 
+#'
 #' @references
 #' Baker W.J., Bailey P., Barber V., Barker A., Bellot S., Bishop D., Botigue L.R., Brewer G., Carruthers T., Clarkson J.J., Cook J., Cowan R.S., Dodsworth S., Epitawalage N., Francoso E., Gallego B., Johnson M., Kim J.T., Leempoel K., Maurin O., McGinnie C., Pokorny L., Roy S., Stone M., Toledo E., Wickett N.J., Zuntini A.R., Eiserhardt W.L., Kersey P.J., Leitch I.J. & Forest F. 2021. A Comprehensive Phylogenomic Platform for Exploring the Angiosperm Tree of Life. Systematic Biology, 2021; syab035, https://doi.org/10.1093/sysbio/syab035
-#' 
+#'
 #' @family ToL functions
 #'  * [lookup_tol()] to lookup information about a sequenced specimen
 #'    using a valid ToL ID.
 #'  * [download_tol()] to download a file from the ToL SFTP server.
 #'  * [load_tol()] load a file from the ToL SFTP server.
-#' 
+#'
 #' @export
 search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
   if (genes) {
@@ -113,7 +113,7 @@ search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
       query=original_query,
       response=results$response
     ),
-    class="tol_search"
+    class=c("tol_search", "tol")
   )
 }
 
@@ -136,7 +136,7 @@ search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
 #'  rate limiting.
 #'
 #' @return A `tol_{type}` object, which is a simple structure with fields
-#'   for each of the fields returned by the lookup API, 
+#'   for each of the fields returned by the lookup API,
 #'   as well as the the [httr response object][httr::response].
 #'
 #' @examples
@@ -161,10 +161,10 @@ search_tol <- function(query="", genes=FALSE, limit=50, page=1, .wait=0.2) {
 #' r <- lookup_tol("1296")
 #' tidied <- tidy(r)
 #' tidyr::unnest(tidied, cols=taxonomy, names_sep="_")
-#' 
+#'
 #' # retrieve information for a particular gene
 #' lookup_tol("51", type="gene")
-#' 
+#'
 #' # print a summary of the returned information
 #' r <- lookup_tol("51", type="gene")
 #' print(r)
@@ -196,47 +196,47 @@ lookup_tol <- function(id, type=c("specimen", "gene"), .wait=0.1) {
 
   structure(
     record,
-    class=paste0("tol_", type)
+    class=c(paste0("tol_", type), "tol")
   )
 }
 
 #' Load the Tree of Life or another file from ToL.
-#' 
+#'
 #' Request a tree file for the whole ToL or an alignment,
 #' sequence, or gene tree for a particular specimen or gene.
-#' 
+#'
 #' The [Tree of Life](https://treeoflife.kew.org/) is a database
 #' of specimens sequenced as part of Kew's efforts to build
 #' a comprehensive evolutionary tree of life for flowering plants.
-#' 
+#'
 #' Newick tree, alignment, and sequence files are help on an SFTP server
 #' for download. The URLs to access these are stored in entries for specimens
 #' and genes in the ToL database. These can be accessed by either using [search_tol()]
 #' to get all specimens for a particular order, family, genus, or species or by
 #' looking up a specific specimen or gene using [lookup_tol()]. If no URL is specified,
 #' this will load the ToL tree.
-#' 
+#'
 #' @param url URL pointing to a file on the ToL SFTP server.
 #' @param .wait Time to wait before making a request, to help
 #'  rate limiting.
-#' 
-#' @examples 
+#'
+#' @examples
 #'  # load the ToL
 #'  load_tol()
-#' 
+#'
 #'  # load a specimen fasta file
 #'  specimen_info <- lookup_tol("1296")
 #'  load_tol(specimen_info$fasta_file_url)
-#' 
+#'
 #'  # load a gene alignment file
 #'  gene_info <- lookup_tol("51", type="gene")
 #'  load_tol(gene_info$alignment_file_url)
-#' 
+#'
 #'  # load the gene tree
 #'  load_tol(gene_info$tree_file_url)
-#' 
+#'
 #' @family ToL functions
-#' 
+#'
 #' @seealso
 #'  * [lookup_tol()] to lookup information about a sequenced specimen
 #'   using a valid ToL ID.
@@ -267,7 +267,7 @@ load_tol <- function(url=NULL, .wait=0.1) {
 
   structure(
     record,
-    class=paste0("tol_", type)
+    class=c(paste0("tol_", type), "tol")
   )
 }
 
@@ -285,7 +285,7 @@ load_tol <- function(url=NULL, .wait=0.1) {
 #' and genes in the ToL database. These can be accessed by either using [search_tol()]
 #' to get all specimens for a particular order, family, genus, or species or by
 #' looking up a specific specimen or gene using [lookup_tol()]
-#' 
+#'
 #' @param download_link A string specifying the URL to download the file from.
 #'  You can get a download URL for a particular specimen or gene using [lookup_tol()].
 #' @param save_dir A string specifying the folder to save the download in. If
@@ -296,11 +296,11 @@ load_tol <- function(url=NULL, .wait=0.1) {
 #'  # download a specimen fasta file
 #'  specimen_info <- lookup_tol("1296")
 #'  download_tol(specimen_info$fasta_file_url)
-#' 
+#'
 #'  # download a gene alignment file
 #'  gene_info <- lookup_tol("51", type="gene")
 #'  download_tol(gene_info$alignment_file_url)
-#' 
+#'
 #'  # download the gene tree
 #'  download_tol(gene_info$tree_file_url)
 #' }
@@ -359,9 +359,9 @@ tol_lookup_url_ <- function(id, type=c("specimen", "gene")) {
 }
 
 #' Make Tree of Life search URL.
-#' 
+#'
 #' @importFrom glue glue
-#' 
+#'
 #' @noRd
 tol_search_url_ <- function(type=c("specimens", "genes")) {
   type <- match.arg(type)
@@ -371,9 +371,9 @@ tol_search_url_ <- function(type=c("specimens", "genes")) {
 }
 
 #' Make a download URL for the Tree of Life.
-#' 
+#'
 #' @importFrom glue glue
-#' 
+#'
 #' @noRd
 tol_download_url_ <- function() {
   base <- get_url_("tol")

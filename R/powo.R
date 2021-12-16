@@ -98,7 +98,7 @@ search_powo <- function(query, filters=NULL, cursor=NULL, limit=50, .wait=0.2) {
       filters=filters,
       response=results$response
     ),
-    class="powo_search"
+    class=c("powo_search", "powo")
   )
 }
 
@@ -167,7 +167,7 @@ lookup_powo <- function(taxonid, distribution=FALSE, .wait=0.2) {
 
   structure(
     record,
-    class="powo_taxon"
+    class=c("powo_taxon", "powo")
   )
 }
 

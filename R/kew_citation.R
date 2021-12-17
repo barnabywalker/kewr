@@ -10,7 +10,7 @@
 #' @return A citation object with a print method for nice display.
 #'
 #' @examples
-#' r <- search_powo(list(character="poison"))
+#' r <- search_powo(list(characteristic="poison"))
 #' kew_citation(r)
 #'
 #' r <- lookup_powo("320035-2")
@@ -82,6 +82,7 @@ kew_citation.powo <- function(x) {
 
 
 #' @importFrom glue glue
+#' @importFrom  utils bibentry
 #'
 #' @export
 kew_citation.wcvp <- function(x) {
@@ -135,6 +136,7 @@ kew_citation.wcvp <- function(x) {
 }
 
 #' @importFrom glue glue
+#' @importFrom  utils bibentry
 #'
 #' @export
 kew_citation.ipni <- function(x) {
@@ -165,6 +167,7 @@ kew_citation.ipni <- function(x) {
 }
 
 #' @importFrom glue glue
+#' @importFrom  utils bibentry
 #'
 #' @export
 kew_citation.tol <- function(x) {
@@ -196,6 +199,7 @@ kew_citation.tol <- function(x) {
 }
 
 #' @importFrom glue glue
+#' @importFrom  utils bibentry
 #'
 #' @export
 kew_citation.knms_match <- function(x) {
@@ -226,6 +230,7 @@ kew_citation.knms_match <- function(x) {
 
 
 #' @importFrom glue glue
+#' @importFrom  utils bibentry
 #'
 #' @export
 kew_citation.krs_match <- function(x) {

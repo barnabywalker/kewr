@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -60,6 +56,9 @@
       <a href="../articles/KNMS.html">KNMS</a>
     </li>
     <li>
+      <a href="../articles/KRS.html">KRS</a>
+    </li>
+    <li>
       <a href="../articles/POWO.html">POWO</a>
     </li>
     <li>
@@ -69,16 +68,16 @@
       <a href="../articles/WCVP.html">WCVP</a>
     </li>
     <li>
-      <a href="../articles/articles/building-checklist.html">Building a species checklist</a>
+      <a href="../articles/building-checklist.html">Building a species checklist</a>
     </li>
     <li>
-      <a href="../articles/articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
+      <a href="../articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
     </li>
     <li>
-      <a href="../articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
+      <a href="../articles/mapping-assessed-species.html">Mapping assessed species</a>
     </li>
     <li>
-      <a href="../articles/articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
+      <a href="../articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
     </li>
   </ul>
 </li>
@@ -106,21 +105,21 @@
       <h1 data-toc-skip>KNMS</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/master/vignettes/KNMS.Rmd"><code>vignettes/KNMS.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/HEAD/vignettes/KNMS.Rmd"><code>vignettes/KNMS.Rmd</code></a></small>
       <div class="hidden name"><code>KNMS.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <a href="http://namematch.science.kew.org/">Kew Names Matching Service (KNMS)</a> allows a user to submit taxon names for matching against records in <a href="http://powo.science.kew.org/">Plants of the World Online (POWO)</a>. As far as I can tell, it uses exact matching as well as some rules-based matching to account for common orthographic variants and Latin mistakes.</p>
+<p>The <a href="http://namematch.science.kew.org/" class="external-link">Kew Names Matching Service (KNMS)</a> allows a user to submit taxon names for matching against records in <a href="http://powo.science.kew.org/" class="external-link">Plants of the World Online (POWO)</a>. As far as I can tell, it uses exact matching as well as some rules-based matching to account for common orthographic variants and Latin mistakes.</p>
 <p>The website provides interfaces for submitting a list of names copied into a text field, as well as through a CSV upload. I’ve made this package interface with the text field submission.</p>
 <p>I’m not sure if KNMS is being maintained or updated at the moment, and may point towards an old version of POWO/WCVP. Therefore, it’s a good first pass for matching the bulk of names but it’s worth checking through any unmatched names, as they may be in POWO or WCVP.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/">kewr</a></span><span class="op">)</span></code></pre></div>
-<div id="matching-names" class="section level2">
-<h2 class="hasAnchor">
-<a href="#matching-names" class="anchor"></a>Matching names</h2>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/" class="external-link">kewr</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="matching-names">Matching names<a class="anchor" aria-label="anchor" href="#matching-names"></a>
+</h2>
 <p>To use KNMS, you just need to submit names for matching as a character vector or list.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
@@ -138,33 +137,33 @@
 <p>Where a name could be matched with multiple records - for example, if the same name has been published as different concepts - KNMS will return multiple matches, as it has here.</p>
 <p>The raw results from KNMS can be a bit difficult to interpret, so it is best to <code>tidy</code> them for inspection.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 4</span>
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span>
 <span class="co">#&gt;   submitted matched ipni_id  matched_record                                     </span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;                                              </span>
-<span class="co">#&gt; 1 Poa annua TRUE    416502-1 Poa annua Linnaea 6: 38 (1831) Schltdl. &amp; Cham. 18…</span>
-<span class="co">#&gt; 2 Poa annua TRUE    320035-2 Poa annua Sp. Pl.: 68 (1753) L. 1753</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Poa annua TRUE    416502-1 Poa annua Linnaea 6: 38 (1831) Schltdl. &amp; Cham. 18…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Poa annua TRUE    320035-2 Poa annua Sp. Pl.: 68 (1753) L. 1753</span></code></pre></div>
 <p>We can see here that <code>Poa annua</code> has matched to both <em>Poa annua L.</em> and <em>Poa annua Schltdl. &amp; Cham.</em>.</p>
 <p>To avoid having to resolve these multiple matches, it is usually best to submit the author string as part of the name, if it is available.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="st">"Poa annua L."</span><span class="op">)</span>
-<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 4</span>
+<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="co">#&gt;   submitted    matched ipni_id  matched_record                      </span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;                               </span>
-<span class="co">#&gt; 1 Poa annua L. TRUE    320035-2 Poa annua Sp. Pl.: 68 (1753) L. 1753</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Poa annua L. TRUE    320035-2 Poa annua Sp. Pl.: 68 (1753) L. 1753</span></code></pre></div>
 <p>Multiple names can be submitted at once, as a list or character vector.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">names_to_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Poa annua L."</span>, <span class="st">"Myrcia guianensis"</span>, <span class="st">"Bulbophyllum sp."</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">names_to_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Poa annua L."</span>, <span class="st">"Myrcia guianensis"</span>, <span class="st">"Bulbophyllum sp."</span><span class="op">)</span>
 
 <span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="va">names_to_match</span><span class="op">)</span>
-<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 4</span>
+<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="co">#&gt;   submitted         matched ipni_id  matched_record                             </span>
-<span class="co">#&gt;   &lt;chr&gt;             &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;                                      </span>
-<span class="co">#&gt; 1 Poa annua L.      TRUE    320035-2 Poa annua Sp. Pl.: 68 (1753) L. 1753       </span>
-<span class="co">#&gt; 2 Myrcia guianensis TRUE    598851-1 Myrcia guianensis Prodr. 3: 245 (1828) (Au…</span>
-<span class="co">#&gt; 3 Bulbophyllum sp.  TRUE    325894-2 Bulbophyllum Hist. Orchid.: t. 3 (1822) Th…</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Poa annua L.      TRUE    320035-2 Poa annua Sp. Pl.: 68 (1753) L. 1753       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Myrcia guianensis TRUE    598851-1 Myrcia guianensis Prodr. 3: 245 (1828) (Au…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Bulbophyllum sp.  TRUE    325894-2 Bulbophyllum Hist. Orchid.: t. 3 (1822) Th…</span></code></pre></div>
 <p>KNMS may not always match to the rank that you want. For instance, in the previous example <em>Bulbophyllum sp.</em> was matched to the genus name <em>Bulbophyllum</em>, rather than returning no match at all.</p>
 <p>KNMS will accept a large number of names for matching, but may hang if too many are submitted. The <code>match_knms</code> function will return a warning if you submit more than 1000 names. In these cases, it might be easier to split your list of names into chunks, or use the CSV upload on the KNMS website.</p>
 </div>
@@ -181,11 +180,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Barnaby Walker.</p>
+  <p></p>
+<p>Developed by Barnaby Walker.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -193,6 +194,8 @@
 
   
 
+
+  
 
   </body>
 </html>

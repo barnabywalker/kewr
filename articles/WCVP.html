@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -60,6 +56,9 @@
       <a href="../articles/KNMS.html">KNMS</a>
     </li>
     <li>
+      <a href="../articles/KRS.html">KRS</a>
+    </li>
+    <li>
       <a href="../articles/POWO.html">POWO</a>
     </li>
     <li>
@@ -69,16 +68,16 @@
       <a href="../articles/WCVP.html">WCVP</a>
     </li>
     <li>
-      <a href="../articles/articles/building-checklist.html">Building a species checklist</a>
+      <a href="../articles/building-checklist.html">Building a species checklist</a>
     </li>
     <li>
-      <a href="../articles/articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
+      <a href="../articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
     </li>
     <li>
-      <a href="../articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
+      <a href="../articles/mapping-assessed-species.html">Mapping assessed species</a>
     </li>
     <li>
-      <a href="../articles/articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
+      <a href="../articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
     </li>
   </ul>
 </li>
@@ -106,7 +105,7 @@
       <h1 data-toc-skip>WCVP</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/master/vignettes/WCVP.Rmd"><code>vignettes/WCVP.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/HEAD/vignettes/WCVP.Rmd"><code>vignettes/WCVP.Rmd</code></a></small>
       <div class="hidden name"><code>WCVP.Rmd</code></div>
 
     </div>
@@ -114,14 +113,14 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/">kewr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
-<p>The <a href="https://wcvp.science.kew.org/">World Checklist of Vascular Plants (WCVP)</a> is a global consensus view of all known vascular plant species. It has been compiled by staff at RBG Kew in consultation with plant group experts.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/" class="external-link">kewr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/" class="external-link">here</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></code></pre></div>
+<p>The <a href="https://wcvp.science.kew.org/" class="external-link">World Checklist of Vascular Plants (WCVP)</a> is a global consensus view of all known vascular plant species. It has been compiled by staff at RBG Kew in consultation with plant group experts.</p>
 <p>The WCVP is a taxonomic database, and as such contains information like the taxonomic status and synonymy of plant names. It can be used for a number of tasks, including searching for all records with a particular name, getting a list of all accepted species in a genus, or looking up the accepted name for a species.</p>
-<div id="searching-wcvp-for-a-taxon-name" class="section level2">
-<h2 class="hasAnchor">
-<a href="#searching-wcvp-for-a-taxon-name" class="anchor"></a>Searching WCVP for a taxon name</h2>
+<div class="section level2">
+<h2 id="searching-wcvp-for-a-taxon-name">Searching WCVP for a taxon name<a class="anchor" aria-label="anchor" href="#searching-wcvp-for-a-taxon-name"></a>
+</h2>
 <p>Searching in WCVP works by exact matching. This means that a misspelled name will not return any results.</p>
 <p>For instance, searching for <code>Poa anua</code> gets nothing:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -168,7 +167,7 @@
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 92</span>
+<span class="co">#&gt; total results: 93</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; total pages: 2</span>
 <span class="co">#&gt; current page: 2</span>
@@ -189,8 +188,8 @@
 <code class="sourceCode R"><span class="va">ulex_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">ulex_all</span>
 <span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 92</span>
-<span class="co">#&gt; returned results: 92</span>
+<span class="co">#&gt; total results: 93</span>
+<span class="co">#&gt; returned results: 93</span>
 <span class="co">#&gt; total pages: 1</span>
 <span class="co">#&gt; current page: 1</span>
 <span class="co">#&gt; List of 1</span>
@@ -210,67 +209,67 @@
 <span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>
 <span class="va">ulex_page2</span>
 <span class="co">#&gt; &lt;WCVP search: 'Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 92</span>
-<span class="co">#&gt; returned results: 42</span>
+<span class="co">#&gt; total results: 93</span>
+<span class="co">#&gt; returned results: 43</span>
 <span class="co">#&gt; total pages: 2</span>
 <span class="co">#&gt; current page: 2</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 10</span>
-<span class="co">#&gt;   ..$ id       : chr "524313-1"</span>
-<span class="co">#&gt;   ..$ fqId     : chr "urn:lsid:ipni.org:names:524313-1"</span>
-<span class="co">#&gt;   ..$ url      : chr "/taxon/524313-1"</span>
-<span class="co">#&gt;   ..$ display  : chr "&lt;i&gt;Ulex intermedius&lt;/i&gt; Le Gall"</span>
+<span class="co">#&gt;   ..$ id       : chr "524312-1"</span>
+<span class="co">#&gt;   ..$ fqId     : chr "urn:lsid:ipni.org:names:524312-1"</span>
+<span class="co">#&gt;   ..$ url      : chr "/taxon/524312-1"</span>
+<span class="co">#&gt;   ..$ display  : chr "&lt;i&gt;Ulex ianthocladus&lt;/i&gt; Webb"</span>
 <span class="co">#&gt;   ..$ accepted : logi FALSE</span>
-<span class="co">#&gt;   ..$ synonymOf:List of 9</span>
+<span class="co">#&gt;   ..$ synonymOf:List of 8</span>
 <span class="co">#&gt;   ..$ family   : chr "Fabaceae"</span>
-<span class="co">#&gt;   ..$ name     : chr "Ulex intermedius"</span>
-<span class="co">#&gt;   ..$ author   : chr "Le Gall"</span>
+<span class="co">#&gt;   ..$ name     : chr "Ulex ianthocladus"</span>
+<span class="co">#&gt;   ..$ author   : chr "Webb"</span>
 <span class="co">#&gt;   ..$ rank     : chr "Species"</span></code></pre></div>
 <p>In both cases, we can tidy the results into a tibble to make subsequent analysis easier:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 92 × 10</span>
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ulex_all</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 93 × 10</span></span>
 <span class="co">#&gt;    id         fqId   url    display accepted family name  author rank  synonymOf</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;list&gt;   </span>
-<span class="co">#&gt;  1 23746-1    urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex  L.     Genus &lt;NULL&gt;   </span>
-<span class="co">#&gt;  2 524268-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Webb   Spec… &lt;tibble …</span>
-<span class="co">#&gt;  3 993445-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Esp.S… Spec… &lt;tibble …</span>
-<span class="co">#&gt;  4 524269-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Link … Spec… &lt;tibble …</span>
-<span class="co">#&gt;  5 524270-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Welw.… Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  6 77196491-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  7 524271-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Mabil… Spec… &lt;tibble …</span>
-<span class="co">#&gt;  8 524273-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Cleme… Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  9 77208445-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt; 10 993446-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… (Plan… Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 23746-1    urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex  L.     Genus <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 524268-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Webb   Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 993445-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Esp.S… Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 524269-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Link … Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 524270-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Welw.… Spec… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 77196491-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… <span style="color: #BB0000;">NA</span>     Subs… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 524271-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Mabil… Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 524273-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Cleme… Spec… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 77208445-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… <span style="color: #BB0000;">NA</span>     Subs… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 993446-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… (Plan… Subs… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 83 more rows</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
-  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 92 × 10</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 93 × 10</span></span>
 <span class="co">#&gt;    id         fqId   url    display accepted family name  author rank  synonymOf</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;list&gt;   </span>
-<span class="co">#&gt;  1 23746-1    urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex  L.     Genus &lt;NULL&gt;   </span>
-<span class="co">#&gt;  2 524268-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Webb   Spec… &lt;tibble …</span>
-<span class="co">#&gt;  3 993445-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Esp.S… Spec… &lt;tibble …</span>
-<span class="co">#&gt;  4 524269-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Link … Spec… &lt;tibble …</span>
-<span class="co">#&gt;  5 524270-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Welw.… Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  6 77196491-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  7 524271-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Mabil… Spec… &lt;tibble …</span>
-<span class="co">#&gt;  8 524273-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Cleme… Spec… &lt;NULL&gt;   </span>
-<span class="co">#&gt;  9 77208445-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… &lt;NA&gt;   Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt; 10 993446-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… (Plan… Subs… &lt;NULL&gt;   </span>
-<span class="co">#&gt; # … with 82 more rows</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 23746-1    urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex  L.     Genus <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 524268-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Webb   Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 993445-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Esp.S… Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 524269-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Link … Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 524270-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Welw.… Spec… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 77196491-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… <span style="color: #BB0000;">NA</span>     Subs… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 524271-1   urn:l… /taxo… &lt;i&gt;Ule… FALSE    Fabac… Ulex… Mabil… Spec… <span style="color: #949494;">&lt;tibble </span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 524273-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… Cleme… Spec… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 77208445-1 urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… <span style="color: #BB0000;">NA</span>     Subs… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 993446-1   urn:l… /taxo… &lt;b&gt;&lt;i&gt;… TRUE     Fabac… Ulex… (Plan… Subs… <span style="color: #949494;">&lt;NULL&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 83 more rows</span></span></code></pre></div>
 </div>
-<div id="getting-a-list-of-accepted-names-in-a-genus" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-a-list-of-accepted-names-in-a-genus" class="anchor"></a>Getting a list of accepted names in a genus</h2>
+<div class="section level2">
+<h2 id="getting-a-list-of-accepted-names-in-a-genus">Getting a list of accepted names in a genus<a class="anchor" aria-label="anchor" href="#getting-a-list-of-accepted-names-in-a-genus"></a>
+</h2>
 <p>The search function also accepts a number of keywords and filters that can be used to narrow down the results returned. A full list of keywords and filters can be found in the function documentation.</p>
 <p>An example use of these filters is retrieving a checklist of accepted species in a genus. In the search below, the <code>genus</code> keyword to retrieve all records in the genus <em>Myrcia</em>, while the filters <code>accepted</code> and <code>species</code> narrow these records down to just accepted species:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Myrcia"</span><span class="op">)</span>, 
-                         filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Myrcia"</span><span class="op">)</span>, 
+                         filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span>,
                          limit<span class="op">=</span><span class="fl">1000</span><span class="op">)</span>
 
 <span class="va">checklist</span>
@@ -291,14 +290,14 @@
 <span class="co">#&gt;   ..$ author  : chr "(Urb.) Alain"</span>
 <span class="co">#&gt;   ..$ rank    : chr "Species"</span></code></pre></div>
 </div>
-<div id="looking-up-accepted-names" class="section level2">
-<h2 class="hasAnchor">
-<a href="#looking-up-accepted-names" class="anchor"></a>Looking up accepted names</h2>
+<div class="section level2">
+<h2 id="looking-up-accepted-names">Looking up accepted names<a class="anchor" aria-label="anchor" href="#looking-up-accepted-names"></a>
+</h2>
 <p>As well as searching by name, the WCVP API can be used to look up taxonomic information for a known IPNI ID. The returned information can then be used to find all synonyms for a name, find the accepted name for a taxon, or find the parent/child taxa.</p>
 <p>The IPNI ID can be found a few different ways, for example using the <code>KNMS</code> API to match a name to an IPNI ID. In this case we will find it using WCVP.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Calyptranthes acevedoi"</span>, 
-                             filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
+                             filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">ipni_id</span> <span class="op">&lt;-</span> <span class="va">search_result</span><span class="op">$</span><span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span>
 <span class="va">ipni_id</span>
@@ -316,19 +315,19 @@
 <span class="co">#&gt; Synonyms: 0</span></code></pre></div>
 <p>From this record, we can see that the name we had is a Homotypic Synonym. This record also contains the taxonomic information for the current accepted name:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">taxon_info</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">taxon_info</span><span class="op">)</span>
 <span class="va">tidied</span><span class="op">$</span><span class="va">accepted</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 1 × 9</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 9</span></span>
 <span class="co">#&gt;   id         fqId     url     display       accepted family name  author   rank </span>
-<span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;         &lt;lgl&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;</span>
-<span class="co">#&gt; 1 77191340-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrcia… TRUE     Myrta… Myrc… (Alain)… Spec…</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 77191340-1 urn:lsi… /taxon… &lt;b&gt;&lt;i&gt;Myrcia… TRUE     Myrta… Myrc… (Alain)… Spec…</span></code></pre></div>
 </div>
-<div id="downloading-the-whole-wcvp" class="section level2">
-<h2 class="hasAnchor">
-<a href="#downloading-the-whole-wcvp" class="anchor"></a>Downloading the whole WCVP</h2>
+<div class="section level2">
+<h2 id="downloading-the-whole-wcvp">Downloading the whole WCVP<a class="anchor" aria-label="anchor" href="#downloading-the-whole-wcvp"></a>
+</h2>
 <p>There are cases where it might be easier to download all of the WCVP, rather than make lots of requests to it. The <code>download_wcvp</code> function lets you download the whole WCVP to whatever directory you want.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">save_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">save_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="../reference/download_wcvp.html">download_wcvp</a></span><span class="op">(</span><span class="va">save_path</span><span class="op">)</span></code></pre></div>
 <p>Previous versions of the WCVP are also available, for posterity and reproducibility. These can be downloaded by specifying which version you want.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -347,11 +346,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Barnaby Walker.</p>
+  <p></p>
+<p>Developed by Barnaby Walker.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -359,6 +360,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -60,6 +56,9 @@
       <a href="../articles/KNMS.html">KNMS</a>
     </li>
     <li>
+      <a href="../articles/KRS.html">KRS</a>
+    </li>
+    <li>
       <a href="../articles/POWO.html">POWO</a>
     </li>
     <li>
@@ -69,16 +68,16 @@
       <a href="../articles/WCVP.html">WCVP</a>
     </li>
     <li>
-      <a href="../articles/articles/building-checklist.html">Building a species checklist</a>
+      <a href="../articles/building-checklist.html">Building a species checklist</a>
     </li>
     <li>
-      <a href="../articles/articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
+      <a href="../articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
     </li>
     <li>
-      <a href="../articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
+      <a href="../articles/mapping-assessed-species.html">Mapping assessed species</a>
     </li>
     <li>
-      <a href="../articles/articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
+      <a href="../articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
     </li>
   </ul>
 </li>
@@ -106,17 +105,17 @@
       <h1 data-toc-skip>POWO</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/master/vignettes/POWO.Rmd"><code>vignettes/POWO.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/HEAD/vignettes/POWO.Rmd"><code>vignettes/POWO.Rmd</code></a></small>
       <div class="hidden name"><code>POWO.Rmd</code></div>
 
     </div>
 
     
     
-<p><a href="http://www.plantsoftheworldonline.org/">Plants of the World Online (POWO)</a> is a database of information on the world’s flora. It curates information from published floras and other sources of floristic information. POWO covers much of the same grounds as WCVP - you can get taxonomic information for names from it. But it also has more general information about taxa, like descriptions, lifeforms, images, and distributions.</p>
+<p><a href="http://www.plantsoftheworldonline.org/" class="external-link">Plants of the World Online (POWO)</a> is a database of information on the world’s flora. It curates information from published floras and other sources of floristic information. POWO covers much of the same grounds as WCVP - you can get taxonomic information for names from it. But it also has more general information about taxa, like descriptions, lifeforms, images, and distributions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/">kewr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/" class="external-link">kewr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -125,10 +124,10 @@
 <span class="co">#&gt; The following objects are masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
-<div id="searching-powo-for-taxa" class="section level2">
-<h2 class="hasAnchor">
-<a href="#searching-powo-for-taxa" class="anchor"></a>Searching POWO for taxa</h2>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="searching-powo-for-taxa">Searching POWO for taxa<a class="anchor" aria-label="anchor" href="#searching-powo-for-taxa"></a>
+</h2>
 <p>Searching POWO works by exact matching, so any mispellings or unrecognised orthographic variants will not be matched.</p>
 <p>For example, searching <code>Ulex europeaus</code> will not return any results:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -160,15 +159,15 @@
 <span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:524298-1"</span>
 <span class="co">#&gt;   ..$ images  :List of 3</span></code></pre></div>
 </div>
-<div id="pagination" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pagination" class="anchor"></a>Pagination</h2>
+<div class="section level2">
+<h2 id="pagination">Pagination<a class="anchor" aria-label="anchor" href="#pagination"></a>
+</h2>
 <p>By default, <code>search_powo</code> limits the number of results returned to 50. If you are expecting more results, you can increase this limit.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex"</span>, limit<span class="op">=</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;POWO search: 'Ulex' filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 118</span>
+<span class="co">#&gt; total results: 119</span>
 <span class="co">#&gt; returned results: 100</span>
 <span class="co">#&gt; total pages: 2</span>
 <span class="co">#&gt; First result:</span>
@@ -189,32 +188,32 @@
 <code class="sourceCode R"><span class="va">ulex_page1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Ulex"</span><span class="op">)</span>
 <span class="va">ulex_page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
-  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ulex_page1</span><span class="op">)</span>,
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ulex_page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 100 × 11</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 100 × 11</span></span>
 <span class="co">#&gt;    accepted author   kingdom family  name   rank  snippet   url    fqId   images</span>
-<span class="co">#&gt;    &lt;lgl&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;list&gt;</span>
-<span class="co">#&gt;  1 TRUE     L.       Plantae Fabace… Ulex   Genus " &lt;b&gt;Gen… /taxo… urn:l… &lt;tibb…</span>
-<span class="co">#&gt;  2 TRUE     Desf.    Plantae Caryop… Arena… Spec… " &lt;b&gt;Spe… /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt;  3 FALSE    Webb     Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt;  4 FALSE    Esp.San… Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt;  5 FALSE    Link ex… Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt;  6 TRUE     Welw. e… Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;tibb…</span>
-<span class="co">#&gt;  7 FALSE    Mabille  Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt;  8 TRUE     Clemente Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt;  9 FALSE    Thore    Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt; 10 FALSE    Willk. … Plantae Fabace… Ulex … Spec…  &lt;NA&gt;     /taxo… urn:l… &lt;NULL&gt;</span>
-<span class="co">#&gt; # … with 90 more rows, and 1 more variable: synonymOf &lt;list&gt;</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TRUE     L.       Plantae Fabace… Ulex   Genus <span style="color: #949494;">"</span> &lt;b&gt;Gen… /taxo… urn:l… <span style="color: #949494;">&lt;tibb</span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TRUE     Desf.    Plantae Caryop… Arena… Spec… <span style="color: #949494;">"</span> &lt;b&gt;Spe… /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> FALSE    Webb     Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> FALSE    Esp.San… Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> FALSE    Link ex… Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TRUE     Welw. e… Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;tibb</span>…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> FALSE    Mabille  Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TRUE     Clemente Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> FALSE    Thore    Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> FALSE    Willk. … Plantae Fabace… Ulex … Spec…  <span style="color: #BB0000;">NA</span>       /taxo… urn:l… <span style="color: #949494;">&lt;NULL&gt;</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows, and 1 more variable: synonymOf &lt;list&gt;</span></span></code></pre></div>
 </div>
-<div id="keyword-searches-and-filtering" class="section level2">
-<h2 class="hasAnchor">
-<a href="#keyword-searches-and-filtering" class="anchor"></a>Keyword searches and filtering</h2>
+<div class="section level2">
+<h2 id="keyword-searches-and-filtering">Keyword searches and filtering<a class="anchor" aria-label="anchor" href="#keyword-searches-and-filtering"></a>
+</h2>
 <p>You can perform more complicated searches using keywords and filters. For example, you can search for all accepted species in a particular family.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
-                       filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
+                       filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;POWO search: family='Ephedraceae' filters: 'accepted, species'&gt;</span>
 <span class="co">#&gt; total results: 73</span>
@@ -235,11 +234,11 @@
 <p>As well as taxonomic keywords, it is possible to search by other characteristics.</p>
 <p>For example, finding all accepted legumes with blue flowers.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">blue_flowers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>flower<span class="op">=</span><span class="st">"blue"</span>, family<span class="op">=</span><span class="st">"Fabaceae"</span><span class="op">)</span>,
-                            filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">blue_flowers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>flower<span class="op">=</span><span class="st">"blue"</span>, family<span class="op">=</span><span class="st">"Fabaceae"</span><span class="op">)</span>,
+                            filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"accepted"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">blue_flowers</span>
 <span class="co">#&gt; &lt;POWO search: flower='blue', family='Fabaceae' filters: 'accepted'&gt;</span>
-<span class="co">#&gt; total results: 151</span>
+<span class="co">#&gt; total results: 152</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; total pages: 4</span>
 <span class="co">#&gt; First result:</span>
@@ -257,14 +256,14 @@
 <span class="co">#&gt;   ..$ images  :List of 1</span></code></pre></div>
 <p>Another use is to get a checklist of accepted species in a country.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>distribution<span class="op">=</span><span class="st">"Mexico"</span><span class="op">)</span>,
-                         filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">checklist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>distribution<span class="op">=</span><span class="st">"Mexico"</span><span class="op">)</span>,
+                         filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"accepted"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">checklist</span>
 <span class="co">#&gt; &lt;POWO search: distribution='Mexico' filters: 'accepted'&gt;</span>
-<span class="co">#&gt; total results: 30511</span>
+<span class="co">#&gt; total results: 31660</span>
 <span class="co">#&gt; returned results: 50</span>
-<span class="co">#&gt; total pages: 611</span>
+<span class="co">#&gt; total pages: 634</span>
 <span class="co">#&gt; First result:</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 9</span>
@@ -279,9 +278,9 @@
 <span class="co">#&gt;   ..$ fqId    : chr "urn:lsid:ipni.org:names:77089454-1"</span></code></pre></div>
 <p>A full list of keywords and filters can be found in the help page for <code>search_powo</code>.</p>
 </div>
-<div id="looking-up-information-about-a-taxon" class="section level2">
-<h2 class="hasAnchor">
-<a href="#looking-up-information-about-a-taxon" class="anchor"></a>Looking up information about a taxon</h2>
+<div class="section level2">
+<h2 id="looking-up-information-about-a-taxon">Looking up information about a taxon<a class="anchor" aria-label="anchor" href="#looking-up-information-about-a-taxon"></a>
+</h2>
 <p>As well as searching by keyword, it is possible to use the IPNI ID of a taxon to look up its record in POWO. To get the IPNI ID, you can search WCVP, POWO, or IPNI, or use KNMS to find matches for the name.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ipni_id</span> <span class="op">&lt;-</span> <span class="st">"119003-2"</span>
@@ -300,24 +299,24 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">record</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="va">ipni_id</span>, distribution<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span>
+<span class="va">tidied</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span>
 
-<span class="va">tidied</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">distribution</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">introduced</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">natives</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 × 6</span>
+<span class="va">tidied</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">fqId</span>, <span class="va">distribution</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">distribution</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">introduced</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span>cols<span class="op">=</span><span class="va">natives</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 6</span></span>
 <span class="co">#&gt;   fqId                    establishment featureId tdwgCode tdwgLevel name       </span>
-<span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;      </span>
-<span class="co">#&gt; 1 urn:lsid:ipni.org:name… Native        16        ARI              3 Arizona    </span>
-<span class="co">#&gt; 2 urn:lsid:ipni.org:name… Native        28        BAN              3 Bangladesh </span>
-<span class="co">#&gt; 3 urn:lsid:ipni.org:name… Native        52        CAL              3 California </span>
-<span class="co">#&gt; 4 urn:lsid:ipni.org:name… Native        206       MXC              3 Mexico Cen…</span>
-<span class="co">#&gt; 5 urn:lsid:ipni.org:name… Native        207       MXE              3 Mexico Nor…</span>
-<span class="co">#&gt; 6 urn:lsid:ipni.org:name… Native        210       MXN              3 Mexico Nor…</span>
-<span class="co">#&gt; 7 urn:lsid:ipni.org:name… Native        211       MXS              3 Mexico Sou…</span>
-<span class="co">#&gt; 8 urn:lsid:ipni.org:name… Native        224       NEV              3 Nevada</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> urn:lsid:ipni.org:name… Native        16        ARI              3 Arizona    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> urn:lsid:ipni.org:name… Native        28        BAN              3 Bangladesh </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> urn:lsid:ipni.org:name… Native        52        CAL              3 California </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> urn:lsid:ipni.org:name… Native        206       MXC              3 Mexico Cen…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> urn:lsid:ipni.org:name… Native        207       MXE              3 Mexico Nor…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> urn:lsid:ipni.org:name… Native        210       MXN              3 Mexico Nor…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> urn:lsid:ipni.org:name… Native        211       MXS              3 Mexico Sou…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span> urn:lsid:ipni.org:name… Native        224       NEV              3 Nevada</span></code></pre></div>
 </div>
   </div>
 
@@ -332,11 +331,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Barnaby Walker.</p>
+  <p></p>
+<p>Developed by Barnaby Walker.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -344,6 +345,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -60,6 +56,9 @@
       <a href="articles/KNMS.html">KNMS</a>
     </li>
     <li>
+      <a href="articles/KRS.html">KRS</a>
+    </li>
+    <li>
       <a href="articles/POWO.html">POWO</a>
     </li>
     <li>
@@ -69,16 +68,16 @@
       <a href="articles/WCVP.html">WCVP</a>
     </li>
     <li>
-      <a href="articles/articles/building-checklist.html">Building a species checklist</a>
+      <a href="articles/building-checklist.html">Building a species checklist</a>
     </li>
     <li>
-      <a href="articles/articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
+      <a href="articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
     </li>
     <li>
-      <a href="articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
+      <a href="articles/mapping-assessed-species.html">Mapping assessed species</a>
     </li>
     <li>
-      <a href="articles/articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
+      <a href="articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
     </li>
   </ul>
 </li>
@@ -102,52 +101,55 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="kewr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#kewr" class="anchor"></a>kewr</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="kewr">kewr<a class="anchor" aria-label="anchor" href="#kewr"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>An R package to access data from RGB Kew’s APIs.</p>
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p>kewr is meant to make accessing data from one of RGB Kew easier and to provide a consistent interface their public APIs.</p>
 <p>This package should cover:</p>
 <ul>
 <li>
-<input type="checkbox" disabled checked><a href="https://wcvp.science.kew.org/">World Checklist of Vascular Plants</a>
+<input type="checkbox" disabled checked><a href="https://wcvp.science.kew.org/" class="external-link">World Checklist of Vascular Plants</a>
 </li>
 <li>
-<input type="checkbox" disabled checked><a href="http://powo.science.kew.org/">Plants of the World Online</a>
+<input type="checkbox" disabled checked><a href="http://powo.science.kew.org/" class="external-link">Plants of the World Online</a>
 </li>
 <li>
-<input type="checkbox" disabled checked><a href="https://www.ipni.org/">International Plant Names Index</a>
+<input type="checkbox" disabled checked><a href="https://www.ipni.org/" class="external-link">International Plant Names Index</a>
 </li>
 <li>
-<input type="checkbox" disabled checked><a href="http://namematch.science.kew.org/">Kew Names Matching Service</a>
+<input type="checkbox" disabled checked><a href="http://namematch.science.kew.org/" class="external-link">Kew Names Matching Service</a>
 </li>
 <li>
-<input type="checkbox" disabled checked><a href="https://treeoflife.kew.org">Kew’s Tree of Life</a>
+<input type="checkbox" disabled checked><a href="https://treeoflife.kew.org" class="external-link">Kew’s Tree of Life</a>
+</li>
+<li>
+<input type="checkbox" disabled checked><a href="http://data1.kew.org/reconciliation/about/IpniName" class="external-link">Kew Reconciliation Service</a>
 </li>
 </ul>
 <p>New sources will be added as they come up.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>kewr is not on CRAN yet but you can install the latest development version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"barnabywalker/kewr"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>Functions in this package all start with a prefix specifying what action you want to perform and a suffix referring to the resource.</p>
-<p>Three of the resources (POWO, WCVP, and IPNI) are databases storing flora, taxonomic, or nomenclatural information. These three resources all have a <code>search_*</code> and <code>lookup_*</code>.</p>
-<div id="retrieving-records" class="section level3">
-<h3 class="hasAnchor">
-<a href="#retrieving-records" class="anchor"></a>Retrieving records</h3>
+<p>Four of the resources (POWO, WCVP, IPNI, and ToL) are databases storing flora, taxonomic, nomenclatural, or genetic information. These three resources all have a <code>search_*</code> and <code>lookup_*</code>.</p>
+<div class="section level3">
+<h3 id="retrieving-records">Retrieving records<a class="anchor" aria-label="anchor" href="#retrieving-records"></a>
+</h3>
 <p>The <code>lookup_</code> functions can be used to retrieve a particular record by its unique IPNI ID:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/lookup_powo.html">lookup_powo</a></span><span class="op">(</span><span class="st">"320035-2"</span><span class="op">)</span>
@@ -157,99 +159,155 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/lookup_ipni.html">lookup_ipni</a></span><span class="op">(</span><span class="st">"20885-1"</span>, type<span class="op">=</span><span class="st">"author"</span><span class="op">)</span>
 <span class="fu"><a href="reference/lookup_ipni.html">lookup_ipni</a></span><span class="op">(</span><span class="st">"987-2"</span>, type<span class="op">=</span><span class="st">"publication"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="searching-databases" class="section level3">
-<h3 class="hasAnchor">
-<a href="#searching-databases" class="anchor"></a>Searching databases</h3>
-<p>All three of these databases can be searched as well:</p>
+<p>The ToL uses its own ID system. These IDs can be found by first searching the database.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/lookup_tol.html">lookup_tol</a></span><span class="op">(</span><span class="st">"2717"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="searching-databases">Searching databases<a class="anchor" aria-label="anchor" href="#searching-databases"></a>
+</h3>
+<p>All four of these databases can be searched as well:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
 <span class="fu"><a href="reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
-<span class="fu"><a href="reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span></code></pre></div>
-<p>And all use filters and keywords for more advanced searches:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span>, distribution<span class="op">=</span><span class="st">"Madagascar"</span><span class="op">)</span>, 
-            filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span>, published<span class="op">=</span><span class="fl">1920</span><span class="op">)</span>,
-            filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>The number of search results returned are determined by the <code>limit</code> keyword:</p>
+<span class="fu"><a href="reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
+<span class="fu"><a href="reference/search_tol.html">search_tol</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span></code></pre></div>
+<p>And all, except the ToL, use filters and keywords for more advanced searches:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
-<span class="fu"><a href="reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
-<span class="fu"><a href="reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span></code></pre></div>
-<p>The next page for a set of search results can be requested using the <code>request_next</code> function:</p>
+<code class="sourceCode R"><span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span>, distribution<span class="op">=</span><span class="st">"Madagascar"</span><span class="op">)</span>, 
+            filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"accepted"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span>, published<span class="op">=</span><span class="fl">1920</span><span class="op">)</span>,
+            filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>The number of search results returned are determined by the <code>limit</code> keyword:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
+<span class="fu"><a href="reference/search_wcvp.html">search_wcvp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
+<span class="fu"><a href="reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
+<span class="fu"><a href="reference/search_tol.html">search_tol</a></span><span class="op">(</span><span class="st">"Poa"</span>, limit<span class="op">=</span><span class="fl">20</span><span class="op">)</span></code></pre></div>
+<p>The next page for a set of search results can be requested using the <code>request_next</code> function:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Poa"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="downloading-the-wcvp" class="section level3">
-<h3 class="hasAnchor">
-<a href="#downloading-the-wcvp" class="anchor"></a>Downloading the WCVP</h3>
+<div class="section level3">
+<h3 id="loading-data-from-tol">Loading data from ToL<a class="anchor" aria-label="anchor" href="#loading-data-from-tol"></a>
+</h3>
+<p>Tree and gene data can be loaded directly from ToL into R.</p>
+<p>For instance, you can load the whole Tree of Life.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/load_tol.html">load_tol</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Or a gene tree for a particular gene.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gene_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lookup_tol.html">lookup_tol</a></span><span class="op">(</span><span class="st">"51"</span>, type<span class="op">=</span><span class="st">"gene"</span><span class="op">)</span>
+<span class="fu"><a href="reference/load_tol.html">load_tol</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">$</span><span class="va">tree_file_url</span><span class="op">)</span></code></pre></div>
+<p>Or a FASTA file for a specimen.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">specimen_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lookup_tol.html">lookup_tol</a></span><span class="op">(</span><span class="st">"1296"</span><span class="op">)</span>
+<span class="fu"><a href="reference/load_tol.html">load_tol</a></span><span class="op">(</span><span class="va">specimen_info</span><span class="op">$</span><span class="va">fasta_file_url</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="downloading-from-the-tol">Downloading from the ToL<a class="anchor" aria-label="anchor" href="#downloading-from-the-tol"></a>
+</h3>
+<p>The corresponding files can also be downloaded for use later or in other programmes.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">specimen_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lookup_tol.html">lookup_tol</a></span><span class="op">(</span><span class="st">"1296"</span><span class="op">)</span>
+<span class="fu"><a href="reference/download_tol.html">download_tol</a></span><span class="op">(</span><span class="va">specimen_info</span><span class="op">$</span><span class="va">fasta_file_url</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="downloading-the-wcvp">Downloading the WCVP<a class="anchor" aria-label="anchor" href="#downloading-the-wcvp"></a>
+</h3>
 <p>The whole of WCVP can be download to a directory using:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/download_wcvp.html">download_wcvp</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="matching-names" class="section level3">
-<h3 class="hasAnchor">
-<a href="#matching-names" class="anchor"></a>Matching names</h3>
+<div class="section level3">
+<h3 id="matching-names">Matching names<a class="anchor" aria-label="anchor" href="#matching-names"></a>
+</h3>
 <p>The KNMS resource is only used for matching names to records in POWO/WCVP:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Poa annua"</span>, <span class="st">"Magnolia grandifolia"</span>, <span class="st">"Bulbophyllum sp."</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/match_knms.html">match_knms</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Poa annua"</span>, <span class="st">"Magnolia grandifolia"</span>, <span class="st">"Bulbophyllum sp."</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Single names can also be matched to IPNI using the KRS resources.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/match_krs.html">match_krs</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span></code></pre></div>
+<p>KRS is slower for matching many names, as a request needs to be made for each one. But it has the advantage of allowing more complex matching:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/match_krs.html">match_krs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genus<span class="op">=</span><span class="st">"Solanum"</span>, species<span class="op">=</span><span class="st">"sanchez-vegae"</span>, author<span class="op">=</span><span class="st">"S.Knapp"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="tidying-results" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tidying-results" class="anchor"></a>Tidying results</h3>
+<div class="section level3">
+<h3 id="tidying-results">Tidying results<a class="anchor" aria-label="anchor" href="#tidying-results"></a>
+</h3>
 <p>Each function in this package returns an object that stores the original response as well as the content of the response parsed into a list. This is to give the user as much flexibility as possible and to make debugging things a bit easier.</p>
 <p>But this can be hard to use, so all the results objects can be tidied as a <code>tibble</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_powo.html">search_powo</a></span><span class="op">(</span><span class="st">"Poa annua"</span><span class="op">)</span>
-<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="citing">Citing<a class="anchor" aria-label="anchor" href="#citing"></a>
+</h2>
+<p>You can get information about how to cite <code>kewr</code> by using:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"kewr"</span><span class="op">)</span></code></pre></div>
+<p>You can also get the citation to use for each data service using the different results objects:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>r &lt;-<span class="st"> </span><span class="kw">search_wcvp</span>(<span class="st">"Poa"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">kew_citation</span>(r)</span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/barnabywalker/kewr/">https://​github.com/​barnabywalker/​kewr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/barnabywalker/kewr/issues">https://​github.com/​barnabywalker/​kewr/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Barnaby Walker <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3884-671X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/barnabywalker/kewr/">Browse source code</a></li>
+<li><a href="https://github.com/barnabywalker/kewr/issues">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
+<ul class="list-unstyled">
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+</ul>
+</div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing kewr</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Barnaby Walker <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3884-671X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/barnabywalker/kewr/actions"><img src="https://github.com/barnabywalker/kewr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Barnaby Walker.</p>
+  <p></p>
+<p>Developed by Barnaby Walker.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -257,6 +315,8 @@
 
   
 
+
+  
 
   </body>
 </html>

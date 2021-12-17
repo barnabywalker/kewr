@@ -1,15 +1,19 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   IPNI: IPNI.html
   KNMS: KNMS.html
+  KRS: KRS.html
   POWO: POWO.html
   ToL: ToL.html
   WCVP: WCVP.html
-  articles/building-checklist: building-checklist.html
-  articles/conservation-status-treeoflife: conservation-status-treeoflife.html
-  articles/mapping-assessed-species: mapping-assessed-species.html
-  articles/retrieve-all-query-results: retrieve-all-query-results.html
-last_built: 2021-10-05T12:31Z
+  building-checklist: building-checklist.html
+  conservation-status-treeoflife: conservation-status-treeoflife.html
+  mapping-assessed-species: mapping-assessed-species.html
+  retrieve-all-query-results: retrieve-all-query-results.html
+last_built: 2021-12-17T15:57Z
+urls:
+  reference: https://github.com/barnabywalker/kewr/reference
+  article: https://github.com/barnabywalker/kewr/articles
 

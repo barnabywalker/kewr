@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -60,6 +56,9 @@
       <a href="../articles/KNMS.html">KNMS</a>
     </li>
     <li>
+      <a href="../articles/KRS.html">KRS</a>
+    </li>
+    <li>
       <a href="../articles/POWO.html">POWO</a>
     </li>
     <li>
@@ -69,16 +68,16 @@
       <a href="../articles/WCVP.html">WCVP</a>
     </li>
     <li>
-      <a href="../articles/articles/building-checklist.html">Building a species checklist</a>
+      <a href="../articles/building-checklist.html">Building a species checklist</a>
     </li>
     <li>
-      <a href="../articles/articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
+      <a href="../articles/conservation-status-treeoflife.html">Putting conservation status on the Tree of Life</a>
     </li>
     <li>
-      <a href="../articles/articles/mapping-assessed-species.html">Mapping assessed species</a>
+      <a href="../articles/mapping-assessed-species.html">Mapping assessed species</a>
     </li>
     <li>
-      <a href="../articles/articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
+      <a href="../articles/retrieve-all-query-results.html">Retrieving all results for a query</a>
     </li>
   </ul>
 </li>
@@ -106,7 +105,7 @@
       <h1 data-toc-skip>IPNI</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/master/vignettes/IPNI.Rmd"><code>vignettes/IPNI.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/barnabywalker/kewr/blob/HEAD/vignettes/IPNI.Rmd"><code>vignettes/IPNI.Rmd</code></a></small>
       <div class="hidden name"><code>IPNI.Rmd</code></div>
 
     </div>
@@ -114,8 +113,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/">kewr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://barnabywalker.github.io/kewr/" class="external-link">kewr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -124,11 +123,11 @@
 <span class="co">#&gt; The following objects are masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span></code></pre></div>
-<p>The <a href="https://www.ipni.org/">International Plant Names Index (IPNI)</a> is a service that provides nomenclatural information for vascular plant names.</p>
+<p>The <a href="https://www.ipni.org/" class="external-link">International Plant Names Index (IPNI)</a> is a service that provides nomenclatural information for vascular plant names.</p>
 <p>It provides information on published plant names, as well as authors and publications. The type of information that it holds for plant names includes when it was published, the publication, the author, as well as any nomenclatural remarks.</p>
-<div id="searching-ipni-for-a-record" class="section level2">
-<h2 class="hasAnchor">
-<a href="#searching-ipni-for-a-record" class="anchor"></a>Searching IPNI for a record</h2>
+<div class="section level2">
+<h2 id="searching-ipni-for-a-record">Searching IPNI for a record<a class="anchor" aria-label="anchor" href="#searching-ipni-for-a-record"></a>
+</h2>
 <p>Searching for IPNI operates on exact matching.</p>
 <p>For example, <code>Poa anua</code> will not return any results:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -191,7 +190,7 @@
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 2932</span>
+<span class="co">#&gt; total results: 2936</span>
 <span class="co">#&gt; returned results: 50</span>
 <span class="co">#&gt; total pages: 59</span>
 <span class="co">#&gt; current page: 59</span>
@@ -212,17 +211,17 @@
 <span class="co">#&gt;   ..$ hasBhlPageLink : logi FALSE</span></code></pre></div>
 <p>It should be noted that this will return results for authors and publications as well as taxon names. We can see the first result for this search is the publication “Poa de France, Begique et Suisse”.</p>
 </div>
-<div id="pagination" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pagination" class="anchor"></a>Pagination</h2>
-<p>Looking at the search above, we can see that there were a total of 2932 records found but only the first 50 were returned. There are two possible ways to get the rest of the search results.</p>
+<div class="section level2">
+<h2 id="pagination">Pagination<a class="anchor" aria-label="anchor" href="#pagination"></a>
+</h2>
+<p>Looking at the search above, we can see that there were a total of 2936 records found but only the first 50 were returned. There are two possible ways to get the rest of the search results.</p>
 <p>The first is to increase the record limit to ensure we get everything:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="st">"Poa"</span>, limit<span class="op">=</span><span class="fl">1000</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: 'Poa', filters: 'none'&gt;</span>
-<span class="co">#&gt; total results: 2932</span>
+<span class="co">#&gt; total results: 2936</span>
 <span class="co">#&gt; returned results: 1000</span>
 <span class="co">#&gt; total pages: 3</span>
 <span class="co">#&gt; current page: 3</span>
@@ -250,37 +249,37 @@
 <span class="va">page2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/request_next.html">request_next</a></span><span class="op">(</span><span class="va">page1</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">page1</span><span class="op">)</span>,
-  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">page2</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">page1</span><span class="op">)</span>,
+  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">page2</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 100 × 55</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 100 × 54</span></span>
 <span class="co">#&gt;    abbreviation  date   fqId   id    recordType suppressed title tl2Author url  </span>
-<span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;lgl&gt;      &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;</span>
-<span class="co">#&gt;  1 Poa France B… 15 Ja… urn:l… 2000… publicati… FALSE      Poa … Portal, … /p/2…</span>
-<span class="co">#&gt;  2 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3851… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt;  3 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3931… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt;  4 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3933… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt;  5 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4014… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  6 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4032… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  7 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4032… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  8 &lt;NA&gt;          &lt;NA&gt;   urn:l… 4092… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/4…</span>
-<span class="co">#&gt;  9 &lt;NA&gt;          &lt;NA&gt;   urn:l… 3000… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/3…</span>
-<span class="co">#&gt; 10 &lt;NA&gt;          &lt;NA&gt;   urn:l… 8481… citation   FALSE      &lt;NA&gt;  &lt;NA&gt;      /n/8…</span>
-<span class="co">#&gt; # … with 90 more rows, and 46 more variables: version &lt;chr&gt;, hasBhlLinks &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   hasBhlTitleLink &lt;lgl&gt;, hasBhlPageLink &lt;lgl&gt;, name &lt;chr&gt;, authors &lt;chr&gt;,</span>
-<span class="co">#&gt; #   publishingAuthor &lt;chr&gt;, authorTeam &lt;list&gt;, originalRemarks &lt;chr&gt;,</span>
-<span class="co">#&gt; #   rank &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, citationType &lt;chr&gt;,</span>
-<span class="co">#&gt; #   hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span>
-<span class="co">#&gt; #   publication &lt;chr&gt;, publicationYear &lt;int&gt;, referenceCollation &lt;chr&gt;,</span>
-<span class="co">#&gt; #   publicationId &lt;chr&gt;, reference &lt;chr&gt;, topCopy &lt;lgl&gt;, …</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Poa France B… 15 Ja… urn:l… 2000… publicati… FALSE      Poa … Portal, … /p/2…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 3851… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/3…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 3931… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/3…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 3933… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/3…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 4014… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/4…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 4032… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/4…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 4032… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/4…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 4092… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/4…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 3000… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/3…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     urn:l… 8481… citation   FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        /n/8…</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows, and 45 more variables: version &lt;chr&gt;, hasBhlLinks &lt;lgl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   hasBhlTitleLink &lt;lgl&gt;, hasBhlPageLink &lt;lgl&gt;, name &lt;chr&gt;, authors &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   publishingAuthor &lt;chr&gt;, authorTeam &lt;list&gt;, originalRemarks &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   rank &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, citationType &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   hybrid &lt;lgl&gt;, hybridGenus &lt;lgl&gt;, inPowo &lt;lgl&gt;, linkedPublication &lt;list&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   publication &lt;chr&gt;, publicationYear &lt;int&gt;, referenceCollation &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   publicationId &lt;chr&gt;, reference &lt;chr&gt;, topCopy &lt;lgl&gt;, …</span></span></code></pre></div>
 </div>
-<div id="keywords-and-filtering" class="section level2">
-<h2 class="hasAnchor">
-<a href="#keywords-and-filtering" class="anchor"></a>Keywords and filtering</h2>
+<div class="section level2">
+<h2 id="keywords-and-filtering">Keywords and filtering<a class="anchor" aria-label="anchor" href="#keywords-and-filtering"></a>
+</h2>
 <p>You can perform more complicated searches using keywords and filters. For example, you can search for all genera names published for a particular family.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="st">"Ephedraceae"</span><span class="op">)</span>, 
                        filters<span class="op">=</span><span class="st">"genera"</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
@@ -323,15 +322,15 @@
 <span class="co">#&gt;   ..$ hasLinks             : logi FALSE</span></code></pre></div>
 <p>Or for all species names published in a particular year.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>published<span class="op">=</span><span class="fl">1989</span><span class="op">)</span>,
-                       filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>published<span class="op">=</span><span class="fl">1989</span><span class="op">)</span>,
+                       filters<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: published='1989', filters: 'species'&gt;</span>
-<span class="co">#&gt; total results: 4248</span>
+<span class="co">#&gt; total results: 4251</span>
 <span class="co">#&gt; returned results: 50</span>
-<span class="co">#&gt; total pages: 85</span>
-<span class="co">#&gt; current page: 85</span>
+<span class="co">#&gt; total pages: 86</span>
+<span class="co">#&gt; current page: 86</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ :List of 34</span>
 <span class="co">#&gt;   ..$ name                 : chr "Abies colimensis"</span>
@@ -370,7 +369,7 @@
 <span class="co">#&gt;   ..$ bhlLink              : chr "http://www.biodiversitylibrary.org/openurl?ctx_ver=Z39.88-2004&amp;rft.date=1989&amp;rft.spage=105&amp;rft.volume=46&amp;rft_id"| __truncated__</span></code></pre></div>
 <p>You can also use the keywords to search for author records.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>author_surname<span class="op">=</span><span class="st">"Gardiner"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>author_surname<span class="op">=</span><span class="st">"Gardiner"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 
 <span class="va">results</span>
@@ -400,7 +399,7 @@
 <span class="co">#&gt;   ..$ hasBhlLink      : logi FALSE</span></code></pre></div>
 <p>And for publication records.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Bulletin"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_ipni.html">search_ipni</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Bulletin"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span>
 <span class="va">results</span>
 <span class="co">#&gt; &lt;IPNI search: title='Bulletin', filters: 'none'&gt;</span>
@@ -425,9 +424,9 @@
 <span class="co">#&gt;   ..$ hasBhlPageLink : logi FALSE</span></code></pre></div>
 <p>A full list of keywords and filters can be found in the help page for <code>search_ipni</code>.</p>
 </div>
-<div id="looking-up-a-specific-record" class="section level2">
-<h2 class="hasAnchor">
-<a href="#looking-up-a-specific-record" class="anchor"></a>Looking up a specific record</h2>
+<div class="section level2">
+<h2 id="looking-up-a-specific-record">Looking up a specific record<a class="anchor" aria-label="anchor" href="#looking-up-a-specific-record"></a>
+</h2>
 <p>Specific records for taxon names, authors, and publications can be looked up using the IPNI ID. These IDs are specific to each individual type of record, so the type needs provided.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_ipni.html">lookup_ipni</a></span><span class="op">(</span><span class="st">"385169-1"</span>, type<span class="op">=</span><span class="st">"taxon"</span><span class="op">)</span>
@@ -474,11 +473,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Barnaby Walker.</p>
+  <p></p>
+<p>Developed by Barnaby Walker.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -486,6 +487,8 @@
 
   
 
+
+  
 
   </body>
 </html>

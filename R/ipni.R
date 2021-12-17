@@ -95,7 +95,7 @@ search_ipni <- function(query, filters=NULL, cursor="*", limit=50, .wait=0.1) {
       filters=filters,
       response=results$response
     ),
-    class="ipni_search"
+    class=c("ipni_search", "ipni")
   )
 }
 
@@ -155,7 +155,7 @@ lookup_ipni <- function(id, type=c("taxon", "author", "publication"), .wait=0.1)
 
   structure(
     record,
-    class=paste0("ipni_", record$recordType)
+    class=c(paste0("ipni_", record$recordType), "ipni")
   )
 }
 

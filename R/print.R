@@ -24,7 +24,7 @@ print.wcvp_search <- function(x, ...) {
                   "total pages: {x$pages}",
                   "current page: {x$page}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   if (! is.null(x$results)) {
@@ -47,7 +47,7 @@ print.wcvp_taxon <- function(x, ...) {
                   "Accepted taxon ID: {accepted_id}",
                   "Synonyms: {length(x$synonyms)}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -79,7 +79,7 @@ print.powo_search <- function(x, ...) {
                   "total pages: {x$pages}",
                   "First result:",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   if (! is.null(x$results)) {
@@ -114,7 +114,7 @@ print.powo_taxon <- function(x, ...) {
                   "Synonyms: {length(x$synonyms)}",
                   "Includes distribution: {has_distribution}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -146,7 +146,7 @@ print.ipni_search <- function(x, ...) {
                   "total pages: {x$pages}",
                   "current page: {x$page}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   if (! is.null(x$results)) {
@@ -168,7 +168,7 @@ print.ipni_citation <- function(x, ...) {
                   "Rank: {x$rank}",
                   "In POWO: {x$inPowo}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -185,7 +185,7 @@ print.ipni_author <- function(x, ...) {
                   "Focal groups: {x$taxonGroups}",
                   "Example taxon: {x$examples}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -201,7 +201,7 @@ print.ipni_publication <- function(x, ...) {
                   "LC Number: {ifelse(is.null(x$lcNumber), '', x$lcNumber)}",
                   "BPH Number: {x$bphNumber}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -227,7 +227,7 @@ print.tol_search <- function(x, ...) {
                   "total pages: {x$pages}",
                   "current page: {x$page}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   if (! is.null(x$results)) {
@@ -254,7 +254,7 @@ print.tol_specimen <- function(x, ...) {
                   "Sequencing platform: {raw_reads$sequence_platform}",
                   "Suspicious placement: {x$is_suspicious_placement}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -276,7 +276,7 @@ print.tol_gene <- function(x, ...) {
                   "Avg. recovered length: {x$average_contig_length}",
                   "Avg. % recovered: {x$average_contig_length_percent}",
                   "",
-                  .sep="\n", .trim=FALSE)
+                  .sep="\n", .trim=FALSE, .null="missing")
 
   cat(message)
   invisible()
@@ -321,6 +321,27 @@ print.knms_match <- function(x, ...) {
                   "Matches returned: {x$matched}",
                   "Multiple matches: {x$multiple_matches}",
                   "Unmatched names: {x$unmatched}",
+                  "",
+                  .sep="\n", .trim=FALSE, .null="missing")
+
+  cat(message)
+  str(head(x$results, 1))
+  invisible()
+}
+
+# krs ----
+
+#' @importFrom glue glue
+#' @export
+print.krs_match <- function(x, ...) {
+  if (! is.null(names(x$query))) {
+    query <- glue("{names(x$query)}='{x$query}'")
+    query <- glue_collapse(query, sep=", ")
+  } else {
+    query <- glue("'{x$query}'")
+  }
+
+  message <- glue("<KRS match: {length(x$results)} names matched to {query}>",
                   "",
                   .sep="\n", .trim=FALSE)
 

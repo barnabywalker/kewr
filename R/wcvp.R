@@ -115,7 +115,7 @@ search_wcvp <- function(query, filters=NULL, cursor="*", limit=50, .wait=0.1) {
       filters=filters,
       response=results$response
     ),
-    class="wcvp_search"
+    class=c("wcvp_search", "wcvp")
   )
 }
 
@@ -192,7 +192,7 @@ lookup_wcvp <- function(taxonid, .wait=0.1) {
 
   structure(
     record,
-    class="wcvp_taxon"
+    class=c("wcvp_taxon", "wcvp")
   )
 }
 

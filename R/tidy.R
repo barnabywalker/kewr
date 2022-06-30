@@ -113,11 +113,15 @@ tidy.krs_match <- function(x, ...) {
 #' Nested lists are also converted to tibbles and inserted in list
 #' columns.
 #'
-#' @importFrom purrr map_chr map
+#' @importFrom purrr map_chr map flatten_chr every
 #' @importFrom tibble as_tibble_row
 #'
 #' @noRd
 parse_nested_list_ <- function(l) {
+  if (is.null(names(l)) & every(l, is.character)) {
+    return(list(flatten_chr(l)))
+  }
+
   if (is.null(names(l))) {
     return(map_dfr(l, parse_nested_list_))
   }
